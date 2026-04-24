@@ -1,0 +1,257 @@
+.section {
+  background: var(--cream-dark);
+  padding: 100px 0;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 16px auto 0;
+  line-height: 1.7;
+}
+
+/* Bus Feature Card */
+.busCard {
+  background: var(--navy);
+  border-radius: 16px;
+  padding: 40px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.busCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+}
+
+.busLeft {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.busIcon {
+  font-size: 56px;
+  flex-shrink: 0;
+  animation: float 3s ease-in-out infinite;
+}
+
+.busLabel {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(201, 168, 76, 0.8);
+  margin-bottom: 8px;
+}
+
+.busPrice {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.busPriceNum {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.busPriceUnit {
+  font-size: 14px;
+  color: rgba(250, 248, 243, 0.5);
+}
+
+.busCapacity {
+  font-size: 13px;
+  color: rgba(250, 248, 243, 0.6);
+  margin-top: 6px;
+}
+
+.busRight {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.includesTitle {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(250, 248, 243, 0.6);
+}
+
+.includesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.includeItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201, 168, 76, 0.08);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--cream);
+  font-weight: 500;
+}
+
+.includeItem span:first-child {
+  font-size: 18px;
+}
+
+.busNote {
+  font-size: 12px;
+  color: rgba(250, 248, 243, 0.4);
+  line-height: 1.5;
+}
+
+/* Route Cards */
+.routeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.routeCard {
+  background: white;
+  border: 1px solid rgba(10, 22, 40, 0.08);
+  border-radius: 12px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.routeCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(10, 22, 40, 0.1);
+  border-color: rgba(201, 168, 76, 0.3);
+}
+
+.routeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.routePath {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.routeCity {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.routeArrow {
+  color: var(--gold);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.routeDist {
+  font-size: 12px;
+  background: var(--cream-dark);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-weight: 500;
+}
+
+.routeArmada {
+  display: flex;
+  gap: 8px;
+}
+
+.armadaTag {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: rgba(201, 168, 76, 0.1);
+  color: #8a6f25;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+}
+
+.routeFeatures {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.routeFeatures li {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.routeNote {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  border-top: 1px solid rgba(10, 22, 40, 0.06);
+  padding-top: 12px;
+}
+
+@media (max-width: 900px) {
+  .busCard {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+    gap: 28px;
+  }
+
+  .includesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .routeGrid {
+    grid-template-columns: 1fr;
+  }
+}
