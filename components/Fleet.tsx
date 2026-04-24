@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./Fleet.module.css";
 
 const fleet = [
