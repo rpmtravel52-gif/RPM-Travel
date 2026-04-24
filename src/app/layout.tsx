@@ -9,14 +9,6 @@ export const metadata: Metadata = {
     default: 'RPM Travel Curup | Travel & Sewa Bus Wisata Bengkulu',
     template: '%s | RPM Travel Curup',
   },
-  export const metadata: Metadata = {
-  title: 'RPM Travel Curup',
-  description: 'Jasa Travel dan Sewa Bus Wisata terbaik di Curup',
-  icons: {
-    icon: '/favicon.ico', // File ini diletakkan di folder public
-    apple: '/apple-touch-icon.png', // Opsi untuk perangkat Apple
-  },
-};
   description:
     'RPM Travel Curup – Jasa travel terpercaya rute Curup–Palembang & Curup–Lebong. Sewa bus wisata 30 kursi all-in sudah BBM & sopir. Armada Hiace, Innova, Avanza. Hubungi 085282828005.',
   keywords: [
@@ -25,10 +17,16 @@ export const metadata: Metadata = {
     'jasa travel rejang lebong', 'travel hiace curup', 'sewa bus pariwisata curup',
     'travel bengkulu curup',
   ],
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
   metadataBase: new URL('https://rpmtravel.vercel.app'),
   alternates: { canonical: '/' },
   openGraph: {
-    type: 'website', locale: 'id_ID',
+    type: 'website',
+    locale: 'id_ID',
     url: 'https://rpmtravel.vercel.app',
     siteName: 'RPM Travel Curup',
     title: 'RPM Travel Curup | Travel & Sewa Bus Wisata Bengkulu',
