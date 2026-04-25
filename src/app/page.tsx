@@ -29,7 +29,7 @@ const services = [
   },
   {
     title: 'Travel Curup – Lebong',
-    description: 'Rute harian Curup–Lebong. Armada Avanza & Innova, harga terjangkau.',
+    description: 'Rute harian Curup–Lebong. Armada Innova, harga terjangkau.',
     href: '/travel-curup-lebong',
     badge: '💸 Hemat',
     image: '/images/avanza/exterior.jpg',
@@ -55,7 +55,7 @@ const stats = [
 
 const whyUs = [
   { icon: '🚗', title: 'Door to Door',      desc: 'Dijemput dari rumah dan diantar langsung ke tujuan tanpa ribet.' },
-  { icon: '✅', title: 'Armada Terawat',    desc: 'Hiace, Innova, Avanza & Bus selalu dalam kondisi prima dan bersih.' },
+  { icon: '✅', title: 'Armada Terawat',    desc: 'Hiace, Hiace Executive,Innova,Bus selalu dalam kondisi prima dan bersih.' },
   { icon: '💰', title: 'Harga Transparan',  desc: 'Harga jelas dan bersaing, tidak ada biaya tersembunyi.' },
   { icon: '⏰', title: 'Tepat Waktu',       desc: 'Ketepatan waktu keberangkatan adalah prioritas kami.' },
   { icon: '🛡️', title: 'Aman & Terpercaya', desc: 'Pengemudi berpengalaman, berlisensi, dan ramah.' },
@@ -79,10 +79,10 @@ const cars = [
     featured: true,
   },
   {
-    name: 'Toyota Avanza',
-    type: 'MPV · 7 Penumpang',
+    name: 'Hiace Executive,
+    type: 'MPV · 11 Penumpang',
     desc: 'Andalan rute Curup–Lebong. Irit BBM, kabin nyaman, harga bersahabat untuk perjalanan harian.',
-    img: '/images/avanza/exterior.jpg',
+    img: '/images/hiace/exterior.jpg',
     specs: ['7 Penumpang', 'Irit BBM', 'Harga Hemat'],
   },
   {
