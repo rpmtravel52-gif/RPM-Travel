@@ -4,7 +4,11 @@ import Link from 'next/link';
 
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel';
 
-const navLinks = [
+type NavLink =
+  | { label: string; children: { href: string; label: string }[]; href?: never }
+  | { label: string; href: string; children?: never };
+
+const navLinks: NavLink[] = [
   {
     label: 'Layanan',
     children: [
@@ -13,12 +17,11 @@ const navLinks = [
       { href: '/sewa-bus-wisata',        label: '🚌 Sewa Bus Wisata' },
     ],
   },
-  { href: '/#armada', label: 'Armada' },
+  { href: '/#armada',      label: 'Armada' },
   { href: '/#kenapa-kami', label: 'Tentang Kami' },
-  { href: '/pesan',   label: 'Pesan Tiket' },
-  { href: '/#kontak', label: 'Kontak' },
+  { href: '/pesan',        label: 'Pesan Tiket' },
+  { href: '/#kontak',      label: 'Kontak' },
 ];
-
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState<string | null>(null);
