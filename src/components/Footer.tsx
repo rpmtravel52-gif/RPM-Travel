@@ -39,7 +39,8 @@ export default function Footer() {
           <h4 className="text-gold-400 text-xs font-bold uppercase tracking-widest mb-4">Layanan</h4>
           <ul className="space-y-2.5">
             {[
-              { href: '/travel-curup-palembang', label: 'Travel Curup – Palembang' },
+              { href: '/travel-bengkulu-palembang', label: 'Travel Bengkulu – Palembang' },
+      { href: '/travel-curup-palembang', label: 'Travel Curup – Palembang' },
               { href: '/travel-curup-lebong',    label: 'Travel Curup – Lebong' },
               { href: '/sewa-bus-wisata',        label: 'Sewa Bus Wisata' },
               { href: '/pesan',                  label: 'Pesan Tiket Online' },
