@@ -8,7 +8,6 @@ const SECRET = new TextEncoder().encode(
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Hanya protect route /admin (kecuali /admin/login)
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
     const token = req.cookies.get('admin_token')?.value;
 
@@ -20,7 +19,6 @@ export async function middleware(req: NextRequest) {
       await jwtVerify(token, SECRET);
       return NextResponse.next();
     } catch {
-      // Token tidak valid atau expired
       const response = NextResponse.redirect(new URL('/admin/login', req.url));
       response.cookies.set('admin_token', '', { maxAge: 0, path: '/' });
       return response;
