@@ -11,6 +11,8 @@ export const metadata: Metadata = {
 
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel%20Curup%E2%80%93Palembang';
 
+const schedules = ['06.00 WIB', '08.00 WIB', '12.00 WIB', '16.00 WIB'];
+
 const features = [
   { icon: '🏠', label: 'Antar jemput dari rumah (door to door)' },
   { icon: '❄️', label: 'AC double blower, kursi recline nyaman' },
@@ -111,7 +113,7 @@ export default function TravelCurupPalembangPage() {
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
 
-          {/* Kolom kiri */}
+          {/* Kolom kiri: Features + Gambar Interior + FAQ */}
           <div className="md:col-span-2 space-y-10">
 
             {/* Fasilitas */}
@@ -128,7 +130,7 @@ export default function TravelCurupPalembangPage() {
               </ul>
             </div>
 
-            {/* Gambar Kabin */}
+            {/* Gambar Interior */}
             <div>
               <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Kabin Armada</h2>
               <div className="gold-bar" />
@@ -156,25 +158,16 @@ export default function TravelCurupPalembangPage() {
               </div>
             </div>
 
-            {/* Jadwal — 2 keberangkatan */}
+            {/* Jadwal */}
             <div>
               <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Jadwal Keberangkatan</h2>
               <div className="gold-bar" />
-              <div className="flex flex-wrap gap-4 mt-4">
-                <div className="flex items-center gap-3 bg-primary-900 text-white rounded-2xl px-6 py-4">
-                  <span className="text-2xl">☀️</span>
-                  <div>
-                    <p className="text-gold-400 text-xs font-bold uppercase tracking-wide">Siang</p>
-                    <p className="font-display text-xl font-bold">13.00 WIB</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 bg-primary-900 text-white rounded-2xl px-6 py-4">
-                  <span className="text-2xl">🌙</span>
-                  <div>
-                    <p className="text-gold-400 text-xs font-bold uppercase tracking-wide">Malam</p>
-                    <p className="font-display text-xl font-bold">20.00 WIB</p>
-                  </div>
-                </div>
+              <div className="flex flex-wrap gap-3 mt-4">
+                {schedules.map((s) => (
+                  <span key={s} className="bg-primary-900 text-gold-400 text-sm font-bold px-4 py-2 rounded-xl">
+                    🕐 {s}
+                  </span>
+                ))}
               </div>
               <p className="text-gray-400 text-xs mt-3">*Jadwal dapat berubah. Konfirmasi via WhatsApp untuk jadwal terkini.</p>
             </div>
@@ -192,40 +185,6 @@ export default function TravelCurupPalembangPage() {
                 ))}
               </div>
             </div>
-
-            {/* === INTERNAL LINK BLOCK === */}
-            <div className="rounded-2xl bg-primary-900 p-6 relative overflow-hidden">
-              <div className="absolute inset-0 opacity-10"
-                style={{ backgroundImage: 'radial-gradient(circle, rgba(201,168,76,0.4) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-              <div className="relative">
-                <p className="text-gold-400 text-xs font-bold uppercase tracking-widest mb-2">Rute Lainnya</p>
-                <h3 className="font-display text-xl font-bold text-white mb-3">Cari Rute atau Arah Perjalanan Lain?</h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-5">
-                  RPM Travel melayani berbagai rute antar kota. Pilih perjalanan sesuai kebutuhan Anda.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <Link
-                    href="/travel-palembang-curup"
-                    className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-primary-900 font-bold text-sm px-4 py-2.5 rounded-xl transition-colors duration-200"
-                  >
-                    🔄 Palembang → Curup
-                  </Link>
-                  <Link
-                    href="/travel-palembang-bengkulu"
-                    className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors duration-200"
-                  >
-                    🗺️ Palembang → Bengkulu
-                  </Link>
-                  <Link
-                    href="/travel-lebong-palembang"
-                    className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors duration-200"
-                  >
-                    🚐 Lebong → Palembang
-                  </Link>
-                </div>
-              </div>
-            </div>
-
           </div>
 
           {/* Kolom kanan: Order box */}
