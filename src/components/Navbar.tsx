@@ -15,15 +15,19 @@ const navLinks: NavLink[] = [
   {
     label: 'Layanan',
     children: [
-      { href: '/travel-curup-palembang', label: '🚐 Travel Curup – Palembang' },
-      { href: '/travel-curup-lebong',    label: '🚗 Travel Curup – Lebong' },
-      { href: '/sewa-bus-wisata',        label: '🚌 Sewa Bus Wisata' },
+      { href: '/travel-curup-palembang',        label: '🚐 Travel Curup – Palembang' },
+      { href: '/travel-curup-lebong',            label: '🚗 Travel Curup – Lebong' },
+      { href: '/travel-bengkulu-palembang',      label: '🚌 Travel Bengkulu – Palembang' },
+      { href: '/travel-palembang-bengkulu',      label: '↩️ Travel Palembang – Bengkulu' },
+      { href: '/sewa-hiace-curup',               label: '🚐 Sewa Hiace Curup' },
+      { href: '/sewa-bus-wisata',                label: '🚌 Sewa Bus Wisata' },
     ],
   },
-  { href: '/#armada',      label: 'Armada' },
-  { href: '/#kenapa-kami', label: 'Tentang Kami' },
-  { href: '/pesan',        label: 'Pesan Tiket' },
-  { href: '/#kontak',      label: 'Kontak' },
+  { href: '/transportasi-perjalanan-dinas', label: 'Perjalanan Dinas' },
+  { href: '/#armada',                       label: 'Armada' },
+  { href: '/#kenapa-kami',                  label: 'Tentang Kami' },
+  { href: '/pesan',                         label: 'Pesan Tiket' },
+  { href: '/#kontak',                       label: 'Kontak' },
 ];
 
 export default function Navbar() {
