@@ -40,7 +40,7 @@ export default function PesanTiketPage() {
       `Total: ${formatRupiah(totalHarga)}`,
       `Bayar: ${metode}`,
       ``,
-      `📋 Dashboard Admin: ${adminUrl}`,
+      `📋 Tolong Konfirmasi Pesanan Saya: ${adminUrl}`,
     ].join('\n');
   };
 
