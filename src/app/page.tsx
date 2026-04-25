@@ -292,7 +292,7 @@ export default function HomePage() {
               </svg>
               Chat WhatsApp
             </a>
-            <Link href="/pesan-tiket"
+            <Link href="/pesan"
               className="bg-primary-900 text-white font-bold px-8 py-3.5 rounded-xl hover:bg-primary-800 transition-colors inline-flex items-center gap-2">
               🎫 Pesan Tiket Online
             </Link>
