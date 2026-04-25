@@ -144,29 +144,42 @@ export default function HomePage() {
             </div>
           </div>
 
-       {/* Hero visual */}
-<div className="hidden lg:flex justify-center items-center">
-  <div className="relative">
-    <div className="w-80 h-80 bg-gold-500/10 rounded-full flex items-center justify-center border border-gold-500/20">
-      <div className="w-64 h-64 rounded-full overflow-hidden border-2 border-gold-500/40 shadow-2xl">
-        <Image
-          src="/images/hero-armada.webp"
-          alt="Armada RPM Travel Curup"
-          width={256}
-          height={256}
-          className="w-full h-full object-cover"
-          priority
-        />
-      </div>
-    </div>
-    {/* Label tetap di bawah lingkaran */}
-    <div className="text-center mt-4">
-      <p className="text-gold-300 font-semibold text-sm">Armada Kami</p>
-      <p className="text-white text-xs mt-1">Hiace · Innova · Avanza · Bus</p>
-    </div>
-  </div>
-</div>
+  {/* Hero visual */}
+          <div className="hidden lg:flex justify-center items-center">
+            <div className="relative">
+              <div className="w-80 h-80 bg-gold-500/10 rounded-full flex items-center justify-center border border-gold-500/20">
+                <div className="w-64 h-64 rounded-full overflow-hidden border-2 border-gold-500/40 shadow-2xl">
+                  <Image
+                    src="/images/hero-armada.webp"
+                    alt="Armada RPM Travel Curup"
+                    width={256}
+                    height={256}
+                    className="w-full h-full object-cover"
+                    priority
+                  />
+                </div>
+              </div>
+              <div className="text-center mt-4">
+                <p className="text-gold-300 font-semibold text-sm">Armada Kami</p>
+                <p className="text-white text-xs mt-1">Hiace · Innova · Avanza · Bus</p>
+              </div>
+            </div>
+          </div>
 
+        </div> {/* ← tutup grid */}
+
+        {/* Stats bar */}
+        <div className="absolute bottom-0 left-0 right-0 bg-white/10 backdrop-blur border-t border-white/10">
+          <div className="max-w-7xl mx-auto px-4 py-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+            {stats.map((s) => (
+              <div key={s.label} className="text-center">
+                <p className="text-gold-400 font-bold text-xl">{s.value}</p>
+                <p className="text-gray-400 text-xs">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
         {/* Stats bar */}
         <div className="absolute bottom-0 left-0 right-0 bg-white/10 backdrop-blur border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 py-4 grid grid-cols-2 md:grid-cols-4 gap-4">
