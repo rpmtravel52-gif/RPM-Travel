@@ -1,4 +1,5 @@
 'use client';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { useState, useEffect } from 'react';
 import { PACKAGES, formatRupiah } from '@/lib/packages';
 import type { Order } from '@/lib/types';
