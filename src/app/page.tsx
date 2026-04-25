@@ -156,7 +156,7 @@ export default function HomePage() {
               <div className="w-80 h-80 bg-gold-500/10 rounded-full flex items-center justify-center border border-gold-500/20">
                 <div className="w-64 h-64 rounded-full overflow-hidden border-2 border-gold-500/40 shadow-2xl">
                   <Image
-                    src="/images/hero-armada.webp"
+                    src="/images/hero-armada.jpg"
                     alt="Armada RPM Travel Curup"
                     width={256}
                     height={256}
