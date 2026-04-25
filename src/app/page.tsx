@@ -84,7 +84,7 @@ const cars = [
     type: 'Van Executive · 8 Penumpang',
     desc: 'Pilihan premium untuk rute Curup–Lebong. Kabin mewah, kursi executive reclining, AC powerful, dan legroom luas.',
     img: '/images/hiace/interior.jpg',
-    specs: ['11 Penumpang', 'Kursi Executive', 'AC Powerful'],
+    specs: ['8 Penumpang', 'Kursi Executive', 'AC Powerful'],
     featured: false,
   },
   {
