@@ -4,9 +4,10 @@ import Link from 'next/link';
 
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel';
 
+type ChildLink = { href: string; label: string };
 type NavLink =
-  | { label: string; children: { href: string; label: string }[]; href?: never }
-  | { label: string; href: string; children?: never };
+  | { label: string; children: ChildLink[]; href?: undefined }
+  | { label: string; href: string; children?: undefined };
 
 const navLinks: NavLink[] = [
   {
@@ -22,6 +23,7 @@ const navLinks: NavLink[] = [
   { href: '/pesan',        label: 'Pesan Tiket' },
   { href: '/#kontak',      label: 'Kontak' },
 ];
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState<string | null>(null);
@@ -77,8 +79,8 @@ export default function Navbar() {
               </div>
             ) : (
               <Link
-                key={link.href ?? link.label}
-                href={link.href!}
+                key={link.href}
+                href={link.href}
                 className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary-900 transition-colors rounded-lg hover:bg-cream-50"
               >
                 {link.label}
@@ -97,7 +99,7 @@ export default function Navbar() {
             <span className="sm:hidden">Pesan</span>
           </Link>
 
-          <a
+          
             href={WA}
             target="_blank"
             rel="noopener noreferrer"
@@ -164,8 +166,8 @@ export default function Navbar() {
               </div>
             ) : (
               <Link
-                key={link.href ?? link.label}
-                href={link.href!}
+                key={link.href}
+                href={link.href}
                 onClick={() => setOpen(false)}
                 className="block py-2 px-3 text-sm text-gray-700 hover:text-primary-900 hover:bg-cream-50 rounded-lg transition-colors"
               >
