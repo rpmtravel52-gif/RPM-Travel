@@ -1,6 +1,6 @@
 'use client';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { PACKAGES, formatRupiah } from '@/lib/packages';
 import type { Order } from '@/lib/types';
 
@@ -20,9 +20,29 @@ export default function PesanTiketPage() {
   const [metode, setMetode] = useState<'QRIS' | 'TUNAI'>('QRIS');
   const [wantEmail, setWantEmail] = useState(false);
   const [email, setEmail] = useState('');
+  const [alamatJemput, setAlamatJemput] = useState('');
+  const [alamatTujuan, setAlamatTujuan] = useState('');
 
   const selectedPkg = PACKAGES.find((p) => p.id === paket);
   const totalHarga = selectedPkg ? selectedPkg.harga * jumlahPax : 0;
+
+  const buildWAMessage = (orderData: Order) => {
+    const adminUrl = `${window.location.origin}/admin`;
+    return [
+      `🚌 *Pesanan Baru RPM Travel*`,
+      `No: ${orderData.orderNumber}`,
+      `Nama: ${nama}`,
+      `Paket: ${selectedPkg?.label}`,
+      `Tgl: ${new Date(tanggal).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}`,
+      `Pax: ${jumlahPax} orang`,
+      `Jemput: ${alamatJemput}`,
+      `Tujuan: ${alamatTujuan}`,
+      `Total: ${formatRupiah(totalHarga)}`,
+      `Bayar: ${metode}`,
+      ``,
+      `📋 Dashboard Admin: ${adminUrl}`,
+    ].join('\n');
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,36 +53,38 @@ export default function PesanTiketPage() {
       const res = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nama, paket, tanggal, jumlahPax, metodePembayaran: metode, email: wantEmail ? email : undefined }),
+        body: JSON.stringify({
+          nama, paket, tanggal, jumlahPax,
+          metodePembayaran: metode,
+          email: wantEmail ? email : undefined,
+          alamatJemput,
+          alamatTujuan,
+        }),
       });
       const data = await res.json();
       if (!res.ok) { setError(data.error ?? 'Terjadi kesalahan.'); return; }
 
       setOrder(data.order);
 
-      // Open WhatsApp
-      const adminUrl = `${window.location.origin}/admin`;
-      const msg = [
-        `🚌 *Pesanan Baru RPM Travel*`,
-        `No: ${data.order.orderNumber}`,
-        `Nama: ${nama}`,
-        `Paket: ${selectedPkg?.label}`,
-        `Tgl: ${new Date(tanggal).toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'})}`,
-        `Pax: ${jumlahPax} orang`,
-        `Total: ${formatRupiah(totalHarga)}`,
-        `Bayar: ${metode}`,
-        ``,
-        `📋 Dashboard Admin: ${adminUrl}`,
-      ].join('\n');
-      window.open(`https://wa.me/6285282828005?text=${encodeURIComponent(msg)}`, '_blank');
-
-      if (metode === 'QRIS') setStep('qris');
-      else setStep('success');
+      if (metode === 'TUNAI') {
+        // For cash, open WhatsApp immediately and go to success
+        window.open(`https://wa.me/6285282828005?text=${encodeURIComponent(buildWAMessage(data.order))}`, '_blank');
+        setStep('success');
+      } else {
+        // For QRIS, show QRIS page first — WhatsApp opened after payment confirmed
+        setStep('qris');
+      }
     } catch {
       setError('Gagal menghubungi server. Coba lagi.');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSudahBayar = () => {
+    if (!order) return;
+    window.open(`https://wa.me/6285282828005?text=${encodeURIComponent(buildWAMessage(order))}`, '_blank');
+    setStep('success');
   };
 
   return (
@@ -125,6 +147,26 @@ export default function PesanTiketPage() {
               </div>
             </div>
 
+            {/* Alamat Penjemputan */}
+            <div>
+              <label className="block text-xs font-semibold text-sky-400 uppercase tracking-wider mb-1.5">Alamat Penjemputan *</label>
+              <input
+                type="text" required value={alamatJemput} onChange={e => setAlamatJemput(e.target.value)}
+                placeholder="Contoh: Jl. Merdeka No. 5, Curup"
+                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
+              />
+            </div>
+
+            {/* Alamat Tujuan */}
+            <div>
+              <label className="block text-xs font-semibold text-sky-400 uppercase tracking-wider mb-1.5">Alamat Tujuan *</label>
+              <input
+                type="text" required value={alamatTujuan} onChange={e => setAlamatTujuan(e.target.value)}
+                placeholder="Contoh: Jl. Sudirman No. 10, Palembang"
+                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
+              />
+            </div>
+
             {/* Metode Pembayaran */}
             <div>
               <label className="block text-xs font-semibold text-sky-400 uppercase tracking-wider mb-2">Metode Pembayaran *</label>
@@ -168,7 +210,7 @@ export default function PesanTiketPage() {
               </label>
             </div>
 
-            {/* Email input — show only if checkbox checked */}
+            {/* Email input */}
             {wantEmail && (
               <div className="animate-fade-in">
                 <label className="block text-xs font-semibold text-sky-400 uppercase tracking-wider mb-1.5">Alamat Email *</label>
@@ -234,12 +276,12 @@ export default function PesanTiketPage() {
               <p className="font-bold">📋 Langkah Pembayaran:</p>
               <p>1. Scan QR Code dengan app bank / e-wallet</p>
               <p>2. Nominal sudah otomatis terisi: <strong>{formatRupiah(order.totalHarga)}</strong></p>
-              <p>3. Konfirmasi & bayar</p>
-              <p>4. Screenshot bukti & kirim ke admin WA</p>
+              <p>3. Konfirmasi &amp; bayar</p>
+              <p>4. Screenshot bukti &amp; kirim ke admin WA</p>
             </div>
 
             <button
-              onClick={() => setStep('success')}
+              onClick={handleSudahBayar}
               className="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-xl transition-all"
             >
               ✅ Saya Sudah Bayar
@@ -255,6 +297,8 @@ export default function PesanTiketPage() {
             <div className="bg-white/10 rounded-xl px-4 py-4 text-left space-y-2 text-sm">
               <div className="flex justify-between"><span className="text-slate-400">No. Pesanan</span><span className="text-white font-bold">{order.orderNumber}</span></div>
               <div className="flex justify-between"><span className="text-slate-400">Paket</span><span className="text-white">{order.paket}</span></div>
+              <div className="flex justify-between"><span className="text-slate-400">Jemput</span><span className="text-white">{alamatJemput}</span></div>
+              <div className="flex justify-between"><span className="text-slate-400">Tujuan</span><span className="text-white">{alamatTujuan}</span></div>
               <div className="flex justify-between"><span className="text-slate-400">Total</span><span className="text-sky-400 font-bold">{formatRupiah(order.totalHarga)}</span></div>
               <div className="flex justify-between"><span className="text-slate-400">Status</span>
                 <span className="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-2 py-0.5 rounded-full">MENUNGGU KONFIRMASI</span>
