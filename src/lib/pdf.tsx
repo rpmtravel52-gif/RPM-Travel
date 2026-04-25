@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Document, Page, Text, View, StyleSheet, Font, Image,
+  Document, Page, Text, View, StyleSheet, Font,
 } from '@react-pdf/renderer';
 import type { Order } from './types';
 import { formatRupiah } from './packages';
