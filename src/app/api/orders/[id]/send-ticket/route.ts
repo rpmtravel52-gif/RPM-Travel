@@ -19,7 +19,9 @@ export async function POST(
     if (order.status !== 'PAID') return NextResponse.json({ error: 'Order belum lunas' }, { status: 400 });
     if (!order.email) return NextResponse.json({ error: 'Email tidak tersedia' }, { status: 400 });
 
-    const pdfBuffer = await renderToBuffer(React.createElement(TicketDocument, { order }));
+    const pdfBuffer = await renderToBuffer(
+  React.createElement(TicketDocument, { order }) as unknown as React.ReactElement<import('@react-pdf/renderer').DocumentProps>
+);
 
     await resend.emails.send({
       from: 'RPM Travel Curup <noreply@rpmtravel.id>',
