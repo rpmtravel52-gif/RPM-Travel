@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 
 type PaymentMethod = 'QRIS' | 'TUNAI';
 type OrderStatus = 'UNPAID' | 'PAID';
@@ -112,10 +113,8 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
       </div>
       {order.email && <p className="text-slate-500 text-xs mb-3">📧 {order.email}</p>}
 
-      {/* ACTION BUTTONS — Conditional Logic */}
+      {/* ACTION BUTTONS */}
       <div className="flex flex-wrap gap-2 pt-3 border-t border-white/10">
-
-        {/* 1. Kirim Faktur — SELALU AKTIF */}
         <button
           onClick={handleSendInvoice}
           disabled={invoiceLoading || !order.email}
@@ -124,7 +123,6 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
           {invoiceLoading ? '⏳' : '📄'} {invoiceLoading ? 'Mengirim...' : 'Kirim Faktur'}
         </button>
 
-        {/* 2. Konfirmasi Lunas — hanya jika UNPAID */}
         {order.status === 'UNPAID' && (
           <button
             onClick={handleConfirm}
@@ -135,7 +133,6 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
           </button>
         )}
 
-        {/* 3. Kirim E-Ticket — DISABLED sampai status PAID */}
         <button
           onClick={handleSendTicket}
           disabled={order.status !== 'PAID' || ticketLoading || !order.email}
@@ -149,7 +146,6 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
           {ticketLoading ? '⏳' : '🎫'} {ticketLoading ? 'Mengirim...' : 'Kirim E-Ticket'}
         </button>
 
-        {/* 4. WhatsApp */}
         <a
           href={`https://wa.me/6285282828005?text=${encodeURIComponent(waMsg)}`}
           target="_blank" rel="noopener noreferrer"
@@ -170,10 +166,12 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
 }
 
 export default function AdminPage() {
+  const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'ALL' | 'UNPAID' | 'PAID'>('ALL');
   const [search, setSearch] = useState('');
+  const [logoutLoading, setLogoutLoading] = useState(false);
 
   const fetchOrders = useCallback(async () => {
     setLoading(true);
@@ -188,11 +186,16 @@ export default function AdminPage() {
 
   useEffect(() => { fetchOrders(); }, [fetchOrders]);
 
-  // Auto-refresh 30 detik
   useEffect(() => {
     const interval = setInterval(fetchOrders, 30000);
     return () => clearInterval(interval);
   }, [fetchOrders]);
+
+  const handleLogout = async () => {
+    setLogoutLoading(true);
+    await fetch('/api/auth/logout', { method: 'POST' });
+    router.push('/admin/login');
+  };
 
   const filtered = orders.filter(o => {
     const matchStatus = filter === 'ALL' || o.status === filter;
@@ -224,6 +227,14 @@ export default function AdminPage() {
             <a href="/pesan-tiket" className="text-sm bg-sky-600 hover:bg-sky-500 text-white px-4 py-2 rounded-lg transition-all font-semibold">
               + Pesanan Baru
             </a>
+            {/* Tombol Logout */}
+            <button
+              onClick={handleLogout}
+              disabled={logoutLoading}
+              className="text-sm bg-red-600/30 hover:bg-red-600/60 text-red-400 hover:text-red-300 px-3 py-2 rounded-lg border border-red-500/30 transition-all disabled:opacity-50"
+            >
+              {logoutLoading ? '⏳' : '🚪'} Logout
+            </button>
           </div>
         </div>
 
