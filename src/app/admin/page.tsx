@@ -224,7 +224,7 @@ export default function AdminPage() {
             <button onClick={fetchOrders} className="text-sm bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg border border-white/20 transition-all">
               🔄 Refresh
             </button>
-            <a href="/pesan-tiket" className="text-sm bg-sky-600 hover:bg-sky-500 text-white px-4 py-2 rounded-lg transition-all font-semibold">
+            <a href="/pesan" className="text-sm bg-sky-600 hover:bg-sky-500 text-white px-4 py-2 rounded-lg transition-all font-semibold">
               + Pesanan Baru
             </a>
             {/* Tombol Logout */}
