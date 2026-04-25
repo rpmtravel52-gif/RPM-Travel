@@ -2,69 +2,68 @@ import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = 'https://rpmtravel.co.id';
-  const now  = new Date().toISOString();
 
   return [
-    // ── Halaman Utama ──────────────────────────────────────────
+    // ── Homepage ───────────────────────────────────────────────
     {
       url: base,
-      lastModified: now,
-      changeFrequency: 'weekly',
+      lastModified: new Date(),
+      changeFrequency: 'daily',
       priority: 1.0,
     },
 
-    // ── Halaman Layanan Utama ──────────────────────────────────
+    // ── Halaman Rute Travel (Money Pages) ──────────────────────
     {
       url: `${base}/travel-bengkulu-palembang`,
-      lastModified: now,
-      changeFrequency: 'weekly',
+      lastModified: new Date(),
+      changeFrequency: 'daily',
       priority: 0.95,
     },
     {
       url: `${base}/travel-palembang-bengkulu`,
-      lastModified: now,
-      changeFrequency: 'weekly',
+      lastModified: new Date(),
+      changeFrequency: 'daily',
       priority: 0.95,
     },
     {
       url: `${base}/travel-curup-palembang`,
-      lastModified: now,
+      lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${base}/travel-curup-lebong`,
-      lastModified: now,
+      lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
 
-    // ── Halaman Sewa & Layanan ─────────────────────────────────
+    // ── Halaman Sewa Kendaraan ─────────────────────────────────
     {
       url: `${base}/sewa-hiace-curup`,
-      lastModified: now,
+      lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${base}/sewa-bus-wisata`,
-      lastModified: now,
+      lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
       url: `${base}/transportasi-perjalanan-dinas`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.8,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
     },
 
-    // ── Halaman Pemesanan ──────────────────────────────────────
+    // ── Halaman Konversi ───────────────────────────────────────
     {
       url: `${base}/pesan`,
-      lastModified: now,
+      lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.75,
+      priority: 0.8,
     },
   ];
 }
