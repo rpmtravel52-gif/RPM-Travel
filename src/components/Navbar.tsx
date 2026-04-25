@@ -105,6 +105,7 @@ export default function Navbar() {
             <span className="sm:hidden">Pesan</span>
           </Link>
 
+          {/* ✅ Tag <a> yang sebelumnya hilang, sekarang sudah ada */}
           
             href={WA}
             target="_blank"
