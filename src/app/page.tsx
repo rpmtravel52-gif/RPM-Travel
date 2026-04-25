@@ -32,8 +32,7 @@ const services = [
     description: 'Rute harian Curup–Lebong. Armada Hiace Executive & Innova, harga terjangkau.',
     href: '/travel-curup-lebong',
     badge: '💸 Hemat',
-    image: '/images/innova
-/allarmada.jpg',
+    image: '/images/innova/allarmada.jpg',
     emoji: '🚐',
   },
   {
