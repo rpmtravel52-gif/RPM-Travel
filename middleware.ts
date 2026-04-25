@@ -1,0 +1,35 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { jwtVerify } from 'jose';
+
+const SECRET = new TextEncoder().encode(
+  process.env.ADMIN_JWT_SECRET || 'ganti-dengan-secret-yang-kuat-min-32-karakter'
+);
+
+export async function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+
+  // Hanya protect route /admin (kecuali /admin/login)
+  if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
+    const token = req.cookies.get('admin_token')?.value;
+
+    if (!token) {
+      return NextResponse.redirect(new URL('/admin/login', req.url));
+    }
+
+    try {
+      await jwtVerify(token, SECRET);
+      return NextResponse.next();
+    } catch {
+      // Token tidak valid atau expired
+      const response = NextResponse.redirect(new URL('/admin/login', req.url));
+      response.cookies.set('admin_token', '', { maxAge: 0, path: '/' });
+      return response;
+    }
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/admin/:path*'],
+};
