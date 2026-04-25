@@ -20,7 +20,7 @@ export async function POST(
 
     // Generate PDF buffer
     const pdfBuffer = await renderToBuffer(
-  React.createElement(InvoiceDocument, { order }) as unknown as React.ReactElement<import('@react-pdf/renderer').DocumentProps>
+  React.createElement(TicketDocument, { order }) as unknown as React.ReactElement<import('@react-pdf/renderer').DocumentProps>
 );
 
     await resend.emails.send({
