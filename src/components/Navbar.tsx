@@ -99,7 +99,7 @@ export default function Navbar() {
             <span className="sm:hidden">Pesan</span>
           </Link>
 
-          
+          <a
             href={WA}
             target="_blank"
             rel="noopener noreferrer"
