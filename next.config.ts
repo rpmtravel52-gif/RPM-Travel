@@ -1,8 +1,12 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [{ protocol: 'https', hostname: '**' }],
+  // @react-pdf/renderer needs canvas to be excluded from server bundle
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.externals = [...(config.externals as string[]), 'canvas'];
+    }
+    return config;
   },
 };
 

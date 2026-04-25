@@ -2,66 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-
-@layer base {
-  :root {
-    --font-playfair: 'Playfair Display', Georgia, serif;
-    --font-jakarta: 'Plus Jakarta Sans', system-ui, sans-serif;
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease forwards;
   }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--font-jakarta);
-    @apply bg-white text-gray-800 antialiased;
-  }
-
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { @apply bg-cream-100; }
-  ::-webkit-scrollbar-thumb { @apply bg-gold-500 rounded; }
-}
-
-@layer components {
-  /* Buttons */
-  .btn-wa {
-    @apply inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-all duration-200;
-  }
-  .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 bg-primary-900 hover:bg-primary-800 text-white font-bold rounded-xl transition-all duration-200;
-  }
-  .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 font-bold rounded-xl transition-all duration-200;
-    background: linear-gradient(135deg, #c9a84c, #e2c46e);
-    color: #0a1628;
-  }
-  .btn-gold:hover {
-    box-shadow: 0 6px 20px rgba(201,168,76,0.4);
-    transform: translateY(-1px);
-  }
-  .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-primary-900 text-primary-900 hover:bg-primary-900 hover:text-white font-bold rounded-xl transition-all duration-200;
-  }
-
-  /* Cards */
-  .card {
-    @apply bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200;
-  }
-
-  /* Section headings */
-  .section-label {
-    @apply text-xs font-bold tracking-widest uppercase text-gold-500 mb-2;
-  }
-  .section-title {
-    @apply font-display text-3xl md:text-4xl font-bold text-primary-900 leading-tight;
-  }
-  .section-title em {
-    @apply italic text-gold-500 not-italic;
-    font-style: italic !important;
-  }
-
-  /* Gold divider */
-  .gold-bar {
-    @apply w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded my-3;
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 }
