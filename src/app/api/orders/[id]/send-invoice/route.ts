@@ -19,7 +19,9 @@ export async function POST(
     if (!order.email) return NextResponse.json({ error: 'Email tidak tersedia' }, { status: 400 });
 
     // Generate PDF buffer
-    const pdfBuffer = await renderToBuffer(<InvoiceDocument order={order} /> as React.ReactElement<any>);
+    const pdfBuffer = await renderToBuffer(
+  React.createElement(InvoiceDocument, { order }) as unknown as React.ReactElement<import('@react-pdf/renderer').DocumentProps>
+);
 
     await resend.emails.send({
       from: 'RPM Travel Curup <noreply@rpmtravel.id>',
