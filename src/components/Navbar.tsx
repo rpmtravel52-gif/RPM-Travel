@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel';
 
@@ -35,12 +36,16 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 bg-primary-900 rounded-xl flex items-center justify-center text-gold-500 font-bold text-lg shadow-md group-hover:bg-primary-800 transition-colors">
-            R
-          </div>
+          <Image
+            src="/images/logo.png"
+            alt="RPM Travel Logo"
+            width={36}
+            height={36}
+            className="rounded-xl shadow-md"
+          />
           <div className="leading-tight">
             <div className="font-display font-bold text-primary-900 text-sm">RPM</div>
-            <div className="font-display font-bold text-gold-500 text-sm -mt-0.5">Travel Curup</div>
+            <div className="font-display font-bold text-gold-500 text-sm -mt-0.5">Travel</div>
           </div>
         </Link>
 
@@ -99,7 +104,7 @@ export default function Navbar() {
             <span className="sm:hidden">Pesan</span>
           </Link>
 
-          <a
+          
             href={WA}
             target="_blank"
             rel="noopener noreferrer"
