@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Sewa Hiace Curup Rp 1.800.000/Hari All-In | RPM Travel',
@@ -140,6 +141,55 @@ export default function SewaHiaceCurupPage() {
         </div>
       </section>
 
+      {/* === GALERI HIACE === */}
+      <section className="py-14 bg-white border-b border-gray-100">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Kondisi Armada Kami</h2>
+          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-8" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {/* Interior */}
+            <div className="group rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div className="relative w-full h-56 overflow-hidden">
+                <Image
+                  src="/images/hiace/interior.jpg"
+                  alt="Interior Hiace Executive RPM Travel — kabin lega dengan sandaran kaki dan kursi premium"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div className="p-4 bg-cream-50">
+                <p className="font-bold text-primary-900 text-sm mb-1">🛋️ Kabin Lega, Perjalanan Terasa Istirahat</p>
+                <p className="text-gray-500 text-xs leading-relaxed">
+                  Kursi executive berjok tebal dengan sandaran kaki — duduk 3 jam pun tidak terasa. Kabin bersih, AC dingin merata, dan interior terawat rapi untuk kenyamanan perjalanan Anda dari menit pertama hingga tujuan.
+                </p>
+              </div>
+            </div>
+
+            {/* Eksterior */}
+            <div className="group rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div className="relative w-full h-56 overflow-hidden">
+                <Image
+                  src="/images/hiace/exterior.jpg"
+                  alt="Eksterior Hiace RPM Travel — armada bersih dan siap jalan"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div className="p-4 bg-cream-50">
+                <p className="font-bold text-primary-900 text-sm mb-1">🚐 Armada Prima, Siap Tempuh Segala Rute</p>
+                <p className="text-gray-500 text-xs leading-relaxed">
+                  Eksterior bersih dan terawat mencerminkan kondisi mesin yang selalu dalam performa terbaik. Servis rutin & laik jalan — berangkat tenang, tiba selamat.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Pilihan Armada */}
       <section className="py-14 bg-white">
         <div className="max-w-4xl mx-auto px-4">
@@ -191,21 +241,55 @@ export default function SewaHiaceCurupPage() {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ + Sidebar */}
       <section className="py-14 bg-white">
         <div className="max-w-4xl mx-auto px-4 grid md:grid-cols-3 gap-12">
-          <div className="md:col-span-2">
-            <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Pertanyaan Umum</h2>
-            <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
-            <div className="space-y-3">
-              {faqs.map(faq => (
-                <div key={faq.q} className="border border-gray-100 rounded-xl p-4 bg-cream-50">
-                  <p className="font-semibold text-primary-900 text-sm mb-1.5">{faq.q}</p>
-                  <p className="text-gray-500 text-sm leading-relaxed">{faq.a}</p>
-                </div>
-              ))}
+          <div className="md:col-span-2 space-y-10">
+
+            {/* FAQ */}
+            <div>
+              <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Pertanyaan Umum</h2>
+              <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+              <div className="space-y-3">
+                {faqs.map(faq => (
+                  <div key={faq.q} className="border border-gray-100 rounded-xl p-4 bg-cream-50">
+                    <p className="font-semibold text-primary-900 text-sm mb-1.5">{faq.q}</p>
+                    <p className="text-gray-500 text-sm leading-relaxed">{faq.a}</p>
+                  </div>
+                ))}
+              </div>
             </div>
+
+            {/* === INTERNAL LINK BLOCK === */}
+            <div className="rounded-2xl bg-primary-900 p-6 relative overflow-hidden">
+              <div className="absolute inset-0 opacity-10"
+                style={{ backgroundImage: 'radial-gradient(circle, rgba(201,168,76,0.4) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+              <div className="relative">
+                <p className="text-gold-400 text-xs font-bold uppercase tracking-widest mb-2">Layanan Lainnya</p>
+                <h3 className="font-display text-xl font-bold text-white mb-3">Butuh Kapasitas Lebih Besar atau Layanan Khusus?</h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-5">
+                  RPM Travel juga menyediakan sewa bus wisata untuk rombongan besar, serta layanan transportasi khusus perjalanan dinas instansi dan perusahaan.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <Link
+                    href="/sewa-bus-wisata"
+                    className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-primary-900 font-bold text-sm px-5 py-2.5 rounded-xl transition-colors duration-200"
+                  >
+                    🚌 Sewa Bus Wisata
+                  </Link>
+                  <Link
+                    href="/transportasi-perjalanan-dinas"
+                    className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors duration-200"
+                  >
+                    💼 Transportasi Perjalanan Dinas
+                  </Link>
+                </div>
+              </div>
+            </div>
+
           </div>
+
+          {/* Sidebar CTA */}
           <div>
             <div className="bg-primary-900 rounded-2xl p-6 sticky top-20">
               <h3 className="font-display font-bold text-white text-lg mb-1">Sewa Hiace Sekarang</h3>
