@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import WAFloat from '@/components/WAFloat';
+import Footer from '@/components/Footer'; // ← tambahkan ini
 
 export const metadata: Metadata = {
   title: 'RPM Travel Curup | Travel & Sewa Bus Wisata Bengkulu',
@@ -16,6 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="pt-16">
           {children}
         </main>
+        <Footer /> {/* ← tambahkan ini */}
         <WAFloat />
       </body>
     </html>
