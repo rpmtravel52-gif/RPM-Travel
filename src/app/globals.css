@@ -48,4 +48,6 @@
     @apply font-display text-3xl md:text-4xl font-bold text-primary-900 leading-tight;
   }
   .gold-bar {
-    @apply w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400
+    @apply w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded my-3;
+  }
+}
