@@ -13,21 +13,33 @@ type NavLink =
 
 const navLinks: NavLink[] = [
   {
-    label: 'Layanan',
+    label: 'Travel Antarkota',
     children: [
-      { href: '/travel-curup-palembang',        label: '🚐 Travel Curup – Palembang' },
-      { href: '/travel-curup-lebong',            label: '🚗 Travel Curup – Lebong' },
-      { href: '/travel-bengkulu-palembang',      label: '🚌 Travel Bengkulu – Palembang' },
-      { href: '/travel-palembang-bengkulu',      label: '↩️ Travel Palembang – Bengkulu' },
-      { href: '/sewa-hiace-curup',               label: '🚐 Sewa Hiace Curup' },
-      { href: '/sewa-bus-wisata',                label: '🚌 Sewa Bus Wisata' },
+      { href: '/travel-bengkulu-palembang', label: '🚐 Bengkulu → Palembang' },
+      { href: '/travel-palembang-bengkulu', label: '🚐 Palembang → Bengkulu' },
+      { href: '/travel-curup-palembang',    label: '🚗 Curup → Palembang' },
+      { href: '/travel-palembang-curup',    label: '🚗 Palembang → Curup' },
+      { href: '/travel-lebong-palembang',   label: '🚗 Lebong → Palembang' },
+      { href: '/travel-palembang-lebong',   label: '🚗 Palembang → Lebong' },
     ],
   },
-  { href: '/transportasi-perjalanan-dinas', label: 'Perjalanan Dinas' },
-  { href: '/#armada',                       label: 'Armada' },
-  { href: '/#kenapa-kami',                  label: 'Tentang Kami' },
-  { href: '/pesan',                         label: 'Pesan Tiket' },
-  { href: '/#kontak',                       label: 'Kontak' },
+  {
+    label: 'Travel Lokal',
+    children: [
+      { href: '/travel-curup-lebong',  label: '🗺️ Curup → Lebong' },
+      { href: '/travel-lebong-curup',  label: '🗺️ Lebong → Curup' },
+    ],
+  },
+  {
+    label: 'Sewa & Dinas',
+    children: [
+      { href: '/sewa-hiace-curup',               label: '🔑 Sewa Hiace Curup' },
+      { href: '/sewa-bus-wisata',                label: '🚌 Sewa Bus Wisata' },
+      { href: '/transportasi-perjalanan-dinas',  label: '💼 Transportasi Dinas' },
+    ],
+  },
+  { href: '/pesan', label: 'Pesan Tiket' },
+  { href: '/#kontak', label: 'Kontak' },
 ];
 
 export default function Navbar() {
