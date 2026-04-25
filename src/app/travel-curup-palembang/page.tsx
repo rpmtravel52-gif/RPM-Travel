@@ -11,8 +11,6 @@ export const metadata: Metadata = {
 
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel%20Curup%E2%80%93Palembang';
 
-const schedules = ['13.00 WIB', '20.00 WIB'];
-
 const features = [
   { icon: '🏠', label: 'Antar jemput dari rumah (door to door)' },
   { icon: '❄️', label: 'AC double blower, kursi recline nyaman' },
