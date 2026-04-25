@@ -47,9 +47,9 @@ const services = [
 ];
 
 const stats = [
-  { value: '3+',   label: 'Tahun Pengalaman' },
-  { value: '500+', label: 'Pelanggan Puas' },
-  { value: '4',    label: 'Jenis Armada' },
+  { value: '10+',   label: 'Tahun Pengalaman' },
+  { value: '5000+', label: 'Pelanggan Puas' },
+  { value: '8',    label: 'Jenis Armada' },
   { value: '24/7', label: 'Layanan Aktif' },
 ];
 
