@@ -42,11 +42,15 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-sm">
 
         {/* Logo / Header */}
-        <div className="text-center mb-8">
-          <div className="text-5xl mb-3">🚌</div>
-          <h1 className="text-2xl font-bold text-white">RPM Travel</h1>
-          <p className="text-slate-400 text-sm mt-1">Admin Dashboard</p>
-        </div>
+<div className="text-center mb-8">
+  <img
+    src="/images/logo.png"
+    alt="RPM Travel Logo"
+    className="w-20 h-20 object-contain mx-auto mb-3 rounded-2xl shadow-lg"
+  />
+  <h1 className="text-2xl font-bold text-white">RPM Travel</h1>
+  <p className="text-slate-400 text-sm mt-1">Admin Dashboard</p>
+</div>
 
         {/* Card */}
         <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
