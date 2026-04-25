@@ -75,7 +75,7 @@ const cars = [
     name: 'Toyota Innova',
     type: 'MPV Premium · 7 Penumpang',
     desc: 'Kenyamanan premium untuk semua rute. Suspensi halus, kabin lega, cocok perjalanan jauh maupun dekat.',
-    img: '/images/innova/exterior.jpg',
+    img: '/images/innova/allarmada.jpg',
     specs: ['7 Penumpang', 'Suspensi Premium', 'Kabin Lega'],
     featured: true,
   },
