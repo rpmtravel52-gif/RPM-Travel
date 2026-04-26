@@ -88,7 +88,7 @@ export default function TravelPalembangLebongPage() {
           </div>
           <h1 className="font-display text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
             Travel Palembang – Lebong<br />
-            <span className="text-gold-400">Sampai ke Pelosok Bengkulu</span>
+            <span className="text-gold-400">Sampai ke Lebong Bengkulu</span>
           </h1>
           <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-2xl">
             Perjalanan dari Palembang menuju Kabupaten Lebong kini bisa dilakukan dengan lebih nyaman dan terpercaya bersama RPM Travel. Dua jadwal keberangkatan tersedia — pukul 07.00 subuh untuk yang ingin tiba sore hari, dan pukul 19.00 malam untuk yang ingin tiba keesokan paginya.
