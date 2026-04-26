@@ -23,7 +23,7 @@ const features = [
 
 const faqs = [
   { q: 'waktu perjalanan Curup ke Palembang?', a: 'biasanya 6-7 jam, tapi bisa jadi lebih tergantung kondisi jalan.' },
-  { q: 'Apakah di jemput kerumah?', a: 'Ya, Kami bisa jemput kerumah selama masih dalam batat wilayah kota curup.' },
+  { q: 'Apakah di jemput kerumah?', a: 'Ya, Kami bisa jemput kerumah, selama masih dalam batas wilayah kota curup.' },
   { q: 'Pesannya gimana?', a: 'Bisa hubungi kami di 085282828005. atau tekan tombol pesan tike.' },
   { q: 'Ada biaya bagasi tidak?', a: 'Bagasi tidak ada tambahan selama yang dibawah masih standard perjalanan, misal satu koper dan satu tentengan.' },
 { q: 'Bisa bayar pake Qris?', a: 'bisa baget, silahkan tekan tombol pesan lalu pilih pembayaran pakai Qris.' },
@@ -49,7 +49,7 @@ export default function TravelCurupPalembangPage() {
           </div>
           <h1 className="font-display text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
             Travel Curup – Palembang<br />
-            <span className="text-gold-400">Door to Door</span>
+            <span className="text-gold-400">Mobil Lega, Hiace & Innova</span>
           </h1>
           <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-2xl">
             travel antar jemput Curup–Palembang menggunakan mobil Hiace & Innova ber-AC. Berangkat tepat waktu, Sampai dengan nyaman.
