@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Travel Curup Palembang Mobile Hiace | RPM Travel',
   description:
-    'Travel Curup Palembang Mobil Lega. Antar jemput kerumah, armada Hiace & Innova ber-AC. Berangkat sesuai jadwal. Hubungi RPM Travel 085282828005.',
+    'Travel Curup Palembang Mobil Lega. Antar jemput kerumah, menggunakan mobil Hiace & Innova. Berangkat 2 kali sehari. Hubungi RPM Travel 085282828005.',
   alternates: { canonical: '/travel-curup-palembang' },
 };
 
