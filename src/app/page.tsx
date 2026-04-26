@@ -6,7 +6,7 @@ import ServiceCard from '@/components/ServiceCard';
 export const metadata: Metadata = {
   title: 'RPM Travel Curup | Travel & Sewa Bus Wisata Bengkulu Terpercaya',
   description:
-    'RPM Travel Curup – Jasa travel door to door Curup–Palembang & Curup–Lebong. Sewa bus wisata 30 kursi all-in. Armada Hiace, Innova. Hubungi 085282828005.',
+    'RPM Travel Curup – Jasa travel door to door Bengkulu-Curup–Palembang & Curup–Lebong. Sewa bus wisata 30 kursi all-in. Armada Hiace, Innova. Hubungi 085282828005.',
 };
 
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel';
