@@ -48,7 +48,7 @@ const faqs = [
                 ))}
               </div>
             </div>
-          </div>
+         
 export default function TravelCurupPalembangPage() {
   return (
     <>
