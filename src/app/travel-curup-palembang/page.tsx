@@ -35,7 +35,7 @@ const faqs = [
               <h2 className="font-display text-xl font-bold text-primary-900 mb-4">Layanan Terkait</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
-                  { href: '/travel-curup-palembang', label: '↔ Travel Curup – Palembang', desc: 'Rute balik dari Curup ke Palembang' },
+                  { href: '/travel-palembang-curup', label: '↔ Travel Palembang – Curup', desc: 'Rute balik dari Curup ke Palembang' },
                   { href: '/travel-bengkulu-palembang', label: '🚐 Travel Bengkulu – Palembang', desc: 'Hiace 14 kursi, 2 jadwal harian' },
                   { href: '/sewa-hiace-curup', label: '🔑 Sewa Hiace Curup', desc: 'Rp 1.800.000/hari all-in' },
                   { href: '/travel-curup-lebong', label: '🗺️ Travel Curup – Lebong', desc: 'Rute lokal harian Curup–Lebong' },
