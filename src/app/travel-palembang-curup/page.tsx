@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Travel Palembang Curup Hiace & Innova | RPM Travel Curup',
+  title: 'Travel Palembang Curup Hiace & Innova | ongkos sama 2026',
   description:
-    'Layanan travel Palembang ke Curup menggunakan armada Toyota Hiace dan Innova. Jadwal berangkat pukul 10.00 pagi dan 19.00 malam setiap hari. Antar jemput door to door langsung ke Curup, Rejang Lebong. Hubungi RPM Travel 085282828005.',
+    'Layanan travel Palembang ke Curup menggunakan armada Toyota Hiace dan Innova. Jadwal berangkat pukul 10.00 pagi dan 19.00 malam setiap hari. Antar jemput langsung kerumah, Rejang Lebong. Hubungi RPM Travel 085282828005.',
   keywords: [
     'travel palembang curup',
     'travel palembang curup hiace',
@@ -54,7 +54,7 @@ const faqs = [
   },
   {
     q: 'Di mana titik penjemputan di Palembang?',
-    a: 'Kami melayani penjemputan di berbagai titik di kota Palembang sesuai alamat yang Anda berikan. Layanan door to door tanpa perlu ke pool travel tertentu.',
+    a: 'Kami melayani penjemputan di berbagai titik di kota Palembang sesuai alamat yang Anda berikan. Layanan anatar jemput tanpa perlu ke pool travel tertentu selama dalam batas wilayah.',
   },
   {
     q: 'Apakah Hiace atau Innova lebih direkomendasikan untuk perjalanan ini?',
