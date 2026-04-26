@@ -58,7 +58,7 @@ export default function TravelCurupLebongPage() {
               </svg>
               Pesan via WhatsApp
             </a>
-            <Link href="/pesan" className="btn-gold px-7 py-3.5 text-base">🎫 Pesan Tiket Online</Link>
+            <Link href="/pesan?paket=curup-lebong" className="btn-gold px-7 py-3.5 text-base">🎫 Pesan Tiket Online</Link>
           </div>
         </div>
       </section>
@@ -140,7 +140,7 @@ export default function TravelCurupLebongPage() {
               <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-wa w-full py-3 text-sm mb-2">
                 Chat WhatsApp
               </a>
-              <Link href="/pesan" className="btn-gold w-full py-3 text-sm">🎫 Pesan Online</Link>
+              <Link href="/pesan?paket=curup-lebong" className="btn-gold w-full py-3 text-sm">🎫 Pesan Online</Link>
               <p className="text-center text-xs text-gray-400 mt-3">📞 0852-8282-8005</p>
             </div>
           </div>

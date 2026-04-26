@@ -6,7 +6,7 @@ import ServiceCard from '@/components/ServiceCard';
 export const metadata: Metadata = {
   title: 'RPM Travel Curup | Travel & Sewa Bus Wisata Bengkulu Terpercaya',
   description:
-    'RPM Travel Curup – Jasa travel door to door Bengkulu-Curup–Palembang & Curup–Lebong-bengkulu. Sewa bus wisata 30 kursi all-in. Armada Hiace, Innova, Hiace Executive. Hubungi 085282828005.',
+    'RPM Travel Curup – Jasa travel door to door Curup–Palembang & Curup–Lebong. Sewa bus wisata 30 kursi all-in. Armada Hiace, Innova, Avanza. Hubungi 085282828005.',
 };
 
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel';
@@ -16,29 +16,36 @@ const services = [
     title: 'Travel Curup – Palembang',
     description: 'Layanan antar jemput door to door Curup–Palembang. Armada Hiace & Innova ber-AC.',
     href: '/travel-curup-palembang',
+    pesanHref: '/pesan?paket=curup-palembang',
     badge: '🔥 Terlaris',
+    price: 'Rp 250.000/pax',
     image: '/images/hiace/exterior.jpg',
     emoji: '🚐',
   },
   {
     title: 'Travel Palembang – Curup',
     description: 'Berangkat dari Palembang, diantar langsung ke Curup & sekitarnya.',
-    href: '/travel-curup-palembang',
+    href: '/travel-palembang-curup',
+    pesanHref: '/pesan?paket=palembang-curup',
+    price: 'Rp 250.000/pax',
     image: '/images/innova/exterior.jpg',
     emoji: '🚗',
   },
   {
     title: 'Travel Curup – Lebong',
-    description: 'Rute harian Curup–Lebong. Armada Hiace Executive & Innova, harga terjangkau.',
+    description: 'Rute harian Curup–Lebong. Armada Hiace & Innova, setiap hari.',
     href: '/travel-curup-lebong',
+    pesanHref: '/pesan?paket=curup-lebong',
     badge: '💸 Hemat',
-    image: '/images/innova/allarmada.jpg',
-    emoji: '🚐',
+    price: 'Rp 60.000/pax',
+    image: '/images/avanza/exterior.jpg',
+    emoji: '🚙',
   },
   {
     title: 'Sewa Bus Wisata',
-    description: 'Bus 30 kursi all-in BBM & sopir. Cocok untuk wisata, gathering, study tour.',
+    description: 'Bus 31 kursi all-in BBM & sopir. Cocok untuk wisata, gathering, study tour.',
     href: '/sewa-bus-wisata',
+    pesanHref: '/pesan?paket=sewa-bus-wisata',
     badge: '✨ All-In',
     price: 'Rp 3.000.000/hari',
     image: '/images/bus/exterior.jpg',
@@ -47,19 +54,19 @@ const services = [
 ];
 
 const stats = [
-  { value: '10+',   label: 'Tahun Pengalaman' },
-  { value: '5000+', label: 'Pelanggan Puas' },
-  { value: '8',    label: 'Jenis Armada' },
+  { value: '3+',   label: 'Tahun Pengalaman' },
+  { value: '500+', label: 'Pelanggan Puas' },
+  { value: '4',    label: 'Jenis Armada' },
   { value: '24/7', label: 'Layanan Aktif' },
 ];
 
 const whyUs = [
-  { icon: '🚗', title: 'Door to Door',      desc: 'Dijemput dari rumah dan diantar langsung ke tujuan tanpa ribet.' },
-  { icon: '✅', title: 'Armada Terawat',    desc: 'Hiace, Innova, Hiace Executive & Bus selalu dalam kondisi prima dan bersih.' },
-  { icon: '💰', title: 'Harga Transparan',  desc: 'Harga jelas dan bersaing, tidak ada biaya tersembunyi.' },
-  { icon: '⏰', title: 'Tepat Waktu',       desc: 'Ketepatan waktu keberangkatan adalah prioritas kami.' },
-  { icon: '🛡️', title: 'Aman & Terpercaya', desc: 'Pengemudi berpengalaman, berlisensi, dan ramah.' },
-  { icon: '📞', title: 'Siap 24 Jam',       desc: 'Pemesanan tersedia 24 jam via WhatsApp kapan saja.' },
+  { icon: '🚗', title: 'Door to Door',     desc: 'Dijemput dari rumah dan diantar langsung ke tujuan tanpa ribet.' },
+  { icon: '✅', title: 'Armada Terawat',   desc: 'Hiace, Innova, Avanza & Bus selalu dalam kondisi prima dan bersih.' },
+  { icon: '💰', title: 'Harga Transparan', desc: 'Harga jelas dan bersaing, tidak ada biaya tersembunyi.' },
+  { icon: '⏰', title: 'Tepat Waktu',      desc: 'Ketepatan waktu keberangkatan adalah prioritas kami.' },
+  { icon: '🛡️', title: 'Aman & Terpercaya',desc: 'Pengemudi berpengalaman, berlisensi, dan ramah.' },
+  { icon: '📞', title: 'Siap 24 Jam',      desc: 'Pemesanan tersedia 24 jam via WhatsApp kapan saja.' },
 ];
 
 const cars = [
@@ -69,23 +76,21 @@ const cars = [
     desc: 'Andalan rute Curup–Palembang. Kabin tinggi, AC double blower, bagasi ekstra luas untuk perjalanan jauh.',
     img: '/images/hiace/exterior.jpg',
     specs: ['12–15 Penumpang', 'AC Double Blower', 'Bagasi Ekstra'],
-    featured: false,
   },
   {
     name: 'Toyota Innova',
     type: 'MPV Premium · 7 Penumpang',
     desc: 'Kenyamanan premium untuk semua rute. Suspensi halus, kabin lega, cocok perjalanan jauh maupun dekat.',
-    img: '/images/innova/allarmada.jpg',
+    img: '/images/innova/exterior.jpg',
     specs: ['7 Penumpang', 'Suspensi Premium', 'Kabin Lega'],
     featured: true,
   },
   {
-    name: 'Hiace Executive',
-    type: 'Van Executive · 8 Penumpang',
-    desc: 'Pilihan premium untuk rute Curup–Lebong. Kabin mewah, kursi executive reclining, AC powerful, dan legroom luas.',
-    img: '/images/hiace/interior.jpg',
-    specs: ['8 Penumpang', 'Kursi Executive', 'AC Powerful'],
-    featured: false,
+    name: 'Toyota Avanza',
+    type: 'MPV · 7 Penumpang',
+    desc: 'Andalan rute Curup–Lebong. Irit BBM, kabin nyaman, harga bersahabat untuk perjalanan harian.',
+    img: '/images/avanza/exterior.jpg',
+    specs: ['7 Penumpang', 'Irit BBM', 'Harga Hemat'],
   },
   {
     name: 'Bus Pariwisata',
@@ -102,23 +107,19 @@ export default function HomePage() {
     <>
       {/* ── HERO ── */}
       <section className="relative min-h-[90vh] flex items-center bg-primary-900 overflow-hidden">
-
         {/* Background effects */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900" />
-          <div
-            className="absolute top-0 right-0 w-1/2 h-full opacity-10"
+          <div className="absolute top-0 right-0 w-1/2 h-full opacity-10"
             style={{ backgroundImage: 'radial-gradient(circle, rgba(201,168,76,0.3) 1px, transparent 1px)', backgroundSize: '32px 32px' }}
           />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl" />
           <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-gold-400/8 rounded-full blur-3xl" />
         </div>
 
-        {/* ── Grid konten ── */}
         <div className="relative max-w-7xl mx-auto px-4 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-
-          {/* Kolom kiri — teks */}
           <div>
+            {/* Badge */}
             <div className="inline-flex items-center gap-2 bg-gold-500/20 border border-gold-500/30 text-gold-300 text-sm font-medium px-4 py-2 rounded-full mb-6">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               Siap Melayani 24 Jam · Curup, Bengkulu
@@ -136,46 +137,35 @@ export default function HomePage() {
             </p>
 
             <div className="flex flex-wrap gap-3">
-              <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-wa text-base px-7 py-3.5">
+              <a href={WA} target="_blank" rel="noopener noreferrer"
+                className="btn-wa text-base px-7 py-3.5">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                 </svg>
                 Pesan via WhatsApp
               </a>
-              <Link
-                href="#layanan"
-                className="border border-white/30 text-white hover:bg-white/10 font-semibold px-7 py-3.5 rounded-xl transition-all inline-flex items-center gap-2"
-              >
+              <Link href="#layanan"
+                className="border border-white/30 text-white hover:bg-white/10 font-semibold px-7 py-3.5 rounded-xl transition-all inline-flex items-center gap-2">
                 Lihat Layanan
               </Link>
             </div>
           </div>
-          {/* ── end kolom kiri ── */}
 
-          {/* Kolom kanan — Hero visual */}
+          {/* Hero visual */}
           <div className="hidden lg:flex justify-center items-center">
             <div className="relative">
               <div className="w-80 h-80 bg-gold-500/10 rounded-full flex items-center justify-center border border-gold-500/20">
-                <div className="relative w-64 h-64 rounded-full overflow-hidden border-2 border-gold-500/40 shadow-2xl">
-                  <Image
-                    src="/images/armada-hero.jpg"
-                    alt="Armada RPM Travel Curup"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
+                <div className="w-60 h-60 bg-gold-500/15 rounded-full flex items-center justify-center border border-gold-500/30">
+                  <div className="text-center">
+                    <div className="text-8xl mb-2 leading-none">🚐</div>
+                    <p className="text-gold-300 font-semibold text-sm">Armada Kami</p>
+                    <p className="text-white text-xs mt-1">Hiace · Innova · Avanza · Bus</p>
+                  </div>
                 </div>
-              </div>
-              <div className="text-center mt-4">
-                <p className="text-gold-300 font-semibold text-sm">Armada Kami</p>
-                <p className="text-white text-xs mt-1">Hiace · Innova · Hiace Executive · Bus</p>
               </div>
             </div>
           </div>
-          {/* ── end kolom kanan ── */}
-
         </div>
-        {/* ── end grid konten ── */}
 
         {/* Stats bar */}
         <div className="absolute bottom-0 left-0 right-0 bg-white/10 backdrop-blur border-t border-white/10">
@@ -188,9 +178,7 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-
       </section>
-      {/* ── end HERO ── */}
 
       {/* ── LAYANAN ── */}
       <section id="layanan" className="py-20 bg-cream-50">
@@ -233,6 +221,7 @@ export default function HomePage() {
                     ⭐ Unggulan
                   </span>
                 )}
+                {/* Image area */}
                 <div className="relative h-48 overflow-hidden bg-primary-900">
                   {car.img ? (
                     <Image
@@ -303,16 +292,15 @@ export default function HomePage() {
             Hubungi kami via WhatsApp untuk pemesanan, info jadwal, dan tarif terkini.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-8 py-3.5">
+            <a href={WA} target="_blank" rel="noopener noreferrer"
+              className="btn-primary text-base px-8 py-3.5">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
               </svg>
               Chat WhatsApp
             </a>
-            <Link
-              href="/pesan"
-              className="bg-primary-900 text-white font-bold px-8 py-3.5 rounded-xl hover:bg-primary-800 transition-colors inline-flex items-center gap-2"
-            >
+            <Link href="/pesan"
+              className="bg-primary-900 text-white font-bold px-8 py-3.5 rounded-xl hover:bg-primary-800 transition-colors inline-flex items-center gap-2">
               🎫 Pesan Tiket Online
             </Link>
           </div>

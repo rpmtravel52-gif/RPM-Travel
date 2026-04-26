@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Sewa Bus Wisata Curup 30 Kursi All-In | RPM Travel',
@@ -95,55 +94,6 @@ export default function SewaBusWisataPage() {
         </div>
       </section>
 
-      {/* === GALERI BUS === */}
-      <section className="py-14 bg-white border-b border-gray-100">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Lihat Langsung Kondisi Bus Kami</h2>
-          <div className="gold-bar mb-6" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-            {/* Interior */}
-            <div className="group rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
-              <div className="relative w-full h-56 overflow-hidden">
-                <Image
-                  src="/images/bus/dalambus.jpg"
-                  alt="Interior bus wisata RPM Travel — kursi mewah dan kabin bersih"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="p-4 bg-cream-50">
-                <p className="font-bold text-primary-900 text-sm mb-1">✨ Interior Mewah & Bersih</p>
-                <p className="text-gray-500 text-xs leading-relaxed">
-                  Kabin terawat dengan kursi empuk berlapis kain berkualitas. Ruang kaki lega, ventilasi nyaman — perjalanan jauh pun terasa menyenangkan.
-                </p>
-              </div>
-            </div>
-
-            {/* Eksterior */}
-            <div className="group rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
-              <div className="relative w-full h-56 overflow-hidden">
-                <Image
-                  src="/images/bus/luarbus.jpg"
-                  alt="Eksterior bus wisata RPM Travel — terawat dan siap jalan"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="p-4 bg-cream-50">
-                <p className="font-bold text-primary-900 text-sm mb-1">🚌 Armada Terawat, Siap Jalan</p>
-                <p className="text-gray-500 text-xs leading-relaxed">
-                  Body bus selalu bersih dan kondisi mesin rutin diservis. Berangkat tenang, tiba tepat waktu — keselamatan rombongan adalah prioritas kami.
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
       {/* Main content */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -159,33 +109,6 @@ export default function SewaBusWisataPage() {
                     {u.label}
                   </div>
                 ))}
-              </div>
-            </div>
-
-            {/* === INTERNAL LINK BLOCK === */}
-            <div className="rounded-2xl bg-primary-900 p-6 relative overflow-hidden">
-              <div className="absolute inset-0 opacity-10"
-                style={{ backgroundImage: 'radial-gradient(circle, rgba(201,168,76,0.4) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-              <div className="relative">
-                <p className="text-gold-400 text-xs font-bold uppercase tracking-widest mb-2">Layanan Lainnya</p>
-                <h3 className="font-display text-xl font-bold text-white mb-3">Butuh Kendaraan yang Lebih Kecil?</h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-5">
-                  Untuk rombongan kecil atau kebutuhan perjalanan dinas, kami juga menyediakan layanan sewa Hiace dan transportasi profesional.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <Link
-                    href="/sewa-hiace-curup"
-                    className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-primary-900 font-bold text-sm px-5 py-2.5 rounded-xl transition-colors duration-200"
-                  >
-                    🚐 Sewa Hiace Curup
-                  </Link>
-                  <Link
-                    href="/transportasi-perjalanan-dinas"
-                    className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors duration-200"
-                  >
-                    💼 Transportasi Perjalanan Dinas
-                  </Link>
-                </div>
               </div>
             </div>
 

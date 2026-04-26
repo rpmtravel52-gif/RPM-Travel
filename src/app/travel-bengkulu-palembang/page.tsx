@@ -98,7 +98,7 @@ export default function TravelBengkuluPalembangPage() {
               </svg>
               Pesan via WhatsApp
             </a>
-            <Link href="/pesan"
+            <Link href="/pesan?paket=bengkulu-palembang"
               className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-xl transition-all text-base"
               style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628' }}>
               🎫 Pesan Tiket Online
@@ -239,7 +239,7 @@ export default function TravelBengkuluPalembangPage() {
                   className="flex items-center justify-center gap-2 w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-all text-sm mb-2">
                   Chat WhatsApp
                 </a>
-                <Link href="/pesan"
+                <Link href="/pesan?paket=bengkulu-palembang"
                   className="flex items-center justify-center gap-2 w-full font-bold py-3 rounded-xl text-sm transition-all"
                   style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628' }}>
                   🎫 Pesan Tiket Online

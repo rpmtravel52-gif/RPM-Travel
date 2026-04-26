@@ -1,318 +1,277 @@
 'use client';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useState } from 'react';
-import { PACKAGES, formatRupiah } from '@/lib/packages';
-import type { Order } from '@/lib/types';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { PACKAGES, formatRupiah, type TravelPackage } from '@/lib/packages';
 
-type Step = 'form' | 'qris' | 'success';
+function PesanForm() {
+  const searchParams = useSearchParams();
+  const paketFromUrl = searchParams.get('paket') ?? '';
 
-export default function PesanTiketPage() {
-  const [step, setStep] = useState<Step>('form');
-  const [order, setOrder] = useState<Order | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [selectedPkg, setSelectedPkg] = useState<TravelPackage | null>(
+    () => PACKAGES.find((p) => p.id === paketFromUrl) ?? null
+  );
+  const [form, setForm] = useState({
+    nama: '',
+    paket: paketFromUrl,
+    tanggal: '',
+    jam: '',
+    jumlahPax: 1,
+    asal: '',
+    tujuan: '',
+    metode: 'QRIS' as 'QRIS' | 'TUNAI',
+    wantEmail: false,
+    email: '',
+    catatan: '',
+  });
 
-  // Form state
-  const [nama, setNama] = useState('');
-  const [paket, setPaket] = useState('');
-  const [tanggal, setTanggal] = useState('');
-  const [jumlahPax, setJumlahPax] = useState(1);
-  const [metode, setMetode] = useState<'QRIS' | 'TUNAI'>('QRIS');
-  const [wantEmail, setWantEmail] = useState(false);
-  const [email, setEmail] = useState('');
-  const [alamatJemput, setAlamatJemput] = useState('');
-  const [alamatTujuan, setAlamatTujuan] = useState('');
+  useEffect(() => {
+    const pkg = PACKAGES.find((p) => p.id === form.paket) ?? null;
+    setSelectedPkg(pkg);
+  }, [form.paket]);
 
-  const selectedPkg = PACKAGES.find((p) => p.id === paket);
-  const totalHarga = selectedPkg ? selectedPkg.harga * jumlahPax : 0;
+  const totalHarga = selectedPkg
+    ? selectedPkg.kategori === 'sewa'
+      ? selectedPkg.harga
+      : selectedPkg.harga * form.jumlahPax
+    : 0;
 
-  const buildWAMessage = (orderData: Order) => {
-    const adminUrl = `${window.location.origin}/admin`;
-    return [
-      `🚌 *Pesanan Baru RPM Travel*`,
-      `No: ${orderData.orderNumber}`,
-      `Nama: ${nama}`,
-      `Paket: ${selectedPkg?.label}`,
-      `Tgl: ${new Date(tanggal).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}`,
-      `Pax: ${jumlahPax} orang`,
-      `Jemput: ${alamatJemput}`,
-      `Tujuan: ${alamatTujuan}`,
-      `Total: ${formatRupiah(totalHarga)}`,
-      `Bayar: ${metode}`,
-      ``,
-      `📋 Tolong Konfirmasi Pesanan Saya: ${adminUrl}`,
-    ].join('\n');
+  const today = new Date().toISOString().split('T')[0];
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+    setForm((prev) => ({ ...prev, [name]: type === 'number' ? Number(value) : value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    if (wantEmail && !email) { setError('Masukkan alamat email Anda.'); return; }
-    setLoading(true);
-    try {
-      const res = await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nama, paket, tanggal, jumlahPax,
-          metodePembayaran: metode,
-          email: wantEmail ? email : undefined,
-          alamatJemput,
-          alamatTujuan,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) { setError(data.error ?? 'Terjadi kesalahan.'); return; }
-
-      setOrder(data.order);
-
-      if (metode === 'TUNAI') {
-        // For cash, open WhatsApp immediately and go to success
-        window.open(`https://wa.me/6285282828005?text=${encodeURIComponent(buildWAMessage(data.order))}`, '_blank');
-        setStep('success');
-      } else {
-        // For QRIS, show QRIS page first — WhatsApp opened after payment confirmed
-        setStep('qris');
-      }
-    } catch {
-      setError('Gagal menghubungi server. Coba lagi.');
-    } finally {
-      setLoading(false);
-    }
+    if (!selectedPkg) return;
+    const tglFmt = new Date(form.tanggal).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+    const paxInfo = selectedPkg.kategori === 'sewa' ? 'Durasi: 1 hari' : `Penumpang: ${form.jumlahPax} orang`;
+    const lines = [
+      `🚌 *Pesanan RPM Travel Curup*`,
+      ``,
+      `Nama      : ${form.nama}`,
+      `Paket     : ${selectedPkg.label}`,
+      selectedPkg.rute ? `Rute      : ${selectedPkg.rute}` : '',
+      `Tanggal   : ${tglFmt}`,
+      form.jam ? `Jam       : ${form.jam} WIB` : '',
+      paxInfo,
+      `Jemput di : ${form.asal}`,
+      `Tujuan    : ${form.tujuan}`,
+      `Bayar     : ${form.metode}`,
+      `Total     : ${formatRupiah(totalHarga)}`,
+      form.catatan ? `Catatan   : ${form.catatan}` : '',
+    ].filter(Boolean).join('\n');
+    window.open(`https://wa.me/6285282828005?text=${encodeURIComponent(lines)}`, '_blank');
   };
 
-  const handleSudahBayar = () => {
-    if (!order) return;
-    window.open(`https://wa.me/6285282828005?text=${encodeURIComponent(buildWAMessage(order))}`, '_blank');
-    setStep('success');
-  };
+  const travelAntarKota = PACKAGES.filter((p) => p.kategori === 'travel' && !['curup-lebong','lebong-curup'].includes(p.id));
+  const travelLokal     = PACKAGES.filter((p) => ['curup-lebong','lebong-curup'].includes(p.id));
+  const sewa            = PACKAGES.filter((p) => p.kategori === 'sewa');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 py-10 px-4">
-      <div className="max-w-xl mx-auto">
-        {/* Header */}
+    <div className="min-h-screen bg-cream-50 pt-20 pb-16 px-4">
+      <div className="max-w-2xl mx-auto">
+
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-500/30 text-sky-300 text-xs font-bold px-3 py-1.5 rounded-full mb-4">
-            🚌 RPM Travel Curup
-          </div>
-          <h1 className="text-3xl font-bold text-white mb-1">Pesan Tiket Online</h1>
-          <p className="text-slate-400 text-sm">Isi form di bawah, konfirmasi via WhatsApp otomatis</p>
+          <nav className="flex items-center justify-center gap-2 text-gold-600 text-xs font-semibold mb-4">
+            <Link href="/" className="hover:text-gold-700">Beranda</Link>
+            <span className="text-gray-400">/</span>
+            <span className="text-gray-500">Pesan Tiket</span>
+          </nav>
+          <h1 className="font-display text-3xl font-bold text-primary-900 mb-2">🎫 Pesan Tiket Online</h1>
+          <p className="text-gray-500 text-sm">Isi form di bawah — konfirmasi & pembayaran via WhatsApp Admin</p>
         </div>
 
-        {step === 'form' && (
-          <form onSubmit={handleSubmit} className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6 space-y-5">
-
-            {/* Nama */}
+        {/* Banner paket terpilih dari URL */}
+        {selectedPkg && (
+          <div className="bg-primary-900 rounded-2xl p-4 mb-6 flex items-center justify-between gap-4">
             <div>
-              <label className="block text-xs font-semibold text-sky-400 uppercase tracking-wider mb-1.5">Nama Lengkap *</label>
-              <input
-                type="text" required value={nama} onChange={e => setNama(e.target.value)}
-                placeholder="Contoh: Budi Santoso"
-                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
-              />
+              <p className="text-gold-400 text-xs font-semibold uppercase tracking-wide mb-0.5">Paket Dipilih</p>
+              <p className="text-white font-bold">{selectedPkg.label}</p>
+              {selectedPkg.keterangan && <p className="text-gray-400 text-xs mt-0.5">{selectedPkg.keterangan}</p>}
             </div>
+            <div className="text-right flex-shrink-0">
+              <p className="text-white font-bold text-lg">{formatRupiah(selectedPkg.harga)}</p>
+              <p className="text-gray-400 text-xs">{selectedPkg.satuanLabel}</p>
+            </div>
+          </div>
+        )}
 
-            {/* Paket */}
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8 space-y-5">
+
+          {/* Nama */}
+          <div>
+            <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">Nama Lengkap *</label>
+            <input type="text" name="nama" required value={form.nama} onChange={handleChange}
+              placeholder="Contoh: Budi Santoso"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
+          </div>
+
+          {/* Paket */}
+          <div>
+            <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">Paket Perjalanan *</label>
+            <select name="paket" required value={form.paket} onChange={handleChange}
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gold-500">
+              <option value="">-- Pilih Paket --</option>
+              <optgroup label="✈️ Travel Antarkota">
+                {travelAntarKota.map((p) => (
+                  <option key={p.id} value={p.id}>{p.label} — {formatRupiah(p.harga)}{p.satuanLabel}</option>
+                ))}
+              </optgroup>
+              <optgroup label="🗺️ Travel Lokal">
+                {travelLokal.map((p) => (
+                  <option key={p.id} value={p.id}>{p.label} — {formatRupiah(p.harga)}{p.satuanLabel}</option>
+                ))}
+              </optgroup>
+              <optgroup label="🔑 Sewa Kendaraan">
+                {sewa.map((p) => (
+                  <option key={p.id} value={p.id}>{p.label} — {formatRupiah(p.harga)}{p.satuanLabel}</option>
+                ))}
+              </optgroup>
+            </select>
+            {selectedPkg && (
+              <div className="mt-2 flex items-center gap-2 text-xs bg-gold-50 border border-gold-200 rounded-lg px-3 py-2 text-gold-700">
+                <span>💰</span>
+                <span className="font-bold">{formatRupiah(selectedPkg.harga)}</span>
+                <span className="text-gray-500">{selectedPkg.satuanLabel}</span>
+                {selectedPkg.keterangan && <span className="text-gray-400 hidden sm:inline">· {selectedPkg.keterangan}</span>}
+              </div>
+            )}
+          </div>
+
+          {/* Tanggal & Jam */}
+          <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-sky-400 uppercase tracking-wider mb-1.5">Paket Perjalanan *</label>
-              <select
-                required value={paket} onChange={e => setPaket(e.target.value)}
-                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
-              >
-                <option value="" className="bg-slate-800">-- Pilih Paket --</option>
-                {PACKAGES.map(p => (
-                  <option key={p.id} value={p.id} className="bg-slate-800">
-                    {p.label} – {formatRupiah(p.harga)}/pax
-                  </option>
+              <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">Tanggal *</label>
+              <input type="date" name="tanggal" required value={form.tanggal} onChange={handleChange} min={today}
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">Jam</label>
+              <select name="jam" value={form.jam} onChange={handleChange}
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gold-500">
+                <option value="">-- Pilih --</option>
+                {['06.00','07.00','08.00','09.00','10.00','11.00','12.00','13.00','14.00','15.00','16.00','17.00','19.00'].map(j => (
+                  <option key={j} value={j}>{j} WIB</option>
                 ))}
               </select>
             </div>
+          </div>
 
-            {/* Tanggal & Pax */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-sky-400 uppercase tracking-wider mb-1.5">Tanggal Berangkat *</label>
-                <input
-                  type="date" required value={tanggal} onChange={e => setTanggal(e.target.value)}
-                  min={new Date().toISOString().split('T')[0]}
-                  className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-sky-400 uppercase tracking-wider mb-1.5">Jumlah Penumpang *</label>
-                <input
-                  type="number" required min={1} max={30} value={jumlahPax} onChange={e => setJumlahPax(Number(e.target.value))}
-                  className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
-                />
-              </div>
-            </div>
-
-            {/* Alamat Penjemputan */}
+          {/* Jumlah Pax — hanya untuk travel */}
+          {selectedPkg?.kategori === 'travel' && (
             <div>
-              <label className="block text-xs font-semibold text-sky-400 uppercase tracking-wider mb-1.5">Alamat Penjemputan *</label>
-              <input
-                type="text" required value={alamatJemput} onChange={e => setAlamatJemput(e.target.value)}
-                placeholder="Contoh: Jl. Merdeka No. 5, Curup"
-                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
-              />
+              <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">Jumlah Penumpang *</label>
+              <input type="number" name="jumlahPax" required min={1} max={14}
+                value={form.jumlahPax} onChange={handleChange}
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
             </div>
+          )}
 
-            {/* Alamat Tujuan */}
-            <div>
-              <label className="block text-xs font-semibold text-sky-400 uppercase tracking-wider mb-1.5">Alamat Tujuan *</label>
-              <input
-                type="text" required value={alamatTujuan} onChange={e => setAlamatTujuan(e.target.value)}
-                placeholder="Contoh: Jl. Sudirman No. 10, Palembang"
-                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
-              />
-            </div>
+          {/* Lokasi */}
+          <div>
+            <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">Lokasi Penjemputan *</label>
+            <input type="text" name="asal" required value={form.asal} onChange={handleChange}
+              placeholder="Contoh: Jl. Merdeka No. 10, Curup"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">Tujuan / Drop Off *</label>
+            <input type="text" name="tujuan" required value={form.tujuan} onChange={handleChange}
+              placeholder="Contoh: Bandara SMB II Palembang"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
+          </div>
 
-            {/* Metode Pembayaran */}
-            <div>
-              <label className="block text-xs font-semibold text-sky-400 uppercase tracking-wider mb-2">Metode Pembayaran *</label>
-              <div className="grid grid-cols-2 gap-3">
-                {(['QRIS', 'TUNAI'] as const).map(m => (
-                  <label
-                    key={m}
-                    className={`flex items-center gap-3 border rounded-xl px-4 py-3 cursor-pointer transition-all ${
-                      metode === m
-                        ? 'border-sky-500 bg-sky-500/20 text-white'
-                        : 'border-white/20 bg-white/5 text-slate-400 hover:border-white/40'
-                    }`}
-                  >
-                    <input type="radio" name="metode" value={m} checked={metode === m} onChange={() => setMetode(m)} className="sr-only" />
-                    <span className="text-lg">{m === 'QRIS' ? '📱' : '💵'}</span>
-                    <div>
-                      <p className="font-bold text-sm">{m}</p>
-                      <p className="text-xs opacity-70">{m === 'QRIS' ? 'Bayar via QR Code' : 'Bayar ke sopir/agen'}</p>
-                    </div>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            {/* Email checkbox */}
-            <div>
-              <label className="flex items-start gap-3 cursor-pointer group">
-                <div className="relative mt-0.5">
-                  <input
-                    type="checkbox" checked={wantEmail} onChange={e => setWantEmail(e.target.checked)}
-                    className="sr-only peer"
-                  />
-                  <div className="w-5 h-5 border-2 border-white/30 rounded peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-all flex items-center justify-center">
-                    {wantEmail && <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7"/></svg>}
+          {/* Metode bayar */}
+          <div>
+            <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-2">Metode Pembayaran *</label>
+            <div className="grid grid-cols-2 gap-3">
+              {(['QRIS','TUNAI'] as const).map((m) => (
+                <label key={m} className={`flex items-center gap-3 border-2 rounded-xl px-4 py-3 cursor-pointer transition-all ${
+                  form.metode === m ? 'border-primary-900 bg-primary-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                  <input type="radio" name="metode" value={m} checked={form.metode === m}
+                    onChange={() => setForm(p => ({...p, metode: m}))} className="sr-only" />
+                  <span className="text-2xl">{m === 'QRIS' ? '📱' : '💵'}</span>
+                  <div>
+                    <p className="font-bold text-primary-900 text-sm">{m}</p>
+                    <p className="text-gray-400 text-xs">{m === 'QRIS' ? 'Scan QR Code' : 'Bayar ke sopir'}</p>
                   </div>
-                </div>
-                <div>
-                  <p className="text-white text-sm font-medium">Kirimkan saya invoice/kwitansi ke email</p>
-                  <p className="text-slate-500 text-xs">Faktur & e-ticket akan dikirim otomatis ke email Anda</p>
-                </div>
-              </label>
+                </label>
+              ))}
             </div>
-
-            {/* Email input */}
-            {wantEmail && (
-              <div className="animate-fade-in">
-                <label className="block text-xs font-semibold text-sky-400 uppercase tracking-wider mb-1.5">Alamat Email *</label>
-                <input
-                  type="email" required={wantEmail} value={email} onChange={e => setEmail(e.target.value)}
-                  placeholder="nama@email.com"
-                  className="w-full bg-white/10 border border-sky-500/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
-                />
-              </div>
-            )}
-
-            {/* Total preview */}
-            {totalHarga > 0 && (
-              <div className="bg-sky-500/10 border border-sky-500/30 rounded-xl px-4 py-3 flex justify-between items-center">
-                <span className="text-sky-300 text-sm">Estimasi Total</span>
-                <span className="text-white font-bold text-lg">{formatRupiah(totalHarga)}</span>
-              </div>
-            )}
-
-            {error && (
-              <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm px-4 py-3 rounded-xl">
-                ⚠️ {error}
-              </div>
-            )}
-
-            <button
-              type="submit" disabled={loading}
-              className="w-full bg-sky-600 hover:bg-sky-500 disabled:opacity-60 text-white font-bold py-4 rounded-xl text-base transition-all flex items-center justify-center gap-2"
-            >
-              {loading ? (
-                <><span className="animate-spin">⏳</span> Memproses...</>
-              ) : (
-                <><span>🎫</span> Pesan Sekarang</>
-              )}
-            </button>
-          </form>
-        )}
-
-        {/* QRIS Payment Step */}
-        {step === 'qris' && order && (
-          <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6 text-center space-y-4">
-            <div className="text-4xl mb-2">📱</div>
-            <h2 className="text-xl font-bold text-white">Bayar via QRIS</h2>
-            <p className="text-slate-400 text-sm">Scan QR Code di bawah untuk membayar</p>
-
-            {order.qrisData ? (
-              <div className="flex justify-center">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={order.qrisData} alt="QRIS Code" className="w-56 h-56 rounded-xl border-4 border-white shadow-xl" />
-              </div>
-            ) : (
-              <div className="w-56 h-56 mx-auto bg-white/10 rounded-xl flex items-center justify-center text-slate-500 text-sm">
-                QR Code tidak tersedia
-              </div>
-            )}
-
-            <div className="bg-white/10 rounded-xl px-4 py-3">
-              <p className="text-sky-400 text-xs uppercase tracking-wide mb-1">Total Pembayaran</p>
-              <p className="text-white font-bold text-2xl">{formatRupiah(order.totalHarga)}</p>
-            </div>
-
-            <div className="text-left bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-4 text-sm text-yellow-200 space-y-1">
-              <p className="font-bold">📋 Langkah Pembayaran:</p>
-              <p>1. Scan QR Code dengan app bank / e-wallet</p>
-              <p>2. Nominal sudah otomatis terisi: <strong>{formatRupiah(order.totalHarga)}</strong></p>
-              <p>3. Konfirmasi &amp; bayar</p>
-              <p>4. Screenshot bukti &amp; kirim ke admin WA</p>
-            </div>
-
-            <button
-              onClick={handleSudahBayar}
-              className="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-xl transition-all"
-            >
-              ✅ Saya Sudah Bayar
-            </button>
           </div>
-        )}
 
-        {/* Success */}
-        {step === 'success' && order && (
-          <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6 text-center space-y-4">
-            <div className="text-5xl">🎉</div>
-            <h2 className="text-xl font-bold text-white">Pesanan Diterima!</h2>
-            <div className="bg-white/10 rounded-xl px-4 py-4 text-left space-y-2 text-sm">
-              <div className="flex justify-between"><span className="text-slate-400">No. Pesanan</span><span className="text-white font-bold">{order.orderNumber}</span></div>
-              <div className="flex justify-between"><span className="text-slate-400">Paket</span><span className="text-white">{order.paket}</span></div>
-              <div className="flex justify-between"><span className="text-slate-400">Jemput</span><span className="text-white">{alamatJemput}</span></div>
-              <div className="flex justify-between"><span className="text-slate-400">Tujuan</span><span className="text-white">{alamatTujuan}</span></div>
-              <div className="flex justify-between"><span className="text-slate-400">Total</span><span className="text-sky-400 font-bold">{formatRupiah(order.totalHarga)}</span></div>
-              <div className="flex justify-between"><span className="text-slate-400">Status</span>
-                <span className="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-2 py-0.5 rounded-full">MENUNGGU KONFIRMASI</span>
+          {/* Email */}
+          <div>
+            <label className="flex items-start gap-3 cursor-pointer" onClick={() => setForm(p => ({...p, wantEmail: !p.wantEmail}))}>
+              <div className={`mt-0.5 w-5 h-5 flex-shrink-0 rounded border-2 flex items-center justify-center transition-all ${
+                form.wantEmail ? 'bg-primary-900 border-primary-900' : 'border-gray-300'}`}>
+                {form.wantEmail && <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>}
               </div>
-            </div>
-            <p className="text-slate-400 text-sm">Admin kami akan mengonfirmasi pembayaran dan mengirimkan e-ticket setelah pembayaran terverifikasi.</p>
-            <a href="https://wa.me/6285282828005" target="_blank" rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-xl transition-all">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Konfirmasi ke Admin WA
-            </a>
+              <div>
+                <p className="text-primary-900 text-sm font-medium">Kirimkan invoice/tiket ke email saya</p>
+                <p className="text-gray-400 text-xs mt-0.5">Faktur & e-ticket dikirim otomatis setelah konfirmasi admin</p>
+              </div>
+            </label>
           </div>
-        )}
+          {form.wantEmail && (
+            <div className="border border-gold-300 bg-gold-50 rounded-xl p-4">
+              <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">Alamat Email *</label>
+              <input type="email" name="email" required={form.wantEmail} value={form.email} onChange={handleChange}
+                placeholder="nama@email.com"
+                className="w-full border border-gold-300 rounded-xl px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gold-500" />
+            </div>
+          )}
+
+          {/* Catatan */}
+          <div>
+            <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">Catatan Tambahan</label>
+            <textarea name="catatan" value={form.catatan} onChange={handleChange} rows={2}
+              placeholder="Misal: ada bayi, bawa koper besar, dll."
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-gold-500" />
+          </div>
+
+          {/* Total */}
+          {totalHarga > 0 && (
+            <div className="bg-primary-900 rounded-xl px-5 py-4">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-400 text-sm">
+                  {selectedPkg?.kategori === 'sewa'
+                    ? 'Harga sewa per hari (all-in)'
+                    : `${formatRupiah(selectedPkg?.harga ?? 0)} × ${form.jumlahPax} pax`}
+                </span>
+                <span className="text-white font-bold text-xl">{formatRupiah(totalHarga)}</span>
+              </div>
+              <p className="text-gray-500 text-xs mt-1">
+                {selectedPkg?.kategori === 'sewa' ? '*Sudah termasuk BBM & sopir' : '*Sudah termasuk antar jemput'}
+              </p>
+            </div>
+          )}
+
+          <button type="submit" disabled={!selectedPkg}
+            className="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl text-base transition-all">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+            Konfirmasi via WhatsApp
+          </button>
+          <p className="text-center text-xs text-gray-400">Detail pesanan langsung terkirim ke WhatsApp admin</p>
+        </form>
       </div>
     </div>
+  );
+}
+
+export default function PesanPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-cream-50 flex items-center justify-center">
+        <div className="text-center"><div className="text-4xl mb-3 animate-pulse">⏳</div><p className="text-gray-500 text-sm">Memuat...</p></div>
+      </div>
+    }>
+      <PesanForm />
+    </Suspense>
   );
 }
