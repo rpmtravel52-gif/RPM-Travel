@@ -38,7 +38,7 @@ const services = [
     pesanHref: '/pesan?paket=curup-lebong',
     badge: '💸 Hemat',
     price: 'Rp 60.000/pax',
-    image: '/images/avanza/exterior.jpg',
+    image: '/images/innova/allarmada.jpg',
     emoji: '🚙',
   },
   {
@@ -86,10 +86,10 @@ const cars = [
     featured: true,
   },
   {
-    name: 'Toyota Avanza',
+    name: 'Toyota Innova',
     type: 'MPV · 7 Penumpang',
     desc: 'Andalan rute Curup–Lebong. Irit BBM, kabin nyaman, harga bersahabat untuk perjalanan harian.',
-    img: '/images/avanza/exterior.jpg',
+    img: '/images/innova/allarmada.jpg',
     specs: ['7 Penumpang', 'Irit BBM', 'Harga Hemat'],
   },
   {
