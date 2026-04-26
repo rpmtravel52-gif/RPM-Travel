@@ -30,7 +30,25 @@ const faqs = [
 { q: 'bisa minta invoice atau Kwitansi?', a: 'bisa, lakukan pesanan di tombol pesanan lalu centang saya minta kwitansi/invoice, lanjutkan wa ke nomor yang ada.' },
 
 ];
-
+ {/* Internal links */}
+            <div>
+              <h2 className="font-display text-xl font-bold text-primary-900 mb-4">Layanan Terkait</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { href: '/travel-curup-palembang', label: '↔ Travel Curup – Palembang', desc: 'Rute balik dari Curup ke Palembang' },
+                  { href: '/travel-bengkulu-palembang', label: '🚐 Travel Bengkulu – Palembang', desc: 'Hiace 14 kursi, 2 jadwal harian' },
+                  { href: '/sewa-hiace-curup', label: '🔑 Sewa Hiace Curup', desc: 'Rp 1.800.000/hari all-in' },
+                  { href: '/travel-curup-lebong', label: '🗺️ Travel Curup – Lebong', desc: 'Rute lokal harian Curup–Lebong' },
+                ].map(l => (
+                  <Link key={l.href} href={l.href}
+                    className="block border border-gray-100 hover:border-gold-400 rounded-xl p-3 transition-all group">
+                    <p className="font-semibold text-primary-900 text-sm group-hover:text-gold-600 transition-colors">{l.label}</p>
+                    <p className="text-gray-400 text-xs mt-0.5">{l.desc}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
 export default function TravelCurupPalembangPage() {
   return (
     <>
