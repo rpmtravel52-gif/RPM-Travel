@@ -3,9 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'Travel Curup Palembang Door to Door | RPM Travel',
+  title: 'Travel Curup Palembang Nyaman & Profesional | Hiace & Executive RPM Travel',
   description:
-    'Travel Curup Palembang terpercaya. Antar jemput door to door, armada Hiace & Innova ber-AC. Berangkat sesuai jadwal. Hubungi RPM Travel 085282828005.',
+    'Layanan travel Curup ke Palembang dengan armada Hiace bersih dan Executive class. Perjalanan lebih nyaman, aman, dan tepat waktu bersama driver berpengalaman. Hubungi RPM Travel sekarang.',
   alternates: { canonical: '/travel-curup-palembang' },
 };
 
