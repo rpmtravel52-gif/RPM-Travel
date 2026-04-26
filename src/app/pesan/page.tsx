@@ -109,6 +109,32 @@ function QrisModal({
   );
 }
 
+// ─── Jadwal jam per paket ─────────────────────────────────────
+// null  = tampilkan semua jam (sewa)
+// []    = selalu ada / tidak perlu dropdown (tulis keterangan)
+// [...] = jam spesifik
+const JADWAL: Record<string, string[] | null> = {
+  // Bengkulu - Palembang
+  'bengkulu-palembang': ['10.00', '16.00'],
+  // Palembang - Bengkulu
+  'palembang-bengkulu': ['10.00', '19.00'],
+  // Curup - Palembang
+  'curup-palembang': ['13.00', '20.00'],
+  // Palembang - Curup
+  'palembang-curup': ['10.00', '19.00'],
+  // Lebong - Palembang
+  'lebong-palembang': ['10.00', '16.00'],
+  // Palembang - Lebong
+  'palembang-lebong': ['10.00', '19.00'],
+  // Curup - Lebong & Lebong - Curup → selalu ada (keterangan, tanpa dropdown)
+  'curup-lebong': [],
+  'lebong-curup': [],
+  // Sewa → null = semua jam
+};
+
+const ALL_JAM = ['06.00','07.00','08.00','09.00','10.00','11.00','12.00',
+                 '13.00','14.00','15.00','16.00','17.00','19.00','20.00'];
+
 // ─── Main Form ────────────────────────────────────────────────
 function PesanForm() {
   const searchParams = useSearchParams();
@@ -140,7 +166,19 @@ function PesanForm() {
   useEffect(() => {
     const pkg = PACKAGES.find((p) => p.id === form.paket) ?? null;
     setSelectedPkg(pkg);
+    setForm((prev) => ({ ...prev, jam: '' }));
   }, [form.paket]);
+
+  // Tentukan mode jam berdasarkan paket dipilih
+  const jadwalPaket = form.paket ? (JADWAL[form.paket] ?? null) : undefined;
+  // undefined = belum pilih paket
+  // null      = sewa (tampilkan semua jam)
+  // []        = selalu ada (tampilkan keterangan, tanpa dropdown)
+  // ['HH.mm'] = jam spesifik
+  const isSelalu = Array.isArray(jadwalPaket) && jadwalPaket.length === 0;
+  const jamOptions: string[] = jadwalPaket === null
+    ? ALL_JAM
+    : Array.isArray(jadwalPaket) ? jadwalPaket : [];
 
   const totalHarga = selectedPkg
     ? selectedPkg.kategori === 'sewa'
@@ -376,7 +414,7 @@ function PesanForm() {
             </div>
 
             {/* Tanggal & Jam */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className={`grid gap-4 ${isSelalu ? 'grid-cols-1' : 'grid-cols-2'}`}>
               <div>
                 <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">
                   Tanggal *
@@ -387,21 +425,47 @@ function PesanForm() {
                   className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
                 />
               </div>
-              <div>
-                <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">
-                  Jam
-                </label>
-                <select
-                  name="jam" value={form.jam} onChange={handleChange}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gold-500"
-                >
-                  <option value="">-- Pilih --</option>
-                  {['06.00','07.00','08.00','09.00','10.00','11.00','12.00','13.00','14.00','15.00','16.00','17.00','19.00'].map((j) => (
-                    <option key={j} value={j}>{j} WIB</option>
-                  ))}
-                </select>
-              </div>
+
+              {/* Jam: hanya tampil jika bukan mode 'selalu ada' */}
+              {!isSelalu && (
+                <div>
+                  <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">
+                    Jam Keberangkatan {jamOptions.length > 0 ? '*' : ''}
+                  </label>
+                  <select
+                    name="jam"
+                    value={form.jam}
+                    onChange={handleChange}
+                    required={jamOptions.length > 0}
+                    disabled={!form.paket}
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gold-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <option value="">
+                      {!form.paket ? '-- Pilih paket dulu --' : '-- Pilih Jam --'}
+                    </option>
+                    {jamOptions.map((j) => (
+                      <option key={j} value={j}>{j} WIB</option>
+                    ))}
+                  </select>
+                  {jamOptions.length === 2 && (
+                    <p className="mt-1.5 text-xs text-gray-400">
+                      🕐 Tersedia {jamOptions.length} jadwal keberangkatan
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
+
+            {/* Keterangan 'selalu ada' untuk Curup-Lebong */}
+            {isSelalu && (
+              <div className="bg-green-50 border border-green-200 rounded-xl px-4 py-3 flex items-center gap-2">
+                <span className="text-green-600 text-lg">🕐</span>
+                <div>
+                  <p className="text-green-800 text-sm font-semibold">Tersedia Setiap Jam</p>
+                  <p className="text-green-600 text-xs mt-0.5">Rute ini berangkat setiap jam, tidak perlu memilih jam khusus.</p>
+                </div>
+              </div>
+            )}
 
             {/* Jumlah Pax */}
             {selectedPkg?.kategori === 'travel' && (
