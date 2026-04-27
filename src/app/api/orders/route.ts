@@ -9,22 +9,27 @@ import { staticToDynamic } from '@/lib/qris';
 export async function POST(req: NextRequest) {
   try {
     const body: CreateOrderInput = await req.json();
-    const { nama, paket, tanggal, jumlahPax, metodePembayaran, email } = body;
+    const {
+      nama, hp, paket, tanggal, jam,
+      jumlahPax, metodePembayaran, email, catatan,
+    } = body;
 
-    // Validate
-    if (!nama || !paket || !tanggal || !jumlahPax || !metodePembayaran) {
+    // Validasi field wajib
+    if (!nama || !hp || !paket || !tanggal || !jumlahPax || !metodePembayaran) {
       return NextResponse.json({ error: 'Data tidak lengkap' }, { status: 400 });
     }
 
     const pkg = getPackage(paket);
-    if (!pkg) return NextResponse.json({ error: 'Paket tidak ditemukan' }, { status: 400 });
+    if (!pkg) {
+      return NextResponse.json({ error: 'Paket tidak ditemukan' }, { status: 400 });
+    }
 
     const hargaPerPax = pkg.harga;
-    const totalHarga = hargaPerPax * jumlahPax;
-    const id = uuidv4();
+    const totalHarga  = hargaPerPax * jumlahPax;
+    const id          = uuidv4();
     const orderNumber = await getNextOrderNumber();
 
-    // Generate dynamic QRIS if method is QRIS
+    // Generate dynamic QRIS jika metode QRIS
     let qrisData: string | undefined;
     if (metodePembayaran === 'QRIS') {
       const staticQris = process.env.NEXT_PUBLIC_QRIS_STATIC;
@@ -42,13 +47,16 @@ export async function POST(req: NextRequest) {
       id,
       orderNumber,
       nama,
+      hp,                          // ← nomor WA pelanggan
       paket: pkg.label,
       tanggal,
+      jam: jam || undefined,       // ← jam keberangkatan (opsional)
       jumlahPax,
       hargaPerPax,
       totalHarga,
       metodePembayaran,
       email: email || undefined,
+      catatan: catatan || undefined,
       status: 'UNPAID',
       createdAt: new Date().toISOString(),
       qrisData,
