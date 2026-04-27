@@ -145,6 +145,7 @@ function PesanForm() {
   );
   const [form, setForm] = useState({
     nama: '',
+    hp: '',
     paket: paketFromUrl,
     tanggal: '',
     jam: '',
@@ -252,6 +253,7 @@ function PesanForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nama: form.nama,
+          hp: form.hp,
           paket: form.paket,
           tanggal: form.tanggal,
           jam: form.jam,
@@ -367,6 +369,25 @@ function PesanForm() {
                 placeholder="Contoh: Budi Santoso"
                 className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
               />
+            </div>
+
+            {/* Nomor HP */}
+            <div>
+              <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">
+                Nomor WhatsApp *
+              </label>
+              <div className="flex">
+                <span className="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-gray-200 bg-gray-50 text-gray-500 text-sm">
+                  +62
+                </span>
+                <input
+                  type="tel" name="hp" required value={form.hp} onChange={handleChange}
+                  placeholder="8123456789"
+                  pattern="[0-9]{8,13}"
+                  className="flex-1 border border-gray-200 rounded-r-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
+                />
+              </div>
+              <p className="text-gray-400 text-xs mt-1">Digunakan admin untuk kirim konfirmasi &amp; tiket</p>
             </div>
 
             {/* Paket */}
