@@ -4,9 +4,9 @@ import Image from 'next/image';
 import ServiceCard from '@/components/ServiceCard';
 
 export const metadata: Metadata = {
-  title: 'RPM Travel Curup | Travel & Sewa Bus Wisata Bengkulu Terpercaya',
+  title: 'RPM Travel Curup | Travel Antar Jemput & Sewa Bus Wisata Bengkulu',
   description:
-    'RPM Travel Curup – Jasa travel door to door Bengkulu-Curup–Palembang & Curup–Lebong. Sewa bus wisata 30 kursi all-in. Armada Hiace, Innova. Hubungi 085282828005.',
+    'RPM Travel Curup melayani rute door to door Curup–Palembang & Curup–Lebong setiap hari. Armada Hiace & Innova terawat, pengemudi berlisensi. Sewa bus wisata 31 kursi all-in. Hubungi 085282828005.',
 };
 
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel';
@@ -14,7 +14,7 @@ const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ing
 const services = [
   {
     title: 'Travel Curup – Palembang',
-    description: 'Layanan antar jemput door to door Curup–Palembang. Armada Hiace & Innova ber-AC.',
+    description: 'Berangkat dari depan rumah Anda di Curup, tiba langsung di tujuan Palembang. Armada Hiace & Innova ber-AC, berangkat setiap hari.',
     href: '/travel-curup-palembang',
     pesanHref: '/pesan?paket=curup-palembang',
     badge: '🔥 Terlaris',
@@ -24,7 +24,7 @@ const services = [
   },
   {
     title: 'Travel Palembang – Curup',
-    description: 'Berangkat dari Palembang, diantar langsung ke Curup & sekitarnya.',
+    description: 'Pulang ke Curup dari Palembang tanpa repot cari angkutan. Dijemput di titik Anda, diantar sampai ke tujuan di Curup dan sekitarnya.',
     href: '/travel-palembang-curup',
     pesanHref: '/pesan?paket=palembang-curup',
     price: 'Rp 250.000/pax',
@@ -33,7 +33,7 @@ const services = [
   },
   {
     title: 'Travel Curup – Lebong',
-    description: 'Rute harian Curup–Lebong. Armada Hiace & Innova, setiap hari.',
+    description: 'Rute harian Curup–Lebong yang praktis dan terjangkau. Armada Hiace & Innova siap mengantarkan Anda setiap hari tanpa perlu nunggu lama.',
     href: '/travel-curup-lebong',
     pesanHref: '/pesan?paket=curup-lebong',
     badge: '💸 Hemat',
@@ -43,7 +43,7 @@ const services = [
   },
   {
     title: 'Sewa Bus Wisata',
-    description: 'Bus 31 kursi all-in BBM & sopir. Cocok untuk wisata, gathering, study tour.',
+    description: 'Bus 31 kursi khusus rombongan wisata, gathering kantor, dan study tour. Sudah all-in: BBM dan sopir berpengalaman, tanpa biaya tambahan.',
     href: '/sewa-bus-wisata',
     pesanHref: '/pesan?paket=sewa-bus-wisata',
     badge: '✨ All-In',
@@ -54,33 +54,33 @@ const services = [
 ];
 
 const stats = [
-  { value: '3+',   label: 'Tahun Pengalaman' },
-  { value: '500+', label: 'Pelanggan Puas' },
-  { value: '4',    label: 'Jenis Armada' },
-  { value: '24/7', label: 'Layanan Aktif' },
+  { value: '3+',   label: 'Tahun Beroperasi' },
+  { value: '500+', label: 'Penumpang Puas' },
+  { value: '4',    label: 'Pilihan Armada' },
+  { value: '24/7', label: 'Siap Dihubungi' },
 ];
 
 const whyUs = [
-  { icon: '🚗', title: 'Door to Door',     desc: 'Dijemput dari rumah dan diantar langsung ke tujuan tanpa ribet.' },
-  { icon: '✅', title: 'Armada Terawat',   desc: 'Hiace, Innova, Avanza & Bus selalu dalam kondisi prima dan bersih.' },
-  { icon: '💰', title: 'Harga Transparan', desc: 'Harga jelas dan bersaing, tidak ada biaya tersembunyi.' },
-  { icon: '⏰', title: 'Tepat Waktu',      desc: 'Ketepatan waktu keberangkatan adalah prioritas kami.' },
-  { icon: '🛡️', title: 'Aman & Terpercaya',desc: 'Pengemudi berpengalaman, berlisensi, dan ramah.' },
-  { icon: '📞', title: 'Siap 24 Jam',      desc: 'Pemesanan tersedia 24 jam via WhatsApp kapan saja.' },
+  { icon: '🚗', title: 'Antar Jemput ke Rumah',  desc: 'Tidak perlu ke terminal. Kami jemput dari depan pintu Anda dan antar sampai ke tujuan yang Anda minta.' },
+  { icon: '✅', title: 'Armada Prima & Bersih',   desc: 'Hiace, Innova, dan Bus kami menjalani servis rutin berkala. Kabin selalu bersih dan siap sebelum keberangkatan.' },
+  { icon: '💰', title: 'Tarif Terbuka',           desc: 'Harga yang kami sebut adalah harga yang Anda bayar. Tidak ada biaya mendadak, tidak ada potongan komisi tersembunyi.' },
+  { icon: '⏰', title: 'Disiplin Berangkat',      desc: 'Kami menghargai waktu Anda. Jadwal keberangkatan kami pegang teguh agar perjalanan Anda bisa direncanakan dengan pasti.' },
+  { icon: '🛡️', title: 'Pengemudi Berlisensi',   desc: 'Setiap pengemudi kami berpengalaman di rutenya, memiliki SIM resmi, dan terbiasa melayani penumpang dengan sopan.' },
+  { icon: '📞', title: 'Pemesanan Kapan Saja',    desc: 'Pesan tiket pagi, siang, malam — WhatsApp kami selalu aktif 24 jam untuk konfirmasi jadwal dan ketersediaan kursi.' },
 ];
 
 const cars = [
   {
     name: 'Toyota Hiace',
     type: 'Van · 12–15 Penumpang',
-    desc: 'Andalan rute Curup–Palembang. Kabin tinggi, AC double blower, bagasi ekstra luas untuk perjalanan jauh.',
+    desc: 'Tulang punggung rute Curup–Palembang. Kabin tinggi memberi ruang kepala lebih lega, AC double blower menjangkau seluruh baris, dan bagasi ekstra luas untuk koper besar.',
     img: '/images/hiace/exterior.jpg',
     specs: ['12–15 Penumpang', 'AC Double Blower', 'Bagasi Ekstra'],
   },
   {
     name: 'Toyota Innova',
     type: 'MPV Premium · 7 Penumpang',
-    desc: 'Kenyamanan premium untuk semua rute. Suspensi halus, kabin lega, cocok perjalanan jauh maupun dekat.',
+    desc: 'Pilihan premium untuk semua rute. Suspensi halus terasa nyaman di jalan berliku Bengkulu, kursi ergonomis, dan kabin kedap suara untuk perjalanan yang lebih tenang.',
     img: '/images/innova/exterior.jpg',
     specs: ['7 Penumpang', 'Suspensi Premium', 'Kabin Lega'],
     featured: true,
@@ -88,16 +88,16 @@ const cars = [
   {
     name: 'Toyota Innova',
     type: 'MPV · 7 Penumpang',
-    desc: 'Andalan rute Curup–Lebong. Irit BBM, kabin nyaman, harga bersahabat untuk perjalanan harian.',
+    desc: 'Andalan rute Curup–Lebong yang hemat dan nyaman. Konsumsi BBM efisien, kabin cukup lapang untuk perjalanan harian, cocok bagi Anda yang rutin bolak-balik.',
     img: '/images/innova/allarmada.jpg',
     specs: ['7 Penumpang', 'Irit BBM', 'Harga Hemat'],
   },
   {
     name: 'Bus Pariwisata',
-    type: 'Bus · 30 Penumpang',
-    desc: 'Untuk rombongan wisata, family gathering & study tour. All-in sudah termasuk BBM dan sopir profesional.',
+    type: 'Bus · 31 Penumpang',
+    desc: 'Solusi transportasi rombongan terlengkap di Curup. Cocok untuk wisata keluarga besar, gathering perusahaan, dan study tour sekolah. BBM dan sopir sudah termasuk dalam paket.',
     img: '/images/bus/exterior.jpg',
-    specs: ['30 Penumpang', 'All-In BBM', 'Sopir Profesional'],
+    specs: ['31 Penumpang', 'All-In BBM', 'Sopir Profesional'],
     featured: true,
   },
 ];
@@ -127,13 +127,13 @@ export default function HomePage() {
 
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-5">
               Travel <br />
-              <span className="text-gold-400">Terpercaya &</span><br />
+              <span className="text-gold-400">Andal &</span><br />
               Terjangkau
             </h1>
             <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-xl">
-              Layanan travel antar jemput{' '}
-              <strong className="text-white">Antar kota</strong> dengan armada Premium.
-              Melayani rute Curup–Palembang, Curup–Lebong, dan sewa bus wisata.
+              RPM Travel Curup melayani rute{' '}
+              <strong className="text-white">door to door antarkota</strong> dengan armada yang terawat dan pengemudi berlisensi.
+              Pilihan utama warga Curup untuk rute Palembang, Lebong, dan sewa bus wisata rombongan.
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -184,11 +184,11 @@ export default function HomePage() {
       <section id="layanan" className="py-20 bg-cream-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="section-label">Apa yang Kami Tawarkan</p>
+            <p className="section-label">Pilihan Layanan Kami</p>
             <h2 className="section-title">Layanan RPM Travel Curup</h2>
             <div className="gold-bar mx-auto" />
             <p className="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">
-              Dari travel antarkota hingga sewa bus wisata rombongan, semua tersedia di RPM Travel Curup.
+              Dari perjalanan pribadi antarkota hingga sewa bus untuk rombongan besar, RPM Travel Curup siap melayani kebutuhan transportasi Anda setiap hari.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -207,7 +207,7 @@ export default function HomePage() {
             <h2 className="section-title">Armada RPM Travel</h2>
             <div className="gold-bar mx-auto" />
             <p className="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">
-              Seluruh armada terawat rutin, bersih, dan disiapkan agar perjalanan Anda selalu nyaman.
+              Setiap kendaraan menjalani perawatan berkala dan pengecekan sebelum keberangkatan, sehingga perjalanan Anda aman dan nyaman dari awal hingga tujuan.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -262,7 +262,7 @@ export default function HomePage() {
             </h2>
             <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mx-auto mt-3 mb-4" />
             <p className="text-gray-400 max-w-xl mx-auto text-sm leading-relaxed">
-              Kami berkomitmen memberikan layanan terbaik untuk setiap perjalanan Anda.
+              Lebih dari sekadar jasa antar-jemput — kami hadir untuk memastikan setiap perjalanan Anda terasa mudah, aman, dan tepat waktu.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -286,10 +286,10 @@ export default function HomePage() {
       <section className="py-16 bg-gradient-to-r from-gold-500 to-gold-400">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="font-display text-2xl md:text-3xl font-bold text-primary-900 mb-3">
-            Siap Berangkat? Pesan Sekarang!
+            Mau Berangkat? Hubungi Kami Sekarang
           </h2>
           <p className="text-primary-800 mb-8 text-sm">
-            Hubungi kami via WhatsApp untuk pemesanan, info jadwal, dan tarif terkini.
+            Tanyakan jadwal, cek ketersediaan kursi, atau langsung pesan tiket via WhatsApp — kami siap membantu kapan saja.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <a href={WA} target="_blank" rel="noopener noreferrer"
@@ -325,7 +325,7 @@ export default function HomePage() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Lokasi RPM Travel Curup"
+              title="Lokasi Kantor RPM Travel Curup"
             />
           </div>
           <div className="text-center mt-5">
