@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Travel Lebong Palembang Hiace & Innova | RPM Travel Curup',
+  title: 'Travel Lebong ke Palembang – Hiace & Innova Langsung | RPM Travel',
   description:
-    'Jasa travel Lebong ke Palembang menggunakan Toyota Hiace dan Innova. Jadwal keberangkatan pukul 10.00 pagi dan 16.00 sore setiap hari. Layanan door to door dari Lebong langsung ke Palembang. Hubungi RPM Travel 085282828005.',
+    'Naik travel dari Lebong ke Palembang tanpa transit, pakai armada Toyota Hiace 14 kursi atau Innova. Dua jadwal tiap hari: pukul 10.00 & 16.00 WIB, layanan jemput-antar door to door. Booking sekarang: 085282828005.',
   keywords: [
     'travel lebong palembang',
     'travel lebong palembang hiace',
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: '/travel-lebong-palembang' },
   openGraph: {
-    title: 'Travel Lebong Palembang Hiace & Innova | RPM Travel',
-    description: 'Travel Lebong–Palembang berangkat pukul 10.00 & 16.00 WIB. Armada Hiace dan Innova, door to door.',
+    title: 'Travel Lebong ke Palembang Tanpa Transit | RPM Travel',
+    description: 'Berangkat dari Kabupaten Lebong langsung ke Palembang. Jadwal 10.00 & 16.00 WIB, armada Hiace & Innova, jemput lokasi.',
     url: 'https://rpmtravel.co.id/travel-lebong-palembang',
   },
 };
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel%20Lebong%E2%80%93Palembang';
 
 const schedules = [
-  { jam: '10.00 WIB', label: 'Keberangkatan Pagi', icon: '🌅', note: 'Tiba di Palembang estimasi malam hari' },
-  { jam: '16.00 WIB', label: 'Keberangkatan Sore', icon: '🌇', note: 'Tiba di Palembang estimasi dini hari' },
+  { jam: '10.00 WIB', label: 'Keberangkatan Pagi', icon: '🌅', note: 'Estimasi tiba Palembang sekitar pukul 22.00–24.00 WIB' },
+  { jam: '16.00 WIB', label: 'Keberangkatan Sore', icon: '🌇', note: 'Estimasi tiba Palembang dini hari, cocok untuk perjalanan bisnis' },
 ];
 
 const armada = [
@@ -35,14 +35,14 @@ const armada = [
     nama: 'Toyota Hiace',
     kapasitas: '14 Penumpang',
     icon: '🚐',
-    fitur: ['Kapasitas 14 penumpang', 'Kabin tinggi & lega', 'Bagasi luas untuk barang banyak', 'AC double blower'],
+    fitur: ['Kapasitas 14 penumpang', 'Kabin berdiri tegak, tidak sesak', 'Ruang bagasi ekstra untuk banyak barang', 'AC double blower terawat dingin'],
     badge: 'Kapasitas Besar',
   },
   {
     nama: 'Toyota Innova',
     kapasitas: '7 Penumpang',
     icon: '🚗',
-    fitur: ['7 kursi nyaman', 'Suspensi halus untuk medan pegunungan', 'AC sejuk', 'Cocok perjalanan keluarga'],
+    fitur: ['7 kursi dengan jarak kaki lega', 'Peredam kejut optimal di jalur pegunungan', 'AC kabin bekerja maksimal', 'Pilihan terbaik perjalanan keluarga kecil'],
     badge: 'Andalan Lebong',
   },
 ];
@@ -50,23 +50,23 @@ const armada = [
 const faqs = [
   {
     q: 'Berapa lama perjalanan dari Lebong ke Palembang?',
-    a: 'Perjalanan dari Lebong ke Palembang membutuhkan estimasi waktu sekitar 10–12 jam, melewati Curup dan jalur lintas Sumatera. Kondisi jalan di pegunungan menuju Lebong cukup berkelok, sehingga sopir kami yang berpengalaman akan memastikan perjalanan tetap aman dan nyaman.',
+    a: 'Durasi perjalanan Lebong–Palembang berkisar antara 10 hingga 12 jam tergantung kondisi lalu lintas di jalur lintas Sumatera. Rute ini melewati Curup dan beberapa segmen jalan pegunungan yang cukup berliku. Sopir kami yang berpengalaman di jalur ini akan mengutamakan keselamatan sambil tetap menjaga waktu tempuh seefisien mungkin.',
   },
   {
     q: 'Apakah ada penjemputan dari pelosok Kabupaten Lebong?',
-    a: 'Ya, kami melayani penjemputan di berbagai kecamatan di Kabupaten Lebong. Informasikan lokasi spesifik Anda saat memesan agar kami bisa menjadwalkan rute penjemputan.',
+    a: 'Kami melayani penjemputan di berbagai titik dalam wilayah Kabupaten Lebong, termasuk kecamatan-kecamatan yang jauh dari pusat kota. Saat memesan, cukup sampaikan alamat atau patokan lokasi Anda lewat WhatsApp agar tim kami dapat mengatur rute jemput dengan tepat.',
   },
   {
     q: 'Mengapa armada Innova cocok untuk rute Lebong–Palembang?',
-    a: 'Toyota Innova memiliki ground clearance yang baik dan suspensi yang tangguh, cocok untuk melewati jalan pegunungan di Lebong. Kenyamanannya tidak berkurang meski melewati tanjakan dan tikungan yang cukup tajam.',
+    a: 'Toyota Innova dikenal memiliki ground clearance memadai dan sistem suspensi yang kuat untuk menahan guncangan di jalanan bergelombang dan pegunungan. Bodinya yang lebih ramping dibanding minibus besar juga membuatnya lebih lincah saat melewati tikungan tajam khas wilayah Lebong, tanpa mengorbankan kenyamanan kabin.',
   },
   {
     q: 'Apakah armada Hiace bisa melewati jalan di Lebong?',
-    a: 'Toyota Hiace yang kami gunakan sudah teruji melewati rute Lebong–Palembang. Sopir kami yang berpengalaman sangat hafal dengan kondisi jalan di jalur ini.',
+    a: 'Ya, Toyota Hiace yang kami operasikan sudah terbukti kuat melewati rute Lebong–Palembang secara rutin. Kendaraan kami dirawat berkala dan dikemudikan oleh sopir khusus yang sangat memahami karakteristik medan pegunungan Lebong, sehingga perjalanan tetap aman meski menggunakan kendaraan berkapasitas besar.',
   },
   {
     q: 'Bagaimana cara pemesanan dari Lebong?',
-    a: 'Cukup hubungi kami via WhatsApp di 085282828005 dan informasikan lokasi penjemputan, jumlah penumpang, serta jadwal yang diinginkan. Pemesanan bisa dilakukan kapan saja.',
+    a: 'Pemesanan dilakukan via WhatsApp ke nomor 085282828005. Sampaikan lokasi penjemputan, jumlah penumpang, pilihan armada, dan jadwal keberangkatan yang diinginkan. Kami tersedia untuk konfirmasi kapan saja, dan disarankan memesan minimal satu hari sebelum keberangkatan agar kursi terjamin.',
   },
 ];
 
@@ -91,7 +91,7 @@ export default function TravelLebongPalembangPage() {
             <span className="text-gold-400">Langsung, Tanpa Transit</span>
           </h1>
           <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-2xl">
-            Warga Kabupaten Lebong kini punya pilihan transportasi yang lebih nyaman menuju Palembang. RPM Travel menghadirkan layanan travel langsung dengan armada Hiace dan Innova, dua jadwal keberangkatan setiap hari tanpa perlu ganti kendaraan di tengah jalan.
+            Bepergian dari Kabupaten Lebong ke Palembang kini tak perlu pusing soal sambungan angkutan. RPM Travel membuka rute khusus Lebong–Palembang dengan armada Hiace berkapasitas 14 kursi dan Innova 7 kursi — dua jadwal tetap tiap hari, langsung tiba di tujuan tanpa bongkar pindah penumpang di tengah jalan.
           </p>
           <div className="flex flex-wrap gap-3">
             <a href={WA} target="_blank" rel="noopener noreferrer"
@@ -145,7 +145,7 @@ export default function TravelLebongPalembangPage() {
             ))}
           </div>
           <p className="text-xs text-gray-400 bg-yellow-50 border border-yellow-200 rounded-xl px-4 py-3">
-            ⚠️ Konfirmasi jadwal dan ketersediaan kursi via WhatsApp sebelum hari keberangkatan.
+            ⚠️ Pastikan konfirmasi ketersediaan kursi via WhatsApp sebelum hari keberangkatan agar perjalanan Anda tidak terganggu.
           </p>
         </div>
       </section>
@@ -189,13 +189,13 @@ export default function TravelLebongPalembangPage() {
               </h2>
               <div className="space-y-4 text-gray-600 text-sm leading-relaxed">
                 <p>
-                  Kabupaten Lebong yang terletak di kawasan pegunungan Bengkulu menyimpan potensi besar, namun aksesibilitas transportasi menuju kota-kota besar seperti Palembang masih menjadi tantangan tersendiri. RPM Travel hadir menjawab kebutuhan ini dengan rute langsung Lebong–Palembang yang nyaman dan terpercaya.
+                  Kabupaten Lebong berada di ketinggian pegunungan Bengkulu, menjadikannya daerah yang indah sekaligus menantang dari sisi transportasi. Banyak warga Lebong yang harus menggabungkan beberapa moda kendaraan hanya untuk mencapai Palembang. RPM Travel memutus rantai itu dengan rute langsung yang beroperasi setiap hari — cukup naik sekali, duduk, dan istirahat hingga tiba.
                 </p>
                 <p>
-                  Rute ini melewati Curup sebelum melanjutkan ke jalur lintas Sumatera menuju Palembang. Seluruh jalur sudah kami survei dan sopir kami sangat memahami kondisi setiap tikungan dan tanjakan yang dilalui, sehingga keselamatan dan kenyamanan perjalanan Anda selalu terjaga.
+                  Jalur yang kami lalui melewati Curup lalu menyambung ke lintas Sumatera menuju Palembang. Tim sopir RPM Travel bukan sekadar hafal rute — mereka sudah ratusan kali melewati tikungan dan tanjakan khas Lebong, sehingga mampu menjaga laju kendaraan tetap stabil dan aman bahkan di kondisi jalan yang kurang ideal sekalipun.
                 </p>
                 <p>
-                  Pilihan armada Hiace dan Innova yang tersedia memberikan fleksibilitas bagi penumpang — baik yang bepergian dalam rombongan besar maupun yang membutuhkan perjalanan lebih privat bersama keluarga kecil.
+                  Dengan dua pilihan armada yang tersedia, penumpang dapat menyesuaikan kebutuhan. Hiace ideal untuk rombongan atau keluarga besar yang membawa banyak barang, sementara Innova menawarkan nuansa perjalanan lebih personal dengan kabinnya yang kompak dan nyaman untuk keluarga kecil.
                 </p>
               </div>
             </div>
@@ -239,10 +239,10 @@ export default function TravelLebongPalembangPage() {
               <h3 className="font-display font-bold text-white text-lg mb-1">Pesan Sekarang</h3>
               <div className="w-10 h-0.5 bg-gold-500 rounded mb-4" />
               <div className="space-y-2 mb-5 text-sm text-gray-300">
-                <div className="flex gap-2"><span className="text-gold-400">✓</span>Lebong langsung ke Palembang</div>
-                <div className="flex gap-2"><span className="text-gold-400">✓</span>Hiace (14 kursi) / Innova (7 kursi)</div>
-                <div className="flex gap-2"><span className="text-gold-400">✓</span>Berangkat 10.00 & 16.00 WIB</div>
-                <div className="flex gap-2"><span className="text-gold-400">✓</span>Sopir hafal rute pegunungan</div>
+                <div className="flex gap-2"><span className="text-gold-400">✓</span>Rute langsung Lebong–Palembang tanpa transit</div>
+                <div className="flex gap-2"><span className="text-gold-400">✓</span>Hiace 14 kursi / Innova 7 kursi</div>
+                <div className="flex gap-2"><span className="text-gold-400">✓</span>Jadwal tetap 10.00 & 16.00 WIB setiap hari</div>
+                <div className="flex gap-2"><span className="text-gold-400">✓</span>Sopir terlatih rute pegunungan Lebong</div>
               </div>
               <a href={WA} target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl text-sm mb-2 transition-all">
