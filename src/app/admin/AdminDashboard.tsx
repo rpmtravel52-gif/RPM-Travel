@@ -143,8 +143,14 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
       `💰 Total Bayar : ${formatRupiah(order.totalHarga)}`,
       `━━━━━━━━━━━━━━━━━━━━━━`,
       ``,
-      `📌 *Harap tiba 10 menit sebelum keberangkatan.*`,
+      `📌 *Pastikan nomor HP Anda selalu aktif.*`,
+      `🚗 Driver akan menghubungi Anda sebelum tiba untuk konfirmasi lokasi penjemputan.`,
       `📞 Info & perubahan jadwal hubungi admin.`,
+      ``,
+      `📄 *Tiket PDF* telah dikirim ke email Anda.`,
+      order.email
+        ? `📧 ${order.email}`
+        : `⚠️ Pastikan Anda mengisi email dengan benar saat pemesanan.`,
       ``,
       `Selamat perjalanan! 🚌✨`,
       `_RPM Travel Curup_`,
