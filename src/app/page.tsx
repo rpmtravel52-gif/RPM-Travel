@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import ServiceCard from '@/components/ServiceCard';
+
+// ✅ FIX: Lazy load Google Maps — tidak ikut blocking render awal
+const MapEmbed = dynamic(() => import('@/components/MapEmbed'), { ssr: false });
 
 export const metadata: Metadata = {
   title: 'RPM Travel Curup | Travel Antar Jemput & Sewa Bus Wisata Bengkulu',
@@ -192,8 +196,9 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {services.map((s) => (
-              <ServiceCard key={s.href + s.title} {...s} />
+            {services.map((s, i) => (
+              // ✅ FIX: isPriority={i === 0} → hanya card pertama yang preload imagenya
+              <ServiceCard key={s.href + s.title} {...s} isPriority={i === 0} />
             ))}
           </div>
         </div>
@@ -211,9 +216,9 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {cars.map((car) => (
+            {cars.map((car, i) => (
               <div
-                key={car.name}
+                key={car.name + i}
                 className={`card overflow-hidden relative group ${car.featured ? 'ring-2 ring-gold-500' : ''}`}
               >
                 {car.featured && (
@@ -228,6 +233,8 @@ export default function HomePage() {
                       src={car.img}
                       alt={car.name}
                       fill
+                      // ✅ FIX: hanya gambar armada pertama yang priority
+                      priority={i === 0}
                       className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-80"
                       sizes="(max-width: 768px) 100vw, 25vw"
                     />
@@ -316,17 +323,9 @@ export default function HomePage() {
             <div className="gold-bar mx-auto" />
             <p className="text-gray-500 text-sm mt-1">Jl. S. Parman, Talang Benih, Curup, Rejang Lebong, Bengkulu 39119</p>
           </div>
+          {/* ✅ FIX: MapEmbed di-load secara lazy via dynamic import */}
           <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 max-w-4xl mx-auto">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15946.8!2d102.5167!3d-3.4667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e37c3b2b1111111%3A0x1!2sTalang+Benih%2C+Curup!5e0!3m2!1sid!2sid!4v1234567890"
-              width="100%"
-              height="380"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Lokasi Kantor RPM Travel Curup"
-            />
+            <MapEmbed />
           </div>
           <div className="text-center mt-5">
             <a
