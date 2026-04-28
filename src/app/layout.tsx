@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google'; // ← tambah ini
+import { Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
-import WAFloat from '@/components/WAFloat';
 import Footer from '@/components/Footer';
 
-// ← Definisikan font di sini
 const playfair = Playfair_Display({
   subsets: ['latin'],
   weight: ['400', '600', '700', '900'],
@@ -28,14 +26,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" className={`${playfair.variable} ${jakarta.variable}`}> {/* ← tambah className */}
+    <html lang="id" className={`${playfair.variable} ${jakarta.variable}`}>
       <body className="antialiased">
         <Navbar />
         <main className="pt-16">
           {children}
         </main>
         <Footer />
-        <WAFloat />
       </body>
     </html>
   );
