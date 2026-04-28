@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -90,6 +91,25 @@ export default function SewaBusWisataPage() {
         </div>
       </section>
 
+      {/* Foto Eksterior Bus */}
+      <section className="bg-primary-900 pb-10">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="rounded-2xl overflow-hidden shadow-xl">
+            <Image
+              src="/images/bus/luarbus.jpg"
+              alt="Armada bus wisata RPM Travel 30 kursi berbasis di Curup, Rejang Lebong"
+              width={900}
+              height={500}
+              className="w-full object-cover"
+              priority
+            />
+          </div>
+          <p className="text-center text-xs text-gray-400 mt-2">
+            Armada bus wisata RPM Travel — siap jemput rombongan Anda dari Curup, Rejang Lebong.
+          </p>
+        </div>
+      </section>
+
       {/* Includes */}
       <section className="py-12 bg-cream-50 border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4">
@@ -139,6 +159,23 @@ export default function SewaBusWisataPage() {
                 <p>
                   Bus 30 kursi kami berbasis di Curup, Rejang Lebong, dan siap diberangkatkan ke berbagai tujuan wisata di Bengkulu maupun lintas provinsi. Mulai dari Pantai Panjang, Bukit Kaba, air terjun di kawasan Kepahiang, hingga destinasi religi seperti makam ulama lokal — sopir kami sudah terbiasa dengan rute-rute tersebut.
                 </p>
+
+                {/* Foto Interior Bus */}
+                <div className="not-prose my-6">
+                  <div className="rounded-xl overflow-hidden shadow-md">
+                    <Image
+                      src="/images/bus/interior.jpg"
+                      alt="Interior kabin bus wisata RPM Travel — kursi nyaman untuk 30 penumpang"
+                      width={800}
+                      height={450}
+                      className="w-full object-cover"
+                    />
+                  </div>
+                  <p className="text-center text-xs text-gray-400 mt-2">
+                    Kabin bus kami — kursi lega untuk 30 penumpang, tidak berdesakan seperti minibus.
+                  </p>
+                </div>
+
                 <p>
                   Untuk sekolah yang menjadwalkan study tour, kami memahami bahwa koordinasi waktu dan jumlah penumpang tidak selalu tepat di angka bulat. Tidak masalah — selama masih dalam kapasitas 30 kursi, Anda bisa berangkat dengan kursi tidak penuh tanpa dikenai biaya tambahan per kursi kosong.
                 </p>
