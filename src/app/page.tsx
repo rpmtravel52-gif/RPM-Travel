@@ -1,11 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
 import ServiceCard from '@/components/ServiceCard';
-
-// ✅ FIX: Lazy load Google Maps — tidak ikut blocking render awal
-const MapEmbed = dynamic(() => import('@/components/MapEmbed'), { ssr: false });
+import MapSection from '@/components/MapSection'; // ✅ FIX: Client Component wrapper untuk lazy Maps
 
 export const metadata: Metadata = {
   title: 'RPM Travel Curup | Travel Antar Jemput & Sewa Bus Wisata Bengkulu',
@@ -323,9 +320,9 @@ export default function HomePage() {
             <div className="gold-bar mx-auto" />
             <p className="text-gray-500 text-sm mt-1">Jl. S. Parman, Talang Benih, Curup, Rejang Lebong, Bengkulu 39119</p>
           </div>
-          {/* ✅ FIX: MapEmbed di-load secara lazy via dynamic import */}
+          {/* ✅ FIX: MapSection adalah Client Component yang handle lazy load */}
           <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 max-w-4xl mx-auto">
-            <MapEmbed />
+            <MapSection />
           </div>
           <div className="text-center mt-5">
             <a
