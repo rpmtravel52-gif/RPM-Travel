@@ -5,23 +5,33 @@ interface ServiceCardProps {
   title: string;
   description: string;
   price?: string;
-  href: string;         // link ke halaman detail
-  pesanHref?: string;   // link ke /pesan?paket=xxx (opsional)
+  href: string;
+  pesanHref?: string;
   badge?: string;
   image?: string;
   emoji?: string;
+  isPriority?: boolean; // ✅ FIX: prop baru untuk preload LCP image
 }
 
-export default function ServiceCard({ title, description, price, href, pesanHref, badge, image, emoji }: ServiceCardProps) {
+export default function ServiceCard({
+  title, description, price, href, pesanHref, badge, image, emoji,
+  isPriority = false, // ✅ default false, hanya card pertama yang true
+}: ServiceCardProps) {
   return (
     <div className="card group overflow-hidden flex flex-col hover:-translate-y-1 transition-all duration-200">
       {/* Image */}
       <Link href={href}>
         <div className="relative h-44 bg-primary-900 overflow-hidden">
           {image ? (
-            <Image src={image} alt={title} fill
+            <Image
+              src={image}
+              alt={title}
+              fill
+              // ✅ FIX: priority=true pada card pertama → browser preload LCP image
+              priority={isPriority}
               className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-80"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
               <span className="text-5xl">{emoji ?? '🚗'}</span>
