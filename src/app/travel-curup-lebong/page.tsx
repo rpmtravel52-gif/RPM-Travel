@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Travel Curup Lebong Harian Terpercaya | RPM Travel',
+  title: 'Travel Curup Lebong Setiap Hari | Antar Jemput Pintu ke Pintu – RPM Travel',
   description:
-    'Travel Curup Lebong harian. Armada Avanza & Innova ber-AC, harga terjangkau, sopir lokal berpengalaman. Antar jemput door to door. Hubungi 085282828005.',
+    'Layanan travel Curup–Lebong setiap hari pukul 07.00, 13.00 & 17.00. Armada Avanza & Innova ber-AC, sopir asli warga lokal, antar jemput dari pintu rumah Anda. Pesan di 085282828005.',
   alternates: { canonical: '/travel-curup-lebong' },
 };
 
@@ -13,19 +13,19 @@ const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ing
 const schedules = ['07.00 WIB', '13.00 WIB', '17.00 WIB'];
 
 const features = [
-  { icon: '🏠', label: 'Antar jemput area Curup & Lebong (door to door)' },
-  { icon: '💰', label: 'Harga bersahabat dan transparan' },
-  { icon: '👨‍✈️', label: 'Sopir lokal berpengalaman & hafal jalan' },
-  { icon: '⏰', label: 'Berangkat pagi, siang & sore setiap hari' },
-  { icon: '❄️', label: 'AC sejuk & kabin nyaman' },
-  { icon: '✅', label: 'Tepat waktu terjamin' },
+  { icon: '🏠', label: 'Jemput & antar langsung ke alamat Anda di wilayah Curup dan Lebong' },
+  { icon: '💰', label: 'Tarif tetap, tidak ada biaya tersembunyi – transparan sejak awal' },
+  { icon: '👨‍✈️', label: 'Pengemudi asli warga lokal yang hafal setiap sudut jalan Curup–Lebong' },
+  { icon: '⏰', label: 'Tiga jadwal harian: pagi, siang, dan sore – pilih yang paling cocok' },
+  { icon: '❄️', label: 'Kabin lega dengan AC dingin, cocok untuk perjalanan keluarga maupun kerja' },
+  { icon: '✅', label: 'Berangkat tepat waktu – karena waktu Anda terlalu berharga untuk ditunggu' },
 ];
 
 const faqs = [
-  { q: 'Berapa lama perjalanan Curup ke Lebong?', a: 'Estimasi perjalanan sekitar 1,5–2 jam tergantung kondisi jalan dan lalu lintas.' },
-  { q: 'Apakah ada antar jemput ke rumah?', a: 'Ya, kami melayani antar jemput door to door di area Curup dan Lebong.' },
-  { q: 'Bagaimana cara memesan tiket?', a: 'Hubungi kami via WhatsApp di 085282828005 atau pesan melalui halaman Pesan Tiket.' },
-  { q: 'Apakah tersedia setiap hari?', a: 'Ya, kami beroperasi setiap hari termasuk hari libur nasional.' },
+  { q: 'Berapa lama perjalanan dari Curup ke Lebong?', a: 'Umumnya sekitar 1,5 hingga 2 jam. Durasi bisa sedikit bervariasi tergantung kondisi lalu lintas dan cuaca di hari keberangkatan.' },
+  { q: 'Apakah saya bisa dijemput langsung dari rumah?', a: 'Tentu. Kami melayani penjemputan door to door di seluruh area Curup dan Lebong tanpa biaya tambahan.' },
+  { q: 'Bagaimana cara pesan kursi?', a: 'Cukup hubungi kami via WhatsApp ke 085282828005 atau gunakan form pemesanan online di halaman Pesan Tiket. Proses cepat, konfirmasi langsung.' },
+  { q: 'Apakah beroperasi di hari libur?', a: 'Ya, RPM Travel tetap beroperasi setiap hari termasuk hari libur nasional dan hari raya, selama ada penumpang yang memesan.' },
 ];
 
 export default function TravelCurupLebongPage() {
@@ -46,10 +46,10 @@ export default function TravelCurupLebongPage() {
           </div>
           <h1 className="font-display text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
             Travel Curup – Lebong<br />
-            <span className="text-gold-400">Harian Terpercaya</span>
+            <span className="text-gold-400">Berangkat Tiap Hari</span>
           </h1>
           <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-2xl">
-            Solusi transportasi harian warga Curup–Lebong. Armada Avanza & Innova ber-AC dengan harga terjangkau dan sopir lokal berpengalaman.
+            Perjalanan Curup–Lebong jadi lebih mudah bersama RPM Travel. Kami hadirkan layanan antar-jemput harian dengan armada Avanza & Innova ber-AC, pengemudi lokal berpengalaman, dan harga yang langsung bisa Anda andalkan.
           </p>
           <div className="flex flex-wrap gap-3">
             <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-wa px-7 py-3.5 text-base">
@@ -107,7 +107,7 @@ export default function TravelCurupLebongPage() {
                   </span>
                 ))}
               </div>
-              <p className="text-gray-400 text-xs mt-3">*Jadwal dapat berubah. Konfirmasi via WhatsApp untuk jadwal terkini.</p>
+              <p className="text-gray-400 text-xs mt-3">*Jadwal dapat berubah sewaktu-waktu. Konfirmasi via WhatsApp untuk memastikan ketersediaan kursi.</p>
             </div>
 
             <div>
@@ -127,15 +127,15 @@ export default function TravelCurupLebongPage() {
           {/* Order box */}
           <div>
             <div className="card p-6 border-2 border-gold-500 sticky top-20">
-              <h3 className="font-display font-bold text-primary-900 text-lg mb-1">Pesan Sekarang</h3>
+              <h3 className="font-display font-bold text-primary-900 text-lg mb-1">Siap Berangkat?</h3>
               <div className="gold-bar" />
               <p className="text-gray-500 text-sm mb-4 leading-relaxed">
-                Hubungi kami via WhatsApp untuk pemesanan & info tarif terkini.
+                Hubungi kami sekarang via WhatsApp untuk tanya tarif, cek kursi, atau langsung pesan perjalanan Anda.
               </p>
               <div className="space-y-2 mb-5 text-sm text-gray-600">
-                <div className="flex items-center gap-2"><span>✓</span> Door to door</div>
-                <div className="flex items-center gap-2"><span>✓</span> Harga hemat</div>
-                <div className="flex items-center gap-2"><span>✓</span> Setiap hari</div>
+                <div className="flex items-center gap-2"><span>✓</span> Jemput dari pintu rumah</div>
+                <div className="flex items-center gap-2"><span>✓</span> Tarif transparan</div>
+                <div className="flex items-center gap-2"><span>✓</span> Buka setiap hari</div>
               </div>
               <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-wa w-full py-3 text-sm mb-2">
                 Chat WhatsApp
