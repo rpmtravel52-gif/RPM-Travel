@@ -1,10 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-
-const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel';
 
 type ChildLink = { href: string; label: string };
 type NavLink =
@@ -15,116 +13,162 @@ const navLinks: NavLink[] = [
   {
     label: 'Layanan',
     children: [
-      { href: '/travel-curup-palembang',        label: '🚐 Travel Curup – Palembang' },
-      { href: '/travel-curup-lebong',            label: '🚗 Travel Curup – Lebong' },
-      { href: '/travel-bengkulu-palembang',      label: '🚌 Travel Bengkulu – Palembang' },
-      { href: '/travel-palembang-bengkulu',      label: '↩️ Travel Palembang – Bengkulu' },
-      { href: '/sewa-hiace-curup',               label: '🚐 Sewa Hiace Curup' },
-      { href: '/sewa-bus-wisata',                label: '🚌 Sewa Bus Wisata' },
+      { href: '/travel-curup-palembang',   label: '🚐 Travel Curup – Palembang' },
+      { href: '/travel-curup-lebong',      label: '🚗 Travel Curup – Lebong' },
+      { href: '/travel-bengkulu-palembang',label: '🚌 Travel Bengkulu – Palembang' },
+      { href: '/travel-palembang-bengkulu',label: '↩️ Travel Palembang – Bengkulu' },
+      { href: '/sewa-hiace-curup',         label: '🚐 Sewa Hiace Curup' },
+      { href: '/sewa-bus-wisata',          label: '🚌 Sewa Bus Wisata' },
     ],
   },
   { href: '/transportasi-perjalanan-dinas', label: 'Perjalanan Dinas' },
   { href: '/#armada',                       label: 'Armada' },
   { href: '/#kenapa-kami',                  label: 'Tentang Kami' },
-  { href: '/pesan',                         label: 'Pesan Tiket' },
   { href: '/#kontak',                       label: 'Kontak' },
 ];
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [dropdown, setDropdown] = useState<string | null>(null);
+  const [open, setOpen]                     = useState(false);
+  const [dropdown, setDropdown]             = useState<string | null>(null);
   const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
+  const [scrolled, setScrolled]             = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <>
+      {/* ── Google Fonts ── */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600&display=swap');
 
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <Image
-            src="/images/logo.png"
-            alt="RPM Travel Logo"
-            width={36}
-            height={36}
-            className="rounded-xl shadow-md"
-          />
-          <div className="leading-tight">
-            <div className="font-display font-bold text-primary-900 text-sm">RPM</div>
-            <div className="font-display font-bold text-gold-500 text-sm -mt-0.5">Travel</div>
-          </div>
-        </Link>
+        .rpm-logo-text { font-family: 'Cormorant Garamond', serif; }
+        .rpm-nav-font  { font-family: 'Montserrat', sans-serif; }
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) =>
-            link.children ? (
-              <div key={link.label} className="relative">
-                <button
-                  className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary-900 transition-colors rounded-lg hover:bg-cream-50 flex items-center gap-1"
-                  onMouseEnter={() => setDropdown(link.label)}
-                  onMouseLeave={() => setDropdown(null)}
-                >
-                  {link.label}
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {dropdown === link.label && (
-                  <div
-                    className="absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-gray-100 py-2 min-w-[240px] z-50"
+        .rpm-gold {
+          background: linear-gradient(135deg, #b8893a 0%, #e2b96f 45%, #c99a48 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .rpm-nav-link { position: relative; }
+        .rpm-nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: 4px; left: 50%;
+          transform: translateX(-50%) scaleX(0);
+          width: 55%; height: 1px;
+          background: linear-gradient(90deg, transparent, #c99a48, transparent);
+          transition: transform .3s cubic-bezier(.4,0,.2,1);
+        }
+        .rpm-nav-link:hover::after { transform: translateX(-50%) scaleX(1); }
+
+        .rpm-topline {
+          position: fixed;
+          top: 0; left: 0; right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, transparent 0%, #c99a48 30%, #e2b96f 50%, #c99a48 70%, transparent 100%);
+          z-index: 60;
+          opacity: 0;
+          transition: opacity .4s ease;
+          pointer-events: none;
+        }
+        .rpm-topline.show { opacity: 1; }
+      `}</style>
+
+      {/* Gold top line (muncul saat scroll) */}
+      <div className={`rpm-topline${scrolled ? ' show' : ''}`} />
+
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? 'bg-white/96 backdrop-blur-md shadow-md border-b border-amber-100'
+            : 'bg-white/90 backdrop-blur-sm shadow-sm border-b border-gray-100'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+
+          {/* ── Brand ── */}
+          <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
+            {/* Logo — tidak diubah, hanya ring emas */}
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-md ring-1 ring-amber-200 flex-shrink-0 transition-shadow group-hover:shadow-lg group-hover:ring-amber-400">
+              <Image
+                src="/images/logo.png"
+                alt="RPM Travel Curup Logo"
+                fill
+                style={{ objectFit: 'cover' }}
+                priority
+              />
+            </div>
+
+            {/* Teks brand */}
+            <div className="leading-none select-none">
+              <div className="rpm-logo-text flex items-baseline gap-[5px]">
+                <span className="rpm-gold text-[1.35rem] font-bold tracking-widest">RPM</span>
+                <span className="text-gray-800 text-[1.1rem] font-semibold tracking-[0.18em]">TRAVEL</span>
+              </div>
+              <div
+                className="rpm-nav-font text-[0.56rem] font-medium tracking-[0.42em] uppercase mt-[2px]"
+                style={{ color: '#a8854a', paddingLeft: '1px' }}
+              >
+                Curup &nbsp;·&nbsp; Bengkulu
+              </div>
+            </div>
+          </Link>
+
+          {/* ── Desktop Nav ── */}
+          <nav className="rpm-nav-font hidden md:flex items-center gap-0.5">
+            {navLinks.map((link) =>
+              link.children ? (
+                <div key={link.label} className="relative">
+                  <button
+                    className="rpm-nav-link px-4 py-2 text-[0.8rem] font-medium text-gray-600 hover:text-gray-900 transition-colors rounded-lg hover:bg-amber-50 flex items-center gap-1 tracking-wide"
                     onMouseEnter={() => setDropdown(link.label)}
                     onMouseLeave={() => setDropdown(null)}
                   >
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        className="block px-4 py-2.5 text-sm text-gray-600 hover:text-primary-900 hover:bg-cream-50 transition-colors"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary-900 transition-colors rounded-lg hover:bg-cream-50"
-              >
-                {link.label}
-              </Link>
-            )
-          )}
-        </nav>
+                    {link.label}
+                    <svg className="w-3.5 h-3.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
 
-        {/* CTA Buttons */}
-        <div className="flex items-center gap-2">
-          <Link
-            href="/pesan"
-            className="btn-gold text-sm px-3 py-2 md:px-4 md:py-2 rounded-xl"
-          >
-            🎫 <span className="hidden sm:inline">Pesan Tiket</span>
-            <span className="sm:hidden">Pesan</span>
-          </Link>
+                  {dropdown === link.label && (
+                    <div
+                      className="absolute top-full left-0 mt-1 bg-white rounded-xl shadow-xl border border-amber-100 py-2 min-w-[250px] z-50"
+                      onMouseEnter={() => setDropdown(link.label)}
+                      onMouseLeave={() => setDropdown(null)}
+                    >
+                      {link.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className="block px-4 py-2.5 text-sm text-gray-600 hover:text-amber-800 hover:bg-amber-50 transition-colors"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="rpm-nav-link px-4 py-2 text-[0.8rem] font-medium text-gray-600 hover:text-gray-900 transition-colors rounded-lg hover:bg-amber-50 tracking-wide"
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
+          </nav>
 
-          <a
-            href={WA}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Pesan travel via WhatsApp"
-            className="btn-wa text-sm px-3 py-2 md:px-4 md:py-2 rounded-xl"
-          >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
-            <span className="hidden sm:inline">WhatsApp</span>
-          </a>
-
-          {/* Hamburger */}
+          {/* ── Hamburger (mobile) ── */}
           <button
-            className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100"
+            className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-amber-50 transition-colors"
             onClick={() => setOpen(!open)}
             aria-label="Buka menu navigasi"
           >
@@ -139,54 +183,54 @@ export default function Navbar() {
             )}
           </button>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      {open && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-1 max-h-[80vh] overflow-y-auto">
-          {navLinks.map((link) =>
-            link.children ? (
-              <div key={link.label}>
-                <button
-                  onClick={() => setExpandedMobile(expandedMobile === link.label ? null : link.label)}
-                  className="w-full flex items-center justify-between py-2 px-3 text-sm font-semibold text-gray-500 uppercase tracking-wider hover:bg-cream-50 rounded-lg"
+        {/* ── Mobile Menu ── */}
+        {open && (
+          <div className="rpm-nav-font md:hidden bg-white border-t border-amber-100 px-4 py-4 space-y-1 max-h-[80vh] overflow-y-auto">
+            {navLinks.map((link) =>
+              link.children ? (
+                <div key={link.label}>
+                  <button
+                    onClick={() => setExpandedMobile(expandedMobile === link.label ? null : link.label)}
+                    className="w-full flex items-center justify-between py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-widest hover:bg-amber-50 rounded-lg"
+                  >
+                    {link.label}
+                    <svg
+                      className={`w-4 h-4 transition-transform ${expandedMobile === link.label ? 'rotate-180' : ''}`}
+                      fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {expandedMobile === link.label && (
+                    <div className="ml-2 mt-1 space-y-0.5 border-l-2 border-amber-200 pl-3">
+                      {link.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          onClick={() => setOpen(false)}
+                          className="block py-2 px-3 text-sm text-gray-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg transition-colors"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="block py-2 px-3 text-sm text-gray-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg transition-colors"
                 >
                   {link.label}
-                  <svg
-                    className={`w-4 h-4 transition-transform ${expandedMobile === link.label ? 'rotate-180' : ''}`}
-                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {expandedMobile === link.label && (
-                  <div className="ml-2 mt-1 space-y-0.5">
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        onClick={() => setOpen(false)}
-                        className="block py-2 px-3 text-sm text-gray-700 hover:text-primary-900 hover:bg-cream-50 rounded-lg transition-colors"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="block py-2 px-3 text-sm text-gray-700 hover:text-primary-900 hover:bg-cream-50 rounded-lg transition-colors"
-              >
-                {link.label}
-              </Link>
-            )
-          )}
-        </div>
-      )}
-    </header>
+                </Link>
+              )
+            )}
+          </div>
+        )}
+      </header>
+    </>
   );
 }
