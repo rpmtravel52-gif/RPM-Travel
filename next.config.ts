@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
     }
     return config;
   },
+
+  // ✅ FIX: Optimasi import berat agar tidak di-bundle seluruhnya
+  experimental: {
+    optimizePackageImports: ['@react-pdf/renderer'],
+  },
 };
 
 export default nextConfig;
