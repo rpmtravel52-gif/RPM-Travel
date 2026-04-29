@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Travel Curup Palembang Hiace | Antar Jemput Rumah – RPM Travel',
   description:
     'Travel Curup–Palembang armada Hiace & Innova ber-AC. Antar jemput langsung ke pintu rumah, berangkat 2x sehari. Pesan sekarang: 085282828005 – RPM Travel.',
-  alternates: { canonical: '/travel-curup-palembang' },
+  alternates: { canonical: 'https://rpmtravel.co.id/travel-curup-palembang' },
 };
 
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel%20Curup%E2%80%93Palembang';
