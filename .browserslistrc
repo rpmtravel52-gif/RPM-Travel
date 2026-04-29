@@ -1,8 +1,0 @@
-# ✅ FIX: Target modern browsers saja — menghapus polyfill JS yang tidak perlu
-# Ini mengurangi ~12 KiB JS yang terdeteksi di PageSpeed Insights
-
-last 2 Chrome versions
-last 2 Firefox versions
-last 2 Safari versions
-last 2 Edge versions
-not dead
