@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import ServiceCard from '@/components/ServiceCard';
-import MapSection from '@/components/MapSection'; // ✅ FIX: Client Component wrapper untuk lazy Maps
+import MapSection from '@/components/MapSection';
 
 export const metadata: Metadata = {
   title: 'RPM Travel Curup | Travel Antar Jemput & Sewa Bus Wisata Bengkulu',
@@ -131,6 +131,12 @@ export default function HomePage() {
               <span className="text-gold-400">Andal &</span><br />
               Terjangkau
             </h1>
+
+            {/*
+              FIX LCP: Hapus font-dependent class dari paragraf ini.
+              Teks ini adalah LCP element saat tidak ada gambar hero.
+              Dengan menambah gambar hero (kanan), LCP akan berpindah ke gambar.
+            */}
             <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-xl">
               RPM Travel Curup melayani rute{' '}
               <strong className="text-white">door to door antarkota</strong> dengan armada yang terawat dan pengemudi berlisensi.
@@ -152,15 +158,40 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Hero visual */}
+          {/*
+            FIX LCP: Ganti emoji placeholder dengan gambar nyata.
+            - priority={true} → browser preload gambar ini sejak HTML di-parse
+            - fetchPriority="high" → sinyal eksplisit ke browser untuk prioritas tinggi
+            - Ini akan jadi LCP element baru yang load jauh lebih cepat dari teks
+            - Gunakan gambar Hiace yang sudah ada di /public/images/hiace/exterior.jpg
+          */}
           <div className="hidden lg:flex justify-center items-center">
-            <div className="relative">
-              <div className="w-80 h-80 bg-gold-500/10 rounded-full flex items-center justify-center border border-gold-500/20">
-                <div className="w-60 h-60 bg-gold-500/15 rounded-full flex items-center justify-center border border-gold-500/30">
-                  <div className="text-center">
-                    <div className="text-8xl mb-2 leading-none">🚐</div>
-                    <p className="text-gold-300 font-semibold text-sm">Armada Kami</p>
-                    <p className="text-white text-xs mt-1">Hiace · Innova · Avanza · Bus</p>
+            <div className="relative w-full max-w-md aspect-[4/3]">
+              {/* Ring dekoratif di belakang gambar */}
+              <div className="absolute -inset-4 bg-gold-500/10 rounded-3xl border border-gold-500/20" />
+              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gold-500/30">
+                <Image
+                  src="/images/hiace/exterior.jpg"
+                  alt="Armada Toyota Hiace RPM Travel Curup"
+                  fill
+                  priority={true}
+                  fetchPriority="high"
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 0vw, 45vw"
+                />
+                {/* Overlay gradient bawah */}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-transparent to-transparent" />
+                {/* Label di atas gambar */}
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2.5 flex items-center justify-between">
+                    <div>
+                      <p className="text-white font-bold text-sm">Toyota Hiace</p>
+                      <p className="text-gold-300 text-xs">Armada Unggulan RPM Travel</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-gold-400 font-bold text-sm">12–15 Pax</p>
+                      <p className="text-gray-300 text-xs">AC Double Blower</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -194,7 +225,6 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {services.map((s, i) => (
-              // ✅ FIX: isPriority={i === 0} → hanya card pertama yang preload imagenya
               <ServiceCard key={s.href + s.title} {...s} isPriority={i === 0} />
             ))}
           </div>
@@ -223,15 +253,15 @@ export default function HomePage() {
                     ⭐ Unggulan
                   </span>
                 )}
-                {/* Image area */}
                 <div className="relative h-48 overflow-hidden bg-primary-900">
                   {car.img ? (
                     <Image
                       src={car.img}
                       alt={car.name}
                       fill
-                      // ✅ FIX: hanya gambar armada pertama yang priority
-                      priority={i === 0}
+                      // Semua gambar armada = false karena hero sudah priority
+                      priority={false}
+                      loading="lazy"
                       className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-80"
                       sizes="(max-width: 768px) 100vw, 25vw"
                     />
@@ -320,7 +350,6 @@ export default function HomePage() {
             <div className="gold-bar mx-auto" />
             <p className="text-gray-500 text-sm mt-1">Jl. S. Parman, Talang Benih, Curup, Rejang Lebong, Bengkulu 39119</p>
           </div>
-          {/* ✅ FIX: MapSection adalah Client Component yang handle lazy load */}
           <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 max-w-4xl mx-auto">
             <MapSection />
           </div>
