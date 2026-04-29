@@ -69,6 +69,12 @@ export default function Footer() {
               </a>
             </li>
             <li className="flex gap-2">
+              <span>📱</span>
+              <a href={WA} target="_blank" rel="noopener noreferrer" className="hover:text-gold-400 transition-colors">
+                0852-8282-8006
+              </a>
+            </li>
+            <li className="flex gap-2">
               <span>🕐</span>
               <span>06.00 – 22.00 WIB, Setiap Hari</span>
             </li>
