@@ -59,6 +59,22 @@ export default function RootLayout({
       lang="id"
       className={`${playfair.variable} ${jakarta.variable} ${cormorant.variable} ${montserrat.variable}`}
     >
+      <head>
+        {/*
+          FIX LCP: Preload gambar hero secara eksplisit di <head>.
+          Browser akan download gambar ini sebelum apapun, bahkan sebelum
+          React hydration — ini cara tercepat untuk mempercepat LCP.
+          imageSrcSet mencakup mobile dan desktop sekaligus.
+        */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hiace/exterior.jpg"
+          imageSrcSet="/images/hiace/exterior.jpg"
+          imageSizes="(max-width: 1024px) 90vw, 45vw"
+          fetchPriority="high"
+        />
+      </head>
       <body className="antialiased">
         <Navbar />
         <main className="pt-16">{children}</main>

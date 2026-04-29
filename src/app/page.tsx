@@ -118,8 +118,50 @@ export default function HomePage() {
           <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-gold-400/8 rounded-full blur-3xl" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
+        <div className="relative max-w-7xl mx-auto px-4 pt-10 pb-24 lg:py-20 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+
+          {/*
+            FIX LCP MOBILE: Gambar hero dipindah ke ATAS teks di mobile.
+            - Di mobile (col-1): gambar muncul duluan sebelum teks → jadi LCP element
+            - Di desktop (lg:col-2): gambar tetap di kanan seperti biasa
+            - priority + fetchPriority="high" → browser preload sejak HTML di-parse
+            - sizes mencakup mobile (100vw) agar gambar tidak di-skip
+          */}
+          <div className="order-first lg:order-last flex justify-center items-center">
+            <div className="relative w-full max-w-sm lg:max-w-md aspect-[4/3]">
+              {/* Ring dekoratif */}
+              <div className="absolute -inset-3 lg:-inset-4 bg-gold-500/10 rounded-3xl border border-gold-500/20" />
+              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gold-500/30">
+                <Image
+                  src="/images/hiace/exterior.jpg"
+                  alt="Armada Toyota Hiace RPM Travel Curup"
+                  fill
+                  priority={true}
+                  fetchPriority="high"
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 90vw, 45vw"
+                />
+                {/* Overlay gradient bawah */}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-transparent to-transparent" />
+                {/* Label */}
+                <div className="absolute bottom-3 left-3 right-3">
+                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-3 py-2 flex items-center justify-between">
+                    <div>
+                      <p className="text-white font-bold text-sm">Toyota Hiace</p>
+                      <p className="text-gold-300 text-xs">Armada Unggulan RPM Travel</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-gold-400 font-bold text-sm">12–15 Pax</p>
+                      <p className="text-gray-300 text-xs">AC Double Blower</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Teks hero */}
+          <div className="order-last lg:order-first">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 bg-gold-500/20 border border-gold-500/30 text-gold-300 text-sm font-medium px-4 py-2 rounded-full mb-6">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
@@ -132,11 +174,6 @@ export default function HomePage() {
               Terjangkau
             </h1>
 
-            {/*
-              FIX LCP: Hapus font-dependent class dari paragraf ini.
-              Teks ini adalah LCP element saat tidak ada gambar hero.
-              Dengan menambah gambar hero (kanan), LCP akan berpindah ke gambar.
-            */}
             <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-xl">
               RPM Travel Curup melayani rute{' '}
               <strong className="text-white">door to door antarkota</strong> dengan armada yang terawat dan pengemudi berlisensi.
@@ -158,45 +195,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/*
-            FIX LCP: Ganti emoji placeholder dengan gambar nyata.
-            - priority={true} → browser preload gambar ini sejak HTML di-parse
-            - fetchPriority="high" → sinyal eksplisit ke browser untuk prioritas tinggi
-            - Ini akan jadi LCP element baru yang load jauh lebih cepat dari teks
-            - Gunakan gambar Hiace yang sudah ada di /public/images/hiace/exterior.jpg
-          */}
-          <div className="hidden lg:flex justify-center items-center">
-            <div className="relative w-full max-w-md aspect-[4/3]">
-              {/* Ring dekoratif di belakang gambar */}
-              <div className="absolute -inset-4 bg-gold-500/10 rounded-3xl border border-gold-500/20" />
-              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gold-500/30">
-                <Image
-                  src="/images/hiace/exterior.jpg"
-                  alt="Armada Toyota Hiace RPM Travel Curup"
-                  fill
-                  priority={true}
-                  fetchPriority="high"
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 0vw, 45vw"
-                />
-                {/* Overlay gradient bawah */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-transparent to-transparent" />
-                {/* Label di atas gambar */}
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2.5 flex items-center justify-between">
-                    <div>
-                      <p className="text-white font-bold text-sm">Toyota Hiace</p>
-                      <p className="text-gold-300 text-xs">Armada Unggulan RPM Travel</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-gold-400 font-bold text-sm">12–15 Pax</p>
-                      <p className="text-gray-300 text-xs">AC Double Blower</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Stats bar */}
