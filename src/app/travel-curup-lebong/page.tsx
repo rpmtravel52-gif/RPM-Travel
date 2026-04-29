@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'Travel Curup Lebong Setiap Hari | Antar Jemput Pintu ke Pintu – RPM Travel',
   description:
     'Layanan travel Curup–Lebong setiap hari pukul 07.00, 13.00 & 17.00. Armada Avanza & Innova ber-AC, sopir asli warga lokal, antar jemput dari pintu rumah Anda. Pesan di 085282828005.',
-  alternates: { canonical: '/travel-curup-lebong' },
+  alternates: { canonical: 'https://rpmtravel.co.id/travel-curup-lebong' },
 };
 
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel%20Curup%E2%80%93Lebong';
