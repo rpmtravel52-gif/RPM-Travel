@@ -17,6 +17,8 @@ const navLinks: NavLink[] = [
       { href: '/travel-curup-lebong',       label: '🚗 Travel Curup – Lebong' },
       { href: '/travel-bengkulu-palembang', label: '🚌 Travel Bengkulu – Palembang' },
       { href: '/travel-palembang-bengkulu', label: '↩️ Travel Palembang – Bengkulu' },
+      { href: '/travel-lebong-palembang',   label: '🚌 Travel Lebong – Palembang' },
+      { href: '/travel-palembang-lebong',   label: '↩️ Travel Palembang – Lebong' },
       { href: '/sewa-hiace-curup',          label: '🚐 Sewa Hiace Curup' },
       { href: '/sewa-bus-wisata',           label: '🚌 Sewa Bus Wisata' },
     ],
