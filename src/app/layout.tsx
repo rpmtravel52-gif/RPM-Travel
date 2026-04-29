@@ -1,9 +1,15 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Plus_Jakarta_Sans, Cormorant_Garamond, Montserrat } from 'next/font/google';
+import {
+  Playfair_Display,
+  Plus_Jakarta_Sans,
+  Cormorant_Garamond,
+  Montserrat,
+} from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
+// ── Font: Playfair Display (dipakai di konten utama) ──────────────
 const playfair = Playfair_Display({
   subsets: ['latin'],
   weight: ['700', '900'],
@@ -11,6 +17,7 @@ const playfair = Playfair_Display({
   display: 'swap',
 });
 
+// ── Font: Plus Jakarta Sans (body text) ───────────────────────────
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
@@ -18,8 +25,9 @@ const jakarta = Plus_Jakarta_Sans({
   display: 'swap',
 });
 
-// ✅ FIX: Pindah dari @import di Navbar.tsx ke next/font
-// next/font otomatis self-host font di Vercel — tidak ada request ke fonts.googleapis.com
+// ── Font: Cormorant Garamond (logo Navbar) ────────────────────────
+// FIX: dipindahkan dari @import CSS di Navbar ke sini agar tidak
+// render-blocking. next/font otomatis preload & self-host.
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['600', '700'],
@@ -27,6 +35,7 @@ const cormorant = Cormorant_Garamond({
   display: 'swap',
 });
 
+// ── Font: Montserrat (nav links) ──────────────────────────────────
 const montserrat = Montserrat({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
@@ -36,10 +45,15 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: 'RPM Travel Curup | Travel & Sewa Bus Wisata Bengkulu',
-  description: 'RPM Travel Curup – Jasa travel door to door dan sewa bus wisata. Hubungi 085282828005.',
+  description:
+    'RPM Travel Curup – Jasa travel door to door dan sewa bus wisata. Hubungi 085282828005.',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="id"
@@ -47,9 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="antialiased">
         <Navbar />
-        <main className="pt-16">
-          {children}
-        </main>
+        <main className="pt-16">{children}</main>
         <Footer />
       </body>
     </html>
