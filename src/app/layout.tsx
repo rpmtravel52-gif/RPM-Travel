@@ -1,23 +1,36 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google';
+import { Playfair_Display, Plus_Jakarta_Sans, Cormorant_Garamond, Montserrat } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-// ✅ FIX: Kurangi font weight — hanya load yang benar-benar dipakai
-// Sebelum: 4 weight + italic style → Sesudah: 2 weight saja
 const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['700', '900'],       // hapus 400 & 600, italic tidak dipakai di kode
+  weight: ['700', '900'],
   variable: '--font-playfair',
   display: 'swap',
 });
 
-// ✅ FIX: Kurangi dari 6 weight → 3 weight
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600'], // hapus 300, 700, 800
+  weight: ['400', '500', '600'],
   variable: '--font-jakarta',
+  display: 'swap',
+});
+
+// ✅ FIX: Pindah dari @import di Navbar.tsx ke next/font
+// next/font otomatis self-host font di Vercel — tidak ada request ke fonts.googleapis.com
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['600', '700'],
+  variable: '--font-cormorant',
+  display: 'swap',
+});
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-montserrat',
   display: 'swap',
 });
 
@@ -28,7 +41,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" className={`${playfair.variable} ${jakarta.variable}`}>
+    <html
+      lang="id"
+      className={`${playfair.variable} ${jakarta.variable} ${cormorant.variable} ${montserrat.variable}`}
+    >
       <body className="antialiased">
         <Navbar />
         <main className="pt-16">
