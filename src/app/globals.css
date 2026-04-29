@@ -1,13 +1,13 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --font-playfair: 'Playfair Display', Georgia, serif;
-    --font-jakarta: 'Plus Jakarta Sans', system-ui, sans-serif;
-  }
+  /* ✅ FIX: Hapus --font-playfair dan --font-jakarta dari sini.
+     CSS variable ini di-inject otomatis oleh next/font di layout.tsx.
+     Mendefinisikannya ulang di sini dengan nama string 'Playfair Display'
+     menyebabkan browser meminta font dari Google Fonts secara langsung,
+     membypass optimasi next/font dan menyebabkan render-blocking request. */
   html { scroll-behavior: smooth; }
   body {
     font-family: var(--font-jakarta);
