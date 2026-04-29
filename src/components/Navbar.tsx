@@ -41,10 +41,18 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ✅ FIX: Hapus @import Google Fonts dari sini.
-          Font Cormorant Garamond & Montserrat kini di-load via next/font di layout.tsx
-          menggunakan CSS variable --font-cormorant dan --font-montserrat.
-          Ini menghilangkan render-blocking request ke fonts.googleapis.com. */}
+      {/*
+        FIX PERFORMA: Blok <style> dengan @import Google Fonts DIHAPUS.
+        Font Cormorant Garamond & Montserrat sekarang di-load via next/font
+        di layout.tsx — jauh lebih cepat karena:
+        1. Tidak render-blocking
+        2. Di-preload otomatis di <head>
+        3. Self-hosted oleh Vercel (tidak perlu request ke fonts.googleapis.com)
+
+        CSS class di bawah ini tetap sama, hanya sumber font yang berubah
+        → menggunakan CSS variable --font-cormorant & --font-montserrat
+        yang di-inject oleh next/font di layout.tsx.
+      */}
       <style>{`
         .rpm-logo-text { font-family: var(--font-cormorant), serif; }
         .rpm-nav-font  { font-family: var(--font-montserrat), sans-serif; }
