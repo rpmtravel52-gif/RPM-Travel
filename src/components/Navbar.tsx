@@ -13,12 +13,12 @@ const navLinks: NavLink[] = [
   {
     label: 'Layanan',
     children: [
-      { href: '/travel-curup-palembang',   label: '🚐 Travel Curup – Palembang' },
-      { href: '/travel-curup-lebong',      label: '🚗 Travel Curup – Lebong' },
-      { href: '/travel-bengkulu-palembang',label: '🚌 Travel Bengkulu – Palembang' },
-      { href: '/travel-palembang-bengkulu',label: '↩️ Travel Palembang – Bengkulu' },
-      { href: '/sewa-hiace-curup',         label: '🚐 Sewa Hiace Curup' },
-      { href: '/sewa-bus-wisata',          label: '🚌 Sewa Bus Wisata' },
+      { href: '/travel-curup-palembang',    label: '🚐 Travel Curup – Palembang' },
+      { href: '/travel-curup-lebong',       label: '🚗 Travel Curup – Lebong' },
+      { href: '/travel-bengkulu-palembang', label: '🚌 Travel Bengkulu – Palembang' },
+      { href: '/travel-palembang-bengkulu', label: '↩️ Travel Palembang – Bengkulu' },
+      { href: '/sewa-hiace-curup',          label: '🚐 Sewa Hiace Curup' },
+      { href: '/sewa-bus-wisata',           label: '🚌 Sewa Bus Wisata' },
     ],
   },
   { href: '/transportasi-perjalanan-dinas', label: 'Perjalanan Dinas' },
@@ -41,12 +41,13 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Google Fonts ── */}
+      {/* ✅ FIX: Hapus @import Google Fonts dari sini.
+          Font Cormorant Garamond & Montserrat kini di-load via next/font di layout.tsx
+          menggunakan CSS variable --font-cormorant dan --font-montserrat.
+          Ini menghilangkan render-blocking request ke fonts.googleapis.com. */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600&display=swap');
-
-        .rpm-logo-text { font-family: 'Cormorant Garamond', serif; }
-        .rpm-nav-font  { font-family: 'Montserrat', sans-serif; }
+        .rpm-logo-text { font-family: var(--font-cormorant), serif; }
+        .rpm-nav-font  { font-family: var(--font-montserrat), sans-serif; }
 
         .rpm-gold {
           background: linear-gradient(135deg, #b8893a 0%, #e2b96f 45%, #c99a48 100%);
@@ -94,7 +95,6 @@ export default function Navbar() {
 
           {/* ── Brand ── */}
           <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-            {/* Logo — tidak diubah, hanya ring emas */}
             <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-md ring-1 ring-amber-200 flex-shrink-0 transition-shadow group-hover:shadow-lg group-hover:ring-amber-400">
               <Image
                 src="/images/logo.png"
@@ -105,7 +105,6 @@ export default function Navbar() {
               />
             </div>
 
-            {/* Teks brand */}
             <div className="leading-none select-none">
               <div className="rpm-logo-text flex items-baseline gap-[5px]">
                 <span className="rpm-gold text-[1.35rem] font-bold tracking-widest">RPM</span>
