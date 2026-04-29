@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     'agen travel palembang curup murah',
     'travel palembang curup terpercaya',
   ],
-  alternates: { canonical: '/travel-palembang-curup' },
+  alternates: { canonical: 'https://rpmtravel.co.id/travel-palembang-curup' },
   openGraph: {
     title: 'Travel Palembang Curup Hiace & Innova | RPM Travel',
     description: 'Travel Palembang–Curup berangkat 10.00 & 19.00 WIB. Armada Hiace dan Innova, door to door ke Curup Rejang Lebong.',
