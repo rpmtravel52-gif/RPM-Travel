@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     'travel kabupaten lebong palembang',
     'travel lebong palembang door to door',
   ],
-  alternates: { canonical: '/travel-lebong-palembang' },
+  alternates: { canonical: 'https://rpmtravel.co.id/travel-lebong-palembang' },
   openGraph: {
     title: 'Travel Lebong ke Palembang Tanpa Transit | RPM Travel',
     description: 'Berangkat dari Kabupaten Lebong langsung ke Palembang. Jadwal 10.00 & 16.00 WIB, armada Hiace & Innova, jemput lokasi.',
