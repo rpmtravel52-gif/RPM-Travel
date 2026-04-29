@@ -1,9 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    // FIX: Path disesuaikan dengan struktur project Next.js App Router.
+    // Sebelumnya pakai './src/...' yang menyebabkan Tailwind scan
+    // lokasi yang salah → class tidak ter-purge dengan benar → CSS lebih besar.
+    // Sekarang scan langsung dari root app/ dan components/.
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}', // fallback jika ada pages dir
   ],
   theme: {
     extend: {
