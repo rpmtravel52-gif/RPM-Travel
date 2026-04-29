@@ -142,7 +142,7 @@ export default function TravelBengkuluPalembangPage() {
             <div className="order-first lg:order-last">
               <div className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-gold-500/20">
                 <Image
-                  src="/images/hiace/exterior.webp"
+                  src="/images/hiace/exterior.jpg"
                   alt="Armada Toyota Hiace RPM Travel untuk rute Bengkulu–Palembang"
                   width={900}
                   height={500}
