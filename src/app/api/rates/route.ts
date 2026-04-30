@@ -3,33 +3,28 @@
 // GET  /api/rates  → baca tarif dari Redis (fallback ke packages.ts)
 // POST /api/rates  → simpan tarif ke Redis
 //
-// Menggunakan Redis yang sama dengan /api/orders
+// Menggunakan ioredis via lib/redis yang sama dengan orders
 // Key Redis: "rpm:rates"
 
 import { NextRequest, NextResponse } from 'next/server';
-import { Redis } from '@upstash/redis';
+import { redis } from '@/lib/redis';
 import { PACKAGES } from '@/lib/packages';
-
-const redis = new Redis({
-  url:   process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
 
 const REDIS_KEY = 'rpm:rates';
 
 // GET — ambil semua tarif
 export async function GET() {
   try {
-    const stored = await redis.get<typeof PACKAGES>(REDIS_KEY);
+    const raw = await redis.get(REDIS_KEY);
 
-    // Jika belum pernah disimpan, kembalikan PACKAGES dari packages.ts
-    if (!stored || !Array.isArray(stored)) {
+    if (!raw) {
+      // Belum pernah disimpan → kembalikan PACKAGES dari packages.ts
       return NextResponse.json({ rates: PACKAGES });
     }
 
+    const stored = JSON.parse(raw);
     return NextResponse.json({ rates: stored });
-  } catch (err) {
-    console.error('[GET /api/rates]', err);
+  } catch {
     // Fallback ke packages.ts jika Redis error
     return NextResponse.json({ rates: PACKAGES });
   }
@@ -55,7 +50,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    await redis.set(REDIS_KEY, rates);
+    await redis.set(REDIS_KEY, JSON.stringify(rates));
 
     return NextResponse.json({ ok: true, saved: rates.length });
   } catch (err) {
