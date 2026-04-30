@@ -5,10 +5,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import RatesTab from './RatesTab';
+import ReceiptTab from './ReceiptTab';
 
 type PaymentMethod = 'QRIS' | 'TUNAI';
 type OrderStatus   = 'UNPAID' | 'PAID';
-type ActiveTab     = 'orders' | 'rates';
+type ActiveTab = 'orders' | 'rates' | 'receipt';
 
 interface Order {
   id: string;
@@ -393,6 +394,7 @@ export default function AdminDashboard() {
   };
 
   const tabs: { id: ActiveTab; label: string; icon: string }[] = [
+   { id: 'receipt', label: 'Kwitansi', icon: '🧾' },
     { id: 'orders', label: 'Pesanan',      icon: '📋' },
     { id: 'rates',  label: 'Update Tarif', icon: '💰' },
   ];
@@ -441,6 +443,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Tab Content */}
+        {activeTab === 'receipt' && <ReceiptTab />}
         {activeTab === 'orders' && <OrdersTab />}
         {activeTab === 'rates'  && <RatesTab />}
 
