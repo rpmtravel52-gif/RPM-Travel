@@ -1,40 +1,37 @@
 // src/app/api/rates/route.ts
 //
-// GET  /api/rates        → baca semua paket (dari rates.json jika ada, fallback ke packages.ts)
-// POST /api/rates        → simpan semua paket ke data/rates.json
+// GET  /api/rates  → baca tarif dari Redis (fallback ke packages.ts)
+// POST /api/rates  → simpan tarif ke Redis
 //
-// Cara kerja:
-//   - Pertama kali, tarif diambil langsung dari lib/packages.ts (source of truth)
-//   - Setelah admin menyimpan lewat dashboard, data tersimpan di data/rates.json
-//   - Halaman /pesan akan menggunakan API ini sehingga harga langsung terupdate
+// Menggunakan Redis yang sama dengan /api/orders
+// Key Redis: "rpm:rates"
 
 import { NextRequest, NextResponse } from 'next/server';
-import fs   from 'fs';
-import path from 'path';
+import { Redis } from '@upstash/redis';
 import { PACKAGES } from '@/lib/packages';
 
-const RATES_FILE = path.join(process.cwd(), 'data', 'rates.json');
+const redis = new Redis({
+  url:   process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
 
-function readRates() {
-  try {
-    if (fs.existsSync(RATES_FILE)) {
-      const raw = fs.readFileSync(RATES_FILE, 'utf-8');
-      return JSON.parse(raw);
-    }
-  } catch {
-    // jika file rusak, fallback ke packages.ts
-  }
-  // Fallback: kembalikan PACKAGES dari lib/packages.ts
-  return PACKAGES;
-}
+const REDIS_KEY = 'rpm:rates';
 
 // GET — ambil semua tarif
 export async function GET() {
   try {
-    const rates = readRates();
-    return NextResponse.json({ rates });
-  } catch {
-    return NextResponse.json({ error: 'Gagal membaca tarif' }, { status: 500 });
+    const stored = await redis.get<typeof PACKAGES>(REDIS_KEY);
+
+    // Jika belum pernah disimpan, kembalikan PACKAGES dari packages.ts
+    if (!stored || !Array.isArray(stored)) {
+      return NextResponse.json({ rates: PACKAGES });
+    }
+
+    return NextResponse.json({ rates: stored });
+  } catch (err) {
+    console.error('[GET /api/rates]', err);
+    // Fallback ke packages.ts jika Redis error
+    return NextResponse.json({ rates: PACKAGES });
   }
 }
 
@@ -48,7 +45,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Format data tidak valid' }, { status: 400 });
     }
 
-    // Validasi minimal setiap item punya id dan harga angka
+    // Validasi setiap item
     for (const r of rates) {
       if (!r.id || typeof r.harga !== 'number' || r.harga < 0) {
         return NextResponse.json(
@@ -58,13 +55,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Pastikan folder data/ ada
-    const dir = path.dirname(RATES_FILE);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-
-    fs.writeFileSync(RATES_FILE, JSON.stringify(rates, null, 2), 'utf-8');
+    await redis.set(REDIS_KEY, rates);
 
     return NextResponse.json({ ok: true, saved: rates.length });
   } catch (err) {
