@@ -2,7 +2,8 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { PACKAGES, formatRupiah, type TravelPackage } from '@/lib/packages';
+import { formatRupiah, type TravelPackage } from '@/lib/packages';
+import { usePackages } from '@/lib/usePackages';
 
 // ─── Types ────────────────────────────────────────────────────
 interface Order {
@@ -110,26 +111,15 @@ function QrisModal({
 }
 
 // ─── Jadwal jam per paket ─────────────────────────────────────
-// null  = tampilkan semua jam (sewa)
-// []    = selalu ada / tidak perlu dropdown (tulis keterangan)
-// [...] = jam spesifik
 const JADWAL: Record<string, string[] | null> = {
-  // Bengkulu - Palembang
   'bengkulu-palembang': ['10.00', '16.00'],
-  // Palembang - Bengkulu
   'palembang-bengkulu': ['10.00', '19.00'],
-  // Curup - Palembang
-  'curup-palembang': ['13.00', '20.00'],
-  // Palembang - Curup
-  'palembang-curup': ['10.00', '19.00'],
-  // Lebong - Palembang
-  'lebong-palembang': ['10.00', '16.00'],
-  // Palembang - Lebong
-  'palembang-lebong': ['10.00', '19.00'],
-  // Curup - Lebong & Lebong - Curup → selalu ada (keterangan, tanpa dropdown)
-  'curup-lebong': [],
-  'lebong-curup': [],
-  // Sewa → null = semua jam
+  'curup-palembang':    ['13.00', '20.00'],
+  'palembang-curup':    ['10.00', '19.00'],
+  'lebong-palembang':   ['10.00', '16.00'],
+  'palembang-lebong':   ['10.00', '19.00'],
+  'curup-lebong':       [],
+  'lebong-curup':       [],
 };
 
 const ALL_JAM = ['06.00','07.00','08.00','09.00','10.00','11.00','12.00',
@@ -140,9 +130,10 @@ function PesanForm() {
   const searchParams = useSearchParams();
   const paketFromUrl = searchParams.get('paket') ?? '';
 
-  const [selectedPkg, setSelectedPkg] = useState<TravelPackage | null>(
-    () => PACKAGES.find((p) => p.id === paketFromUrl) ?? null
-  );
+  // ✅ PERUBAHAN 1: pakai usePackages() menggantikan PACKAGES langsung
+  const { packages } = usePackages();
+
+  const [selectedPkg, setSelectedPkg] = useState<TravelPackage | null>(null);
   const [form, setForm] = useState({
     nama: '',
     hp: '',
@@ -158,25 +149,21 @@ function PesanForm() {
     catatan: '',
   });
 
-  // State untuk alur baru
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError]           = useState('');
   const [createdOrder, setCreatedOrder] = useState<Order | null>(null);
-  const [showQris, setShowQris] = useState(false);
+  const [showQris, setShowQris]     = useState(false);
 
+  // ✅ PERUBAHAN 2: sync selectedPkg dari packages (API) bukan PACKAGES (hardcode)
   useEffect(() => {
-    const pkg = PACKAGES.find((p) => p.id === form.paket) ?? null;
+    const pkg = packages.find((p) => p.id === form.paket) ?? null;
     setSelectedPkg(pkg);
     setForm((prev) => ({ ...prev, jam: '' }));
-  }, [form.paket]);
+  }, [form.paket, packages]);
 
   // Tentukan mode jam berdasarkan paket dipilih
   const jadwalPaket = form.paket ? (JADWAL[form.paket] ?? null) : undefined;
-  // undefined = belum pilih paket
-  // null      = sewa (tampilkan semua jam)
-  // []        = selalu ada (tampilkan keterangan, tanpa dropdown)
-  // ['HH.mm'] = jam spesifik
-  const isSelalu = Array.isArray(jadwalPaket) && jadwalPaket.length === 0;
+  const isSelalu    = Array.isArray(jadwalPaket) && jadwalPaket.length === 0;
   const jamOptions: string[] = jadwalPaket === null
     ? ALL_JAM
     : Array.isArray(jadwalPaket) ? jadwalPaket : [];
@@ -199,7 +186,6 @@ function PesanForm() {
     }));
   };
 
-  // Buat pesan WhatsApp dari order yang sudah tersimpan
   const buildWhatsAppMessage = (order: Order) => {
     const tglFmt = new Date(order.tanggal).toLocaleDateString('id-ID', {
       day: '2-digit', month: 'long', year: 'numeric',
@@ -209,7 +195,7 @@ function PesanForm() {
         ? 'Durasi: 1 hari'
         : `Penumpang: ${order.jumlahPax} orang`;
 
-    const lines = [
+    return [
       `🚌 *Pesanan RPM Travel Curup*`,
       ``,
       `No. Pesanan : ${order.orderNumber}`,
@@ -224,11 +210,7 @@ function PesanForm() {
       `Total      : ${formatRupiah(order.totalHarga)}`,
       order.metodePembayaran === 'QRIS' ? `\n✅ *Saya sudah melakukan pembayaran QRIS*` : '',
       form.catatan ? `Catatan    : ${form.catatan}` : '',
-    ]
-      .filter(Boolean)
-      .join('\n');
-
-    return lines;
+    ].filter(Boolean).join('\n');
   };
 
   const openWhatsApp = (order: Order) => {
@@ -247,22 +229,21 @@ function PesanForm() {
     setError('');
 
     try {
-      // 1. POST ke API — simpan ke Redis
       const res = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          nama: form.nama,
-          hp: form.hp,
-          paket: form.paket,
-          tanggal: form.tanggal,
-          jam: form.jam,
-          jumlahPax: form.jumlahPax,
-          asal: form.asal,
-          tujuan: form.tujuan,
+          nama:             form.nama,
+          hp:               form.hp,
+          paket:            form.paket,
+          tanggal:          form.tanggal,
+          jam:              form.jam,
+          jumlahPax:        form.jumlahPax,
+          asal:             form.asal,
+          tujuan:           form.tujuan,
           metodePembayaran: form.metode,
-          email: form.wantEmail ? form.email : undefined,
-          catatan: form.catatan || undefined,
+          email:            form.wantEmail ? form.email : undefined,
+          catatan:          form.catatan || undefined,
         }),
       });
 
@@ -276,12 +257,9 @@ function PesanForm() {
       const order: Order = data.order;
       setCreatedOrder(order);
 
-      // 2. Percabangan berdasarkan metode bayar
       if (form.metode === 'QRIS') {
-        // Tampilkan modal QR Code
         setShowQris(true);
       } else {
-        // TUNAI: langsung buka WhatsApp
         openWhatsApp(order);
       }
     } catch {
@@ -291,13 +269,14 @@ function PesanForm() {
     }
   };
 
-  const travelAntarKota = PACKAGES.filter(
+  // ✅ PERUBAHAN 3: filter dari packages (API) bukan PACKAGES (hardcode)
+  const travelAntarKota = packages.filter(
     (p) => p.kategori === 'travel' && !['curup-lebong', 'lebong-curup'].includes(p.id)
   );
-  const travelLokal = PACKAGES.filter((p) =>
+  const travelLokal = packages.filter((p) =>
     ['curup-lebong', 'lebong-curup'].includes(p.id)
   );
-  const sewa = PACKAGES.filter((p) => p.kategori === 'sewa');
+  const sewa = packages.filter((p) => p.kategori === 'sewa');
 
   return (
     <>
@@ -305,9 +284,7 @@ function PesanForm() {
       {showQris && createdOrder && (
         <QrisModal
           order={createdOrder}
-          onWhatsApp={() => {
-            openWhatsApp(createdOrder);
-          }}
+          onWhatsApp={() => { openWhatsApp(createdOrder); }}
           onClose={() => setShowQris(false)}
         />
       )}
@@ -447,7 +424,6 @@ function PesanForm() {
                 />
               </div>
 
-              {/* Jam: hanya tampil jika bukan mode 'selalu ada' */}
               {!isSelalu && (
                 <div>
                   <label className="block text-xs font-bold text-primary-900 uppercase tracking-wider mb-1.5">
@@ -477,7 +453,7 @@ function PesanForm() {
               )}
             </div>
 
-            {/* Keterangan 'selalu ada' untuk Curup-Lebong */}
+            {/* Keterangan selalu ada */}
             {isSelalu && (
               <div className="bg-green-50 border border-green-200 rounded-xl px-4 py-3 flex items-center gap-2">
                 <span className="text-green-600 text-lg">🕐</span>
@@ -635,7 +611,7 @@ function PesanForm() {
               </div>
             )}
 
-            {/* Submit button */}
+            {/* Submit */}
             <button
               type="submit"
               disabled={!selectedPkg || submitting}
