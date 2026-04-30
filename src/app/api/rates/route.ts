@@ -33,7 +33,7 @@ export async function GET() {
   try {
     const rates = readRates();
     return NextResponse.json({ rates });
-  } catch (err) {
+  } catch {
     return NextResponse.json({ error: 'Gagal membaca tarif' }, { status: 500 });
   }
 }
