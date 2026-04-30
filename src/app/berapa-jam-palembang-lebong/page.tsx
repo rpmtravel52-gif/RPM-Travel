@@ -324,7 +324,7 @@ export default function BerapaJamPalembangLebongPage() {
                     desc: 'Jadwal, armada, dan pemesanan tiket',
                   },
                   {
-                    href: '/harga-travel-palembang-ke-lebong',
+                    href: '/harga-travel-palembang-lebong',
                     label: '💰 Harga Travel Palembang – Lebong',
                     desc: 'Ongkos resmi Rp 300.000 per orang',
                   },
