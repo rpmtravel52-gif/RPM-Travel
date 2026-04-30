@@ -23,6 +23,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ── Lebong ↔ Palembang
     { url: `${base}/travel-lebong-palembang`,   lastModified: now, changeFrequency: 'weekly', priority: 0.90 },
     { url: `${base}/travel-palembang-lebong`,   lastModified: now, changeFrequency: 'weekly', priority: 0.90 },
+    { url: `${base}/berapa-jam-palembang-lebong`,   lastModified: now, changeFrequency: 'weekly', priority: 0.80 },
+    { url: `${base}/harga-travel-palembang-lebong`,   lastModified: now, changeFrequency: 'weekly', priority: 0.80 },
 
     // ── Sewa
     { url: `${base}/sewa-hiace-curup`,          lastModified: now, changeFrequency: 'weekly',  priority: 0.88 },
