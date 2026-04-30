@@ -2,7 +2,7 @@
 // src/app/admin/ReceiptTab.tsx
 // Tab Kwitansi Manual — BengkuluTravel.com / KG Transport
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 // ── Types ─────────────────────────────────────────────────────
 type Perusahaan = 'BengkuluTravel' | 'KGTransport';
@@ -412,8 +412,7 @@ export default function ReceiptTab() {
   const total = form.tarifPerHari * form.jumlahHari;
 
   const brandColor = form.perusahaan === 'BengkuluTravel' ? 'text-sky-400' : 'text-green-400';
-  const brandBgActive = form.perusahaan === 'BengkuluTravel' ? 'bg-sky-600 text-white' : 'bg-green-600 text-white';
-
+  
   return (
     <>
       {showPreview && (
