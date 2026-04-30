@@ -56,8 +56,8 @@ function buildPrintHTML(data: ReceiptData): string {
   });
 
   const brand = data.perusahaan === 'BengkuluTravel'
-    ? { nama: 'BengkuluTravel.com', warna: '#0284c7' }
-    : { nama: 'KG Transport', warna: '#16a34a' };
+    ? { nama: 'RPM Travel', warna: '#0284c7' }
+    : { nama: 'CV. Rafiq Prakasa Performance', warna: '#16a34a' };
 
   return `<!DOCTYPE html>
 <html lang="id">
@@ -109,7 +109,7 @@ function buildPrintHTML(data: ReceiptData): string {
   <div class="header">
     <div>
       <div class="brand-name">${brand.nama}</div>
-      <div class="brand-sub">BTN Air Bang, Curup, Rejang Lebong, Bengkulu<br/>Jasa Rental & Transportasi</div>
+      <div class="brand-sub">Jl. S. Parman, Kel. Talang Benih, Curup, Rejang Lebong, Bengkulu</div>
     </div>
     <div class="doc-type">
       <div class="doc-title">KWITANSI</div>
@@ -172,7 +172,7 @@ function buildPrintHTML(data: ReceiptData): string {
       <div class="sign-name">${data.namaPetugas || brand.nama}</div>
     </div>
   </div>
-  <div class="footer">${brand.nama} · BTN Air Bang, Curup, Rejang Lebong, Bengkulu · Dokumen ini sah tanpa tanda tangan basah jika dicetak resmi</div>
+  <div class="footer">${brand.nama} · Jl. S. Parman, Kel. Talang Benih, Curup, Rejang Lebong, Bengkulu · Dokumen ini sah tanpa tanda tangan basah jika dicetak resmi</div>
 </div>
 <script>window.onload=function(){window.print()}</script>
 </body>
@@ -230,7 +230,7 @@ function PreviewPanel({ data, onClose }: { data: ReceiptData; onClose: () => voi
   const tgl = new Date(data.tanggal).toLocaleDateString('id-ID', {
     day: '2-digit', month: 'long', year: 'numeric',
   });
-  const brand = data.perusahaan === 'BengkuluTravel' ? 'BengkuluTravel.com' : 'KG Transport';
+  const brand = data.perusahaan === 'BengkuluTravel' ? 'RPM Travel' : 'CV. Rafiq Prakasa Performance';
   const brandColor = data.perusahaan === 'BengkuluTravel' ? 'text-sky-400' : 'text-green-400';
   const brandBg    = data.perusahaan === 'BengkuluTravel' ? 'bg-sky-600'   : 'bg-green-600';
 
@@ -254,7 +254,7 @@ function PreviewPanel({ data, onClose }: { data: ReceiptData; onClose: () => voi
             <div className="flex justify-between items-start mb-3">
               <div>
                 <p className={`font-bold text-base ${brandColor}`}>{brand}</p>
-                <p className="text-xs text-slate-400">BTN Air Bang, Curup, Rejang Lebong</p>
+                <p className="text-xs text-slate-400">Jl. S. Parman, Kel. Talang Benih, Curup</p>
               </div>
               <div className="text-right">
                 <p className="text-xs font-bold text-white uppercase tracking-widest">KWITANSI</p>
@@ -456,7 +456,7 @@ export default function ReceiptTab() {
                         : 'bg-white/5 text-slate-400 border-white/10 hover:bg-white/10'
                     }`}
                   >
-                    {p === 'BengkuluTravel' ? '🌐 BengkuluTravel.com' : '🚗 KG Transport'}
+                    {p === 'BengkuluTravel' ? '🚌 RPM Travel' : '🏢 CV. Rafiq Prakasa Performance'}
                   </button>
                 ))}
               </div>
@@ -628,7 +628,7 @@ export default function ReceiptTab() {
                 <div className="flex justify-between text-xs">
                   <span className="text-slate-400">Perusahaan</span>
                   <span className={`font-bold ${brandColor}`}>
-                    {form.perusahaan === 'BengkuluTravel' ? 'BengkuluTravel.com' : 'KG Transport'}
+                    {form.perusahaan === 'BengkuluTravel' ? 'RPM Travel' : 'CV. Rafiq Prakasa Performance'}
                   </span>
                 </div>
                 <div className="flex justify-between text-xs">
@@ -683,7 +683,7 @@ export default function ReceiptTab() {
 
               {/* Keterangan */}
               <div className="mt-4 pt-4 border-t border-white/10 text-[10px] text-slate-500 space-y-1">
-                <p>📍 BTN Air Bang, Curup, Rejang Lebong</p>
+                <p>📍 Jl. S. Parman, Kel. Talang Benih, Curup, Rejang Lebong</p>
                 <p>🖨️ Format cetak: A5 landscape / A4</p>
                 {kirimEmail && <p>📧 Kwitansi akan dikirim via Resend</p>}
               </div>
