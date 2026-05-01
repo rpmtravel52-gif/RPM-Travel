@@ -82,7 +82,7 @@ const cars = [
     name: 'Toyota Hiace',
     type: 'MPV Premium · 7 Penumpang',
     desc: 'Pilihan premium untuk semua rute. Suspensi halus terasa nyaman di jalan berliku Bengkulu, kursi ergonomis, dan kabin kedap suara untuk perjalanan yang lebih tenang.',
-    img: '/images/innova/exterior.jpg',
+    img: '/images/hiace/all-armada.jpg',
     specs: ['7 Penumpang', 'Suspensi Premium', 'Kabin Lega'],
     featured: true,
   },
