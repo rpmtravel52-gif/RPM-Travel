@@ -74,38 +74,9 @@ const faqs = [
 export default function TravelPalembangCurupPage() {
   return (
     <>
-      {/* Shimmer animation keyframes */}
-      <style>{`
-        @keyframes shimmer-slide {
-          0%   { transform: translateX(-100%) skewX(-15deg); }
-          100% { transform: translateX(250%) skewX(-15deg); }
-        }
-        .btn-shimmer {
-          position: relative;
-          overflow: hidden;
-        }
-        .btn-shimmer::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 40%;
-          height: 100%;
-          background: linear-gradient(
-            to right,
-            transparent 0%,
-            rgba(255, 255, 255, 0.45) 50%,
-            transparent 100%
-          );
-          animation: shimmer-slide 2.4s ease-in-out infinite;
-        }
-        .btn-shimmer:hover::after {
-          animation-duration: 1.2s;
-        }
-      `}</style>
-
       {/* ── HERO ── */}
-      <section className="bg-primary-900 py-16 relative overflow-hidden">
+      {/* FIX LCP: Hero section sekarang berisi gambar di dalamnya, tampil di mobile & desktop */}
+      <section className="bg-primary-900 pt-10 pb-0 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10"
           style={{ backgroundImage: 'radial-gradient(circle, rgba(201,168,76,0.4) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
         <div className="max-w-4xl mx-auto px-4 relative">
@@ -114,45 +85,49 @@ export default function TravelPalembangCurupPage() {
             <span>/</span>
             <span className="text-gray-400">Travel Palembang – Curup</span>
           </nav>
-          <div className="inline-flex items-center gap-2 bg-gold-500/20 border border-gold-500/30 text-gold-300 text-xs font-bold px-3 py-1.5 rounded-full mb-5">
-            🚐 Hiace & Innova · Berangkat 2x Sehari
-          </div>
-          <h1 className="font-display text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
-            Travel Palembang – Curup<br />
-            <span className="text-gold-400">Langsung ke Rejang Lebong</span>
-          </h1>
-          <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-2xl">
-            Perjalanan dari Palembang menuju Curup kini lebih mudah dan menyenangkan. Pilih armada Toyota Hiace untuk kapasitas besar atau Innova untuk kenyamanan perjalanan keluarga kecil. Dua jadwal tersedia setiap harinya — pagi dan malam.
-          </p>
 
-          {/* ── GAMBAR ARMADA (Hero) ── */}
-          <div className="relative w-full h-52 sm:h-64 rounded-2xl overflow-hidden mb-8 border border-gold-500/20 shadow-lg">
-            <Image
-              src="/images/hiace/innova-hiace.jpg"
-              alt="Armada Toyota Hiace dan Innova RPM Travel Palembang Curup"
-              fill
-              sizes="(max-width: 768px) 100vw, 896px"
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-transparent to-transparent" />
-            <span className="absolute bottom-3 left-4 text-white text-xs font-semibold bg-primary-900/60 px-2 py-1 rounded-lg">
-              Armada Hiace & Innova RPM Travel
-            </span>
-          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center pb-10">
+            {/* Teks hero — desktop kiri, mobile bawah */}
+            <div className="order-last lg:order-first">
+              <div className="inline-flex items-center gap-2 bg-gold-500/20 border border-gold-500/30 text-gold-300 text-xs font-bold px-3 py-1.5 rounded-full mb-5">
+                🚐 Hiace & Innova · Berangkat 2x Sehari
+              </div>
+              <h1 className="font-display text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                Travel Palembang – Curup<br />
+                <span className="text-gold-400">Langsung ke Rejang Lebong</span>
+              </h1>
+              <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-2xl">
+                Perjalanan dari Palembang menuju Curup kini lebih mudah dan menyenangkan. Pilih armada Toyota Hiace untuk kapasitas besar atau Innova untuk kenyamanan perjalanan keluarga kecil. Dua jadwal tersedia setiap harinya — pagi dan malam.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/pesan?paket=palembang-curup"
+                  className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-xl text-base relative overflow-hidden"
+                  style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 20px rgba(201,168,76,0.4)' }}>
+                  <span className="relative z-10">🎫 Pesan Sekarang</span>
+                  <span className="absolute inset-0 -translate-x-full animate-[shimmer_2.5s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animationName: 'shimmer', animationDuration: '2.5s', animationIterationCount: 'infinite', animationTimingFunction: 'ease-in-out' }} />
+                </Link>
+              </div>
+            </div>
 
-          {/* CTA tunggal: Pesan Sekarang dengan efek shimmer */}
-          <div className="flex items-center gap-4">
-            <Link
-              href="/pesan?paket=palembang-curup"
-              className="btn-shimmer inline-flex items-center gap-2.5 font-bold px-8 py-4 rounded-xl text-base shadow-lg shadow-gold-500/20 hover:shadow-gold-500/40 hover:scale-[1.03] transition-all duration-300"
-              style={{ background: 'linear-gradient(135deg,#c9a84c,#e8d080,#c9a84c)', color: '#0a1628' }}
-            >
-              🎫 Pesan Sekarang
-            </Link>
-            <p className="text-gray-400 text-xs leading-snug max-w-[140px]">
-              Isi form reservasi<br />agar kami siapkan kursi Anda
-            </p>
+            {/* Gambar hero — mobile tampil duluan */}
+            <div className="order-first lg:order-last">
+              <div className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-gold-500/20">
+                <Image
+                  src="/images/hiace/innova-hiace.jpg"
+                  alt="Armada Toyota Hiace dan Innova RPM Travel Palembang Curup"
+                  width={900}
+                  height={500}
+                  className="w-full object-cover"
+                  priority
+                  fetchPriority="high"
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                />
+              </div>
+              <p className="text-center text-xs text-gray-500 mt-2">
+                Armada Toyota Hiace &amp; Innova RPM Travel — tersedia dua jadwal harian untuk rute Palembang–Curup.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -203,19 +178,20 @@ export default function TravelPalembangCurupPage() {
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Pilihan Armada</h2>
           <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
 
-          {/* ── GAMBAR EXTERIOR ── */}
-          <div className="relative w-full h-48 sm:h-56 rounded-2xl overflow-hidden mb-8 shadow-sm border border-gray-100">
+          {/* ── GAMBAR EXTERIOR — pakai width/height eksplisit, bukan fill ── */}
+          <div className="rounded-2xl overflow-hidden shadow-sm border border-gray-100 mb-8">
             <Image
               src="/images/hiace/exterior.jpg"
               alt="Eksterior Toyota Hiace RPM Travel Palembang Curup"
-              fill
+              width={896}
+              height={420}
+              className="w-full object-cover"
+              loading="lazy"
               sizes="(max-width: 768px) 100vw, 896px"
-              className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-            <span className="absolute bottom-3 left-4 text-white text-xs font-semibold bg-black/50 px-2 py-1 rounded-lg">
-              Eksterior Armada Hiace — Luas & Bertenaga
-            </span>
+            <p className="text-center text-xs text-gray-400 py-2">
+              Eksterior Armada Hiace — Luas &amp; Bertenaga
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -260,19 +236,20 @@ export default function TravelPalembangCurupPage() {
                   Berbeda dengan transportasi umum yang seringkali membutuhkan transit di beberapa titik, layanan kami mengantar Anda langsung dari Palembang ke alamat tujuan di Curup dalam satu perjalanan yang nyaman. Tidak ada ganti kendaraan, tidak ada kerumitan.
                 </p>
 
-                {/* ── GAMBAR INTERIOR ── */}
-                <div className="relative w-full h-44 sm:h-52 rounded-2xl overflow-hidden my-2 shadow-sm border border-gray-100">
+                {/* ── GAMBAR INTERIOR — pakai width/height eksplisit, bukan fill ── */}
+                <div className="rounded-2xl overflow-hidden shadow-sm border border-gray-100 my-2">
                   <Image
                     src="/images/hiace/interior.jpg"
                     alt="Interior kabin Toyota Hiace RPM Travel — nyaman untuk perjalanan Palembang Curup"
-                    fill
+                    width={600}
+                    height={340}
+                    className="w-full object-cover"
+                    loading="lazy"
                     sizes="(max-width: 768px) 100vw, 600px"
-                    className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                  <span className="absolute bottom-3 left-4 text-white text-xs font-semibold bg-black/50 px-2 py-1 rounded-lg">
-                    Interior Kabin Hiace — Tinggi, Lega & Ber-AC
-                  </span>
+                  <p className="text-center text-xs text-gray-400 py-2">
+                    Interior Kabin Hiace — Tinggi, Lega &amp; Ber-AC
+                  </p>
                 </div>
 
                 <p>
@@ -325,13 +302,12 @@ export default function TravelPalembangCurupPage() {
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Berangkat 10.00 & 19.00 WIB</div>
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Sopir berpengalaman</div>
               </div>
-              {/* Sidebar: satu tombol saja, dengan shimmer */}
               <Link
                 href="/pesan?paket=palembang-curup"
-                className="btn-shimmer flex items-center justify-center w-full font-bold py-3 rounded-xl text-sm"
-                style={{ background: 'linear-gradient(135deg,#c9a84c,#e8d080,#c9a84c)', color: '#0a1628' }}
-              >
-                🎫 Pesan Tiket Online
+                className="flex items-center justify-center w-full font-bold py-3 rounded-xl text-sm relative overflow-hidden"
+                style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 16px rgba(201,168,76,0.4)' }}>
+                <span className="relative z-10">🎫 Pesan Tiket Online</span>
+                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
               </Link>
               <p className="text-center text-gray-500 text-xs mt-3">📞 0852-8282-8005</p>
             </div>
@@ -339,6 +315,7 @@ export default function TravelPalembangCurupPage() {
         </div>
       </section>
 
+      <style>{`@keyframes shimmer{0%{transform:translateX(-100%) skewX(-20deg)}100%{transform:translateX(300%) skewX(-20deg)}}`}</style>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org', '@type': 'FAQPage',
         mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
