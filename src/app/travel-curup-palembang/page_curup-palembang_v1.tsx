@@ -1,0 +1,197 @@
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Travel Curup Palembang Hiace | Antar Jemput Rumah – RPM Travel',
+  description:
+    'Travel Curup–Palembang armada Hiace & Innova ber-AC. Antar jemput langsung ke pintu rumah, berangkat 2x sehari. Pesan sekarang: 085282828005 – RPM Travel.',
+  alternates: { canonical: 'https://rpmtravel.co.id/travel-curup-palembang' },
+};
+
+const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel%20Curup%E2%80%93Palembang';
+
+const schedules = ['13.00 WIB', '20.00 WIB'];
+
+const features = [
+  { icon: '🏠', label: 'Penjemputan & pengantaran langsung ke alamat tujuan Anda' },
+  { icon: '❄️', label: 'AC double blower dingin maksimal, kursi recline empuk sepanjang perjalanan' },
+  { icon: '🧳', label: 'Bagasi lapang & terlindungi, cocok untuk koper besar maupun barang belanja' },
+  { icon: '👨‍✈️', label: 'Driver berpengalaman, berlisensi resmi, dan hafal rute Curup–Palembang' },
+  { icon: '⏰', label: 'Keberangkatan on-time sesuai jadwal yang sudah disepakati' },
+];
+
+const faqs = [
+  { q: 'Berapa lama perjalanan dari Curup ke Palembang?', a: 'Estimasi perjalanan sekitar 6–7 jam dalam kondisi normal. Durasi bisa sedikit berbeda tergantung arus lalu lintas dan kondisi jalan saat itu.' },
+  { q: 'Apakah ada layanan jemput ke rumah?', a: 'Ya, RPM Travel menyediakan layanan jemput langsung ke alamat Anda selama masih dalam cakupan wilayah Kota Curup dan sekitarnya.' },
+  { q: 'Bagaimana cara memesan tiket travel Curup–Palembang?', a: 'Anda bisa menghubungi kami di 085282828005 melalui WhatsApp, atau klik tombol "Pesan Tiket Online" yang tersedia di halaman ini.' },
+  { q: 'Apakah ada biaya tambahan untuk bagasi?', a: 'Tidak ada biaya bagasi tambahan untuk bawaan standar, seperti satu koper dan satu tas jinjing. Barang di luar ukuran standar harap dikonfirmasi terlebih dahulu.' },
+  { q: 'Bisakah saya membayar menggunakan QRIS?', a: 'Bisa. Pilih metode pembayaran QRIS saat melakukan pemesanan melalui tombol pesan yang tersedia.' },
+  { q: 'Apakah tersedia invoice atau kwitansi resmi?', a: 'Tersedia. Centang opsi "Saya minta kwitansi/invoice" saat proses pemesanan, lalu lanjutkan konfirmasi via WhatsApp ke nomor kami.' },
+];
+
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});
+
+export default function TravelCurupPalembangPage() {
+  return (
+    <>
+      {/* FIX LCP: Gambar masuk ke dalam hero section, tampil di atas teks di mobile */}
+      <section className="bg-primary-900 pt-10 pb-0 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10"
+          style={{ backgroundImage: 'radial-gradient(circle, rgba(201,168,76,0.4) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
+        <div className="max-w-4xl mx-auto px-4 relative">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-gold-400 text-xs font-semibold mb-4">
+            <Link href="/" className="hover:text-gold-300 transition-colors">Beranda</Link>
+            <span>/</span>
+            <span className="text-gray-400">Travel Curup – Palembang</span>
+          </nav>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center pb-10">
+            <div className="order-last lg:order-first">
+              <div className="inline-flex items-center gap-2 bg-gold-500/20 border border-gold-500/30 text-gold-300 text-xs font-bold px-3 py-1.5 rounded-full mb-4">
+                🔥 Rute Terlaris
+              </div>
+              <h1 className="font-display text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                Travel Curup – Palembang<br />
+                <span className="text-gold-400">Antar Jemput Rumah, Armada Hiace & Innova</span>
+              </h1>
+              <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-2xl">
+                RPM Travel melayani rute Curup–Palembang setiap hari dengan armada Hiace dan Innova ber-AC.
+                Dijemput dari rumah, diantar sampai tujuan — perjalanan nyaman tanpa repot.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link href="/pesan?paket=curup-palembang"
+                  className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-xl text-base relative overflow-hidden"
+                  style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 20px rgba(201,168,76,0.4)' }}>
+                  <span className="relative z-10">🎫 Pesan Sekarang</span>
+                  <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
+                </Link>
+              </div>
+            </div>
+
+            {/* Gambar hero — mobile tampil duluan */}
+            <div className="order-first lg:order-last">
+              <div className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-gold-500/20">
+                <Image
+                  src="/images/hiace/exterior.jpg"
+                  alt="Armada Toyota Hiace RPM Travel rute Curup–Palembang"
+                  width={900}
+                  height={500}
+                  className="w-full object-cover"
+                  priority
+                  fetchPriority="high"
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Info cards */}
+      <section className="py-10 bg-cream-50 border-b border-gray-200">
+        <div className="max-w-4xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { label: 'Rute', value: 'Curup → Palembang' },
+            { label: 'KM', value: '± 350 km' },
+            { label: 'Waktu', value: '6–7 jam' },
+            { label: 'Mobil', value: 'Hiace & Innova' },
+          ].map((item) => (
+            <div key={item.label} className="text-center bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+              <p className="text-gold-500 text-xs font-bold uppercase tracking-wide mb-1">{item.label}</p>
+              <p className="font-display font-bold text-primary-900 text-sm">{item.value}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Main content */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="md:col-span-2 space-y-10">
+            <div>
+              <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Fasilitas & Keunggulan</h2>
+              <div className="gold-bar" />
+              <ul className="space-y-3 mt-4">
+                {features.map((f) => (
+                  <li key={f.label} className="flex items-start gap-3 text-sm text-gray-600">
+                    <span className="text-lg flex-shrink-0">{f.icon}</span>
+                    <span>{f.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Jadwal Keberangkatan</h2>
+              <div className="gold-bar" />
+              <div className="flex flex-wrap gap-3 mt-4">
+                {schedules.map((s) => (
+                  <span key={s} className="bg-primary-900 text-gold-400 text-sm font-bold px-4 py-2 rounded-xl">🕐 {s}</span>
+                ))}
+              </div>
+              <p className="text-gray-400 text-xs mt-3">*Jadwal sewaktu-waktu dapat disesuaikan. Hubungi WhatsApp kami untuk konfirmasi jadwal terbaru.</p>
+            </div>
+
+            <div>
+              <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Pertanyaan Umum</h2>
+              <div className="gold-bar" />
+              <div className="space-y-4 mt-4">
+                {faqs.map((faq) => (
+                  <div key={faq.q} className="border border-gray-100 rounded-xl p-4 bg-cream-50">
+                    <p className="font-semibold text-primary-900 text-sm mb-1">{faq.q}</p>
+                    <p className="text-gray-500 text-sm leading-relaxed">{faq.a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h2 className="font-display text-xl font-bold text-primary-900 mb-4">Layanan Terkait</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { href: '/travel-palembang-curup', label: '↔ Travel Palembang – Curup', desc: 'Rute balik dari Palembang menuju Curup' },
+                  { href: '/travel-bengkulu-palembang', label: '🚐 Travel Bengkulu – Palembang', desc: 'Hiace 14 kursi, 2 jadwal keberangkatan harian' },
+                  { href: '/sewa-hiace-curup', label: '🔑 Sewa Hiace Curup', desc: 'Mulai Rp 1.800.000/hari, sudah all-in' },
+                  { href: '/travel-curup-lebong', label: '🗺️ Travel Curup – Lebong', desc: 'Rute harian lokal Curup–Lebong' },
+                ].map(l => (
+                  <Link key={l.href} href={l.href} className="block border border-gray-100 hover:border-gold-400 rounded-xl p-3 transition-all group">
+                    <p className="font-semibold text-primary-900 text-sm group-hover:text-gold-600 transition-colors">{l.label}</p>
+                    <p className="text-gray-400 text-xs mt-0.5">{l.desc}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div className="card p-6 border-2 border-gold-500 sticky top-20">
+              <h3 className="font-display font-bold text-primary-900 text-lg mb-1">Pesan Sekarang</h3>
+              <div className="gold-bar" />
+              <p className="text-gray-500 text-sm mb-4 leading-relaxed">Hubungi kami via WhatsApp untuk pemesanan tiket dan informasi tarif terkini.</p>
+              <div className="space-y-2 mb-5 text-sm text-gray-600">
+                <div className="flex items-center gap-2"><span>✓</span> Diantar langsung ke alamat tujuan</div>
+                <div className="flex items-center gap-2"><span>✓</span> Tarif transparan, tanpa biaya tersembunyi</div>
+                <div className="flex items-center gap-2"><span>✓</span> Konfirmasi pemesanan cepat & mudah</div>
+              </div>
+              <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-wa w-full py-3 text-sm mb-2 flex items-center justify-center">Chat WhatsApp</a>
+              <Link href="/pesan?paket=curup-palembang"
+                className="w-full py-3 text-sm flex items-center justify-center font-bold rounded-xl relative overflow-hidden"
+                style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 16px rgba(201,168,76,0.4)' }}>
+                <span className="relative z-10">🎫 Pesan Sekarang</span>
+                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
+              </Link>
+              <p className="text-center text-xs text-gray-400 mt-3">📞 0852-8282-8005</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <style>{`@keyframes shimmer{0%{transform:translateX(-100%) skewX(-20deg)}100%{transform:translateX(300%) skewX(-20deg)}}`}</style>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqSchema }} />
+    </>
+  );
+}
