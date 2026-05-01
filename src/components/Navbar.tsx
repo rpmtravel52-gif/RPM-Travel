@@ -13,16 +13,33 @@ const navLinks: NavLink[] = [
   {
     label: 'Layanan',
     children: [
-      { href: '/travel-curup-palembang',    label: '🚐 Travel Curup – Palembang' },
-      { href: '/travel-palembang-curup',   label: '↩️ Travel Palembang – Curup' },
-      { href: '/travel-curup-lebong',       label: '🚗 Travel Curup – Lebong' },
-      { href: '/travel-lebong-curup',       label: '↩️ Travel Lebong – Curup' },
+      // ── Bengkulu ↔ Palembang (priority tertinggi)
       { href: '/travel-bengkulu-palembang', label: '🚌 Travel Bengkulu – Palembang' },
       { href: '/travel-palembang-bengkulu', label: '↩️ Travel Palembang – Bengkulu' },
+      // ── Curup ↔ Palembang
+      { href: '/travel-curup-palembang',    label: '🚐 Travel Curup – Palembang' },
+      { href: '/travel-palembang-curup',    label: '↩️ Travel Palembang – Curup' },
+      // ── Curup ↔ Lebong
+      { href: '/travel-curup-lebong',       label: '🚗 Travel Curup – Lebong' },
+      { href: '/travel-lebong-curup',       label: '↩️ Travel Lebong – Curup' },
+      // ── Lebong ↔ Palembang
       { href: '/travel-lebong-palembang',   label: '🚌 Travel Lebong – Palembang' },
       { href: '/travel-palembang-lebong',   label: '↩️ Travel Palembang – Lebong' },
+      // ── Sewa
       { href: '/sewa-hiace-curup',          label: '🚐 Sewa Hiace Curup' },
       { href: '/sewa-bus-wisata',           label: '🚌 Sewa Bus Wisata' },
+    ],
+  },
+  {
+    label: 'Artikel',
+    children: [
+      { href: '/berapa-jam-palembang-bengkulu',    label: '🕐 Berapa Jam Palembang – Bengkulu?' },
+      { href: '/berapa-jam-palembang-lebong',      label: '🕐 Berapa Jam Palembang – Lebong?' },
+      { href: '/harga-travel-palembang-lebong',    label: '💰 Harga Travel Palembang – Lebong' },
+      { href: '/rute-travel-palembang-bengkulu',   label: '🗺️ Rute Travel Palembang – Bengkulu' },
+      { href: '/tips-naik-travel-jarak-jauh',      label: '✈️ Tips Naik Travel Jarak Jauh' },
+      { href: '/tips-sewa-bus-wisata',             label: '🚌 Tips Sewa Bus Wisata' },
+      { href: '/sewa-bus-vs-travel-rombongan',     label: '⚖️ Sewa Bus vs Travel Rombongan' },
     ],
   },
   { href: '/transportasi-perjalanan-dinas', label: 'Perjalanan Dinas' },
@@ -38,8 +55,6 @@ export default function Navbar() {
   const [scrolled, setScrolled]             = useState(false);
 
   useEffect(() => {
-    // FIX: Throttle dengan requestAnimationFrame agar tidak terjadi
-    // forced reflow setiap scroll event → mengurangi TBT & layout shift
     let ticking = false;
     const onScroll = () => {
       if (!ticking) {
@@ -56,18 +71,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/*
-        FIX PERFORMA: Blok <style> dengan @import Google Fonts DIHAPUS.
-        Font Cormorant Garamond & Montserrat sekarang di-load via next/font
-        di layout.tsx — jauh lebih cepat karena:
-        1. Tidak render-blocking
-        2. Di-preload otomatis di <head>
-        3. Self-hosted oleh Vercel (tidak perlu request ke fonts.googleapis.com)
-
-        CSS class di bawah ini tetap sama, hanya sumber font yang berubah
-        → menggunakan CSS variable --font-cormorant & --font-montserrat
-        yang di-inject oleh next/font di layout.tsx.
-      */}
       <style>{`
         .rpm-logo-text { font-family: var(--font-cormorant), serif; }
         .rpm-nav-font  { font-family: var(--font-montserrat), sans-serif; }
@@ -102,9 +105,18 @@ export default function Navbar() {
           pointer-events: none;
         }
         .rpm-topline.show { opacity: 1; }
+
+        /* Dropdown dibagi 2 kolom jika item > 6 */
+        .rpm-dropdown-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+        .rpm-dropdown-single {
+          display: block;
+        }
       `}</style>
 
-      {/* Gold top line (muncul saat scroll) */}
+      {/* Gold top line */}
       <div className={`rpm-topline${scrolled ? ' show' : ''}`} />
 
       <header
@@ -160,7 +172,11 @@ export default function Navbar() {
 
                   {dropdown === link.label && (
                     <div
-                      className="absolute top-full left-0 mt-1 bg-white rounded-xl shadow-xl border border-amber-100 py-2 min-w-[250px] z-50"
+                      className={`absolute top-full left-0 mt-1 bg-white rounded-xl shadow-xl border border-amber-100 py-2 z-50 ${
+                        link.children.length > 6
+                          ? 'rpm-dropdown-grid min-w-[480px]'
+                          : 'rpm-dropdown-single min-w-[260px]'
+                      }`}
                       onMouseEnter={() => setDropdown(link.label)}
                       onMouseLeave={() => setDropdown(null)}
                     >
