@@ -7,7 +7,7 @@ import MapSection from '@/components/MapSection';
 export const metadata: Metadata = {
   title: 'RPM Travel Curup | Travel Antar Jemput & Sewa Bus Wisata Bengkulu',
   description:
-    'RPM Travel Curup melayani rute door to door Curup–Palembang & Curup–Lebong setiap hari. Armada Hiace & Innova terawat, pengemudi berlisensi. Sewa bus wisata 31 kursi all-in. Hubungi 085282828005.',
+    'RPM Travel Curup melayani rute door to door Curup–Palembang - Bengkulu & Curup–Lebong setiap hari. Armada Hiace & Innova terawat, pengemudi berlisensi. Sewa bus wisata 31 kursi all-in. Hubungi 085282828005.',
 };
 
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20pesan%20travel';
@@ -55,9 +55,9 @@ const services = [
 ];
 
 const stats = [
-  { value: '3+',   label: 'Tahun Beroperasi' },
-  { value: '500+', label: 'Penumpang Puas' },
-  { value: '4',    label: 'Pilihan Armada' },
+  { value: '9+',   label: 'Tahun Beroperasi' },
+  { value: '5000+', label: 'Penumpang Puas' },
+  { value: '4',    label: 'Jenis Armada' },
   { value: '24/7', label: 'Siap Dihubungi' },
 ];
 
@@ -83,7 +83,7 @@ const cars = [
     type: 'MPV Premium · 8-11 Penumpang',
     desc: 'Pilihan premium untuk semua rute. Suspensi halus terasa nyaman di jalan berliku Bengkulu, kursi ergonomis, dan kabin kedap suara untuk perjalanan yang lebih tenang.',
     img: '/images/hiace/all-armada.jpg',
-    specs: ['7 Penumpang', 'Suspensi Premium', 'Kabin Lega'],
+    specs: ['8-11 Penumpang', 'Suspensi Premium', 'Kabin Lega'],
     featured: true,
   },
   {
