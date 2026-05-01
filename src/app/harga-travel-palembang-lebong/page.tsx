@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Harga Travel Palembang ke Lebong 2025 | Ongkos & Jadwal Terbaru',
+  title: 'Harga Travel Palembang ke Lebong 2026 | Ongkos & Jadwal Terbaru',
   description:
     'Harga travel Palembang ke Lebong mulai Rp 300.000 per orang. Cek ongkos terbaru, jadwal keberangkatan, dan pilihan rute via Curup. RPM Travel – door to door ke Kabupaten Lebong, Bengkulu.',
   keywords: [
     'harga travel palembang ke lebong',
     'ongkos travel palembang lebong',
     'biaya travel palembang lebong',
-    'tarif travel palembang lebong 2025',
+    'tarif travel palembang lebong 2026',
     'harga tiket travel palembang lebong',
     'ongkos palembang lebong berapa',
     'travel palembang lebong murah',
