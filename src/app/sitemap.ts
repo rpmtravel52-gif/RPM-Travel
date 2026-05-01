@@ -11,7 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ── Bengkulu ↔ Palembang
     { url: `${base}/travel-bengkulu-palembang`, lastModified: now, changeFrequency: 'weekly', priority: 0.95 },
     { url: `${base}/berapa-jam-palembang-bengkulu`, lastModified: now, changeFrequency: 'weekly', priority: 0.80 },
-    
     { url: `${base}/travel-palembang-bengkulu`, lastModified: now, changeFrequency: 'weekly', priority: 0.95 },
 
     // ── Curup ↔ Palembang
