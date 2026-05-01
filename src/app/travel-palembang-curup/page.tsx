@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -124,6 +125,22 @@ export default function TravelPalembangCurupPage() {
             Perjalanan dari Palembang menuju Curup kini lebih mudah dan menyenangkan. Pilih armada Toyota Hiace untuk kapasitas besar atau Innova untuk kenyamanan perjalanan keluarga kecil. Dua jadwal tersedia setiap harinya — pagi dan malam.
           </p>
 
+          {/* ── GAMBAR ARMADA (Hero) ── */}
+          <div className="relative w-full h-52 sm:h-64 rounded-2xl overflow-hidden mb-8 border border-gold-500/20 shadow-lg">
+            <Image
+              src="/images/hiace/innova-hiace.jpg"
+              alt="Armada Toyota Hiace dan Innova RPM Travel Palembang Curup"
+              fill
+              sizes="(max-width: 768px) 100vw, 896px"
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-transparent to-transparent" />
+            <span className="absolute bottom-3 left-4 text-white text-xs font-semibold bg-primary-900/60 px-2 py-1 rounded-lg">
+              Armada Hiace & Innova RPM Travel
+            </span>
+          </div>
+
           {/* CTA tunggal: Pesan Sekarang dengan efek shimmer */}
           <div className="flex items-center gap-4">
             <Link
@@ -184,7 +201,23 @@ export default function TravelPalembangCurupPage() {
       <section className="py-14 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Pilihan Armada</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-8" />
+          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+
+          {/* ── GAMBAR EXTERIOR ── */}
+          <div className="relative w-full h-48 sm:h-56 rounded-2xl overflow-hidden mb-8 shadow-sm border border-gray-100">
+            <Image
+              src="/images/hiace/exterior.jpg"
+              alt="Eksterior Toyota Hiace RPM Travel Palembang Curup"
+              fill
+              sizes="(max-width: 768px) 100vw, 896px"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+            <span className="absolute bottom-3 left-4 text-white text-xs font-semibold bg-black/50 px-2 py-1 rounded-lg">
+              Eksterior Armada Hiace — Luas & Bertenaga
+            </span>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {armada.map(a => (
               <div key={a.nama} className="bg-white border border-gray-200 rounded-2xl p-6 hover:border-gold-400 hover:shadow-md transition-all relative">
@@ -226,6 +259,22 @@ export default function TravelPalembangCurupPage() {
                 <p>
                   Berbeda dengan transportasi umum yang seringkali membutuhkan transit di beberapa titik, layanan kami mengantar Anda langsung dari Palembang ke alamat tujuan di Curup dalam satu perjalanan yang nyaman. Tidak ada ganti kendaraan, tidak ada kerumitan.
                 </p>
+
+                {/* ── GAMBAR INTERIOR ── */}
+                <div className="relative w-full h-44 sm:h-52 rounded-2xl overflow-hidden my-2 shadow-sm border border-gray-100">
+                  <Image
+                    src="/images/hiace/interior.jpg"
+                    alt="Interior kabin Toyota Hiace RPM Travel — nyaman untuk perjalanan Palembang Curup"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 600px"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <span className="absolute bottom-3 left-4 text-white text-xs font-semibold bg-black/50 px-2 py-1 rounded-lg">
+                    Interior Kabin Hiace — Tinggi, Lega & Ber-AC
+                  </span>
+                </div>
+
                 <p>
                   Tersedia dua pilihan armada yang bisa disesuaikan dengan kebutuhan. Toyota Hiace 14 kursi ideal untuk rombongan keluarga atau rekan kerja yang bepergian bersama. Sementara Toyota Innova 7 kursi menjadi pilihan favorit untuk perjalanan keluarga kecil yang menginginkan suasana lebih intim dan personal.
                 </p>
