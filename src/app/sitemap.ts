@@ -26,15 +26,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/travel-palembang-lebong`,   lastModified: now, changeFrequency: 'weekly', priority: 0.90 },
     { url: `${base}/berapa-jam-palembang-lebong`,   lastModified: now, changeFrequency: 'weekly', priority: 0.80 },
     { url: `${base}/harga-travel-palembang-lebong`,   lastModified: now, changeFrequency: 'weekly', priority: 0.80 },
+    
 
     // ── Sewa
     { url: `${base}/sewa-hiace-curup`,          lastModified: now, changeFrequency: 'weekly',  priority: 0.88 },
     { url: `${base}/sewa-bus-wisata`,           lastModified: now, changeFrequency: 'weekly',  priority: 0.85 },
+    { url: `${base}/tips-sewa-bus-wisata`,           lastModified: now, changeFrequency: 'weekly',  priority: 0.85 },
+     { url: `${base}/sewa-bus-vs-travel-rombongan`,           lastModified: now, changeFrequency: 'weekly',  priority: 0.85 },
 
     // ── Layanan Khusus
     { url: `${base}/transportasi-perjalanan-dinas`, lastModified: now, changeFrequency: 'monthly', priority: 0.80 },
 
     // ── Pemesanan
     { url: `${base}/pesan`,                     lastModified: now, changeFrequency: 'monthly', priority: 0.75 },
+
+    //── Artikel
+     { url: `${base}/tips-naik-travel-jarak-jauh`, lastModified: now, changeFrequency: 'monthly', priority: 0.80 },
+     { url: `${base}/rute-travel-palembang-bengkulu`, lastModified: now, changeFrequency: 'monthly', priority: 0.80 },
   ];
 }
