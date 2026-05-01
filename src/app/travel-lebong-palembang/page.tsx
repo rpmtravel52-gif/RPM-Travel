@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -74,7 +75,8 @@ export default function TravelLebongPalembangPage() {
   return (
     <>
       {/* HERO */}
-      <section className="bg-primary-900 py-16 relative overflow-hidden">
+      {/* FIX LCP: Hero section sekarang berisi gambar di dalamnya, tampil di mobile & desktop */}
+      <section className="bg-primary-900 pt-10 pb-0 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10"
           style={{ backgroundImage: 'radial-gradient(circle, rgba(201,168,76,0.4) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
         <div className="max-w-4xl mx-auto px-4 relative">
@@ -83,23 +85,48 @@ export default function TravelLebongPalembangPage() {
             <span>/</span>
             <span className="text-gray-400">Travel Lebong – Palembang</span>
           </nav>
-          <div className="inline-flex items-center gap-2 bg-gold-500/20 border border-gold-500/30 text-gold-300 text-xs font-bold px-3 py-1.5 rounded-full mb-5">
-            🚐 Hiace & Innova · Pagi & Sore
-          </div>
-          <h1 className="font-display text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
-            Travel Lebong – Palembang<br />
-            <span className="text-gold-400">Langsung, Tanpa Transit</span>
-          </h1>
-          <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-2xl">
-            Bepergian dari Kabupaten Lebong ke Palembang kini tak perlu pusing soal sambungan angkutan. RPM Travel membuka rute khusus Lebong–Palembang dengan armada Hiace berkapasitas 14 kursi dan Innova 7 kursi — dua jadwal tetap tiap hari, langsung tiba di tujuan tanpa bongkar pindah penumpang di tengah jalan.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/pesan?paket=lebong-palembang"
-              className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-xl text-base relative overflow-hidden"
-              style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 20px rgba(201,168,76,0.4)' }}>
-              <span className="relative z-10">🎫 Pesan Sekarang</span>
-              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
-            </Link>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center pb-10">
+            {/* Teks hero — desktop kiri, mobile bawah */}
+            <div className="order-last lg:order-first">
+              <div className="inline-flex items-center gap-2 bg-gold-500/20 border border-gold-500/30 text-gold-300 text-xs font-bold px-3 py-1.5 rounded-full mb-5">
+                🚐 Hiace & Innova · Pagi & Sore
+              </div>
+              <h1 className="font-display text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                Travel Lebong – Palembang<br />
+                <span className="text-gold-400">Langsung, Tanpa Transit</span>
+              </h1>
+              <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-2xl">
+                Bepergian dari Kabupaten Lebong ke Palembang kini tak perlu pusing soal sambungan angkutan. RPM Travel membuka rute khusus Lebong–Palembang dengan armada Hiace berkapasitas 14 kursi dan Innova 7 kursi — dua jadwal tetap tiap hari, langsung tiba di tujuan tanpa bongkar pindah penumpang di tengah jalan.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link href="/pesan?paket=lebong-palembang"
+                  className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-xl text-base relative overflow-hidden"
+                  style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 20px rgba(201,168,76,0.4)' }}>
+                  <span className="relative z-10">🎫 Pesan Sekarang</span>
+                  <span className="absolute inset-0 -translate-x-full animate-[shimmer_2.5s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animationName: 'shimmer', animationDuration: '2.5s', animationIterationCount: 'infinite', animationTimingFunction: 'ease-in-out' }} />
+                </Link>
+              </div>
+            </div>
+
+            {/* Gambar hero — mobile tampil duluan */}
+            <div className="order-first lg:order-last">
+              <div className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-gold-500/20">
+                <Image
+                  src="/images/hiace/innova-hiace.jpg"
+                  alt="Armada Toyota Hiace dan Innova RPM Travel Lebong Palembang"
+                  width={900}
+                  height={500}
+                  className="w-full object-cover"
+                  priority
+                  fetchPriority="high"
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                />
+              </div>
+              <p className="text-center text-xs text-gray-500 mt-2">
+                Armada Toyota Hiace &amp; Innova RPM Travel — tersedia dua jadwal harian untuk rute Lebong–Palembang.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -149,6 +176,23 @@ export default function TravelLebongPalembangPage() {
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Pilihan Armada</h2>
           <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-8" />
+
+          {/* Gambar eksterior armada */}
+          <div className="rounded-2xl overflow-hidden shadow-sm border border-gray-100 mb-8">
+            <Image
+              src="/images/hiace/innova-hiace.jpg"
+              alt="Eksterior Toyota Hiace dan Innova RPM Travel Lebong Palembang"
+              width={896}
+              height={420}
+              className="w-full object-cover"
+              loading="lazy"
+              sizes="(max-width: 768px) 100vw, 896px"
+            />
+            <p className="text-center text-xs text-gray-400 py-2">
+              Armada Hiace &amp; Innova — Tangguh di Jalur Pegunungan Lebong
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {armada.map(a => (
               <div key={a.nama} className="bg-white border border-gray-200 rounded-2xl p-6 hover:border-gold-400 hover:shadow-md transition-all relative">
@@ -190,6 +234,23 @@ export default function TravelLebongPalembangPage() {
                 <p>
                   Jalur yang kami lalui melewati Curup lalu menyambung ke lintas Sumatera menuju Palembang. Tim sopir RPM Travel bukan sekadar hafal rute — mereka sudah ratusan kali melewati tikungan dan tanjakan khas Lebong, sehingga mampu menjaga laju kendaraan tetap stabil dan aman bahkan di kondisi jalan yang kurang ideal sekalipun.
                 </p>
+
+                {/* GAMBAR INTERIOR */}
+                <div className="rounded-2xl overflow-hidden shadow-sm border border-gray-100 my-2">
+                  <Image
+                    src="/images/hiace/innova-hiace.jpg"
+                    alt="Interior kabin Toyota Hiace RPM Travel — nyaman untuk perjalanan Lebong Palembang"
+                    width={600}
+                    height={340}
+                    className="w-full object-cover"
+                    loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 600px"
+                  />
+                  <p className="text-center text-xs text-gray-400 py-2">
+                    Armada RPM Travel — Nyaman untuk Rute Panjang Lebong–Palembang
+                  </p>
+                </div>
+
                 <p>
                   Dengan dua pilihan armada yang tersedia, penumpang dapat menyesuaikan kebutuhan. Hiace ideal untuk rombongan atau keluarga besar yang membawa banyak barang, sementara Innova menawarkan nuansa perjalanan lebih personal dengan kabinnya yang kompak dan nyaman untuk keluarga kecil.
                 </p>
