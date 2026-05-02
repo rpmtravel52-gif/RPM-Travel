@@ -54,7 +54,7 @@ function buildPesanPemesan(data: {
     `📋 *Detail Pesanan:*`,
     `━━━━━━━━━━━━━━━━━━━━━━`,
     `🔖 No. Pesanan  : *${data.orderNumber}*`,
-    `🚌 Paket        : ${data.paket}`,
+    `🚌 Juruaan        : ${data.paket}`,
     `📅 Tanggal      : ${formatTanggal(data.tanggal)}`,
     data.jam ? `🕐 Jam          : ${data.jam} WIB` : '',
     `👥 Penumpang    : ${data.jumlahPax} orang`,
