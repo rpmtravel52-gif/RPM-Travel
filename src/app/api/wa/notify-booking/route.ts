@@ -54,7 +54,7 @@ function buildPesanPemesan(data: {
     `📋 *Detail Pesanan:*`,
     `━━━━━━━━━━━━━━━━━━━━━━`,
     `🔖 No. Pesanan  : *${data.orderNumber}*`,
-    `🚌 Juruaan        : ${data.paket}`,
+    `🚌 Paket        : ${data.paket}`,
     `📅 Tanggal      : ${formatTanggal(data.tanggal)}`,
     data.jam ? `🕐 Jam          : ${data.jam} WIB` : '',
     `👥 Penumpang    : ${data.jumlahPax} orang`,
@@ -107,7 +107,7 @@ function buildPesanAdmin(data: {
     `📱 WhatsApp     : ${data.hp}`,
     data.email ? `📧 Email        : ${data.email}` : '',
     `━━━━━━━━━━━━━━━━━━━━━━`,
-    `🚌 Paket        : ${data.paket}`,
+    `🚌 Layanan        : ${data.paket}`,
     `📅 Tanggal      : ${formatTanggal(data.tanggal)}`,
     data.jam ? `🕐 Jam          : ${data.jam} WIB` : '',
     `👥 Penumpang    : ${data.jumlahPax} orang`,
@@ -122,7 +122,7 @@ function buildPesanAdmin(data: {
       ? `⚠️ *Metode QRIS* — Segera cek bukti pembayaran dari pelanggan.\nSetelah pembayaran diterima, tekan tombol *✅ Konfirmasi Lunas* di dashboard admin untuk mengirim tiket otomatis.`
       : `💵 *Metode TUNAI* — Pembayaran dilakukan saat keberangkatan.`,
     ``,
-    `🔗 Dashboard: ${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/admin`,
+    `🔗 Dashboard Admin: rpmtravel.co.id/admin`,
   ].filter(Boolean).join('\n');
 }
 
