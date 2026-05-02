@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ── Curup ↔ Palembang
     { url: `${base}/travel-curup-palembang`,    lastModified: now, changeFrequency: 'weekly', priority: 0.93 },
     { url: `${base}/travel-palembang-curup`,    lastModified: now, changeFrequency: 'weekly', priority: 0.93 },
+    { url: `${base}/berapa-jam-palembang-curup`,    lastModified: now, changeFrequency: 'weekly', priority: 0.90 },
 
     // ── Curup ↔ Lebong
     { url: `${base}/travel-curup-lebong`,       lastModified: now, changeFrequency: 'weekly', priority: 0.90 },
@@ -24,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ── Lebong ↔ Palembang
     { url: `${base}/travel-lebong-palembang`,   lastModified: now, changeFrequency: 'weekly', priority: 0.90 },
     { url: `${base}/travel-palembang-lebong`,   lastModified: now, changeFrequency: 'weekly', priority: 0.90 },
-    { url: `${base}/berapa-jam-palembang-lebong`,   lastModified: now, changeFrequency: 'weekly', priority: 0.80 },
+    { url: `${base}/berapa-jam-palembang-lebong`,   lastModified: now, changeFrequency: 'weekly', priority: 0.85 },
     { url: `${base}/harga-travel-palembang-lebong`,   lastModified: now, changeFrequency: 'weekly', priority: 0.80 },
     
 
