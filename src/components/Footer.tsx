@@ -40,7 +40,7 @@ export default function Footer() {
           <ul className="space-y-2.5">
             {[
               { href: '/travel-bengkulu-palembang', label: 'Travel Bengkulu – Palembang' },
-      { href: '/travel-curup-palembang', label: 'Travel Curup – Palembang' },
+              { href: '/travel-curup-palembang', label: 'Travel Curup – Palembang' },
               { href: '/travel-curup-lebong',    label: 'Travel Curup – Lebong' },
               { href: '/sewa-bus-wisata',        label: 'Sewa Bus Wisata' },
               { href: '/pesan',                  label: 'Pesan Tiket Online' },
@@ -89,6 +89,43 @@ export default function Footer() {
               </a>
             </li>
           </ul>
+        </div>
+      </div>
+
+      {/* Metode Pembayaran */}
+      <div className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
+          <span className="text-xs font-bold uppercase tracking-widest text-gray-500 shrink-0">
+            Metode Pembayaran
+          </span>
+          <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-start">
+            {/* QRIS */}
+            <div className="flex items-center gap-1.5">
+              <img
+                src="/images/qris-logo-white.png"
+                alt="QRIS"
+                width={48}
+                height={20}
+                loading="lazy"
+                decoding="async"
+                className="h-5 w-auto opacity-80"
+              />
+              <img
+                src="/images/gpn-logo.png"
+                alt="GPN"
+                width={28}
+                height={20}
+                loading="lazy"
+                decoding="async"
+                className="h-5 w-auto opacity-80"
+              />
+            </div>
+            {/* Tunai */}
+            <div className="flex items-center gap-1.5 text-gray-400 text-xs">
+              <span>💵</span>
+              <span>Tunai</span>
+            </div>
+          </div>
         </div>
       </div>
 
