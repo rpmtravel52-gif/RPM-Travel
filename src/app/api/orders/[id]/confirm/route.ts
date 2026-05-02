@@ -41,8 +41,9 @@ function buildPesanKonfirmasi(order: {
   metodePembayaran: string;
   email?: string;
 }) {
-  const adminWa1 = ADMIN_NUMBERS[0] ?? '6281373336728';
-  const adminWa2 = ADMIN_NUMBERS[1] ?? '6285282828005';
+  // Nomor yang ditampilkan ke pemesan (nomor CS/admin aktif, bukan owner)
+  const adminWa1 = '6285282828005';
+  const adminWa2 = '6285282828006';
 
   return [
     `🎫 *RPM Travel Curup — Konfirmasi Pembayaran*`,
@@ -94,8 +95,9 @@ async function sendTicketEmail(order: {
   email: string;
   catatan?: string;
 }) {
-  const adminWa1 = ADMIN_NUMBERS[0] ?? '6281373336728';
-  const adminWa2 = ADMIN_NUMBERS[1] ?? '6285282828005';
+  // Nomor yang ditampilkan ke pemesan (nomor CS/admin aktif, bukan owner)
+  const adminWa1 = '6285282828005';
+  const adminWa2 = '6285282828006';
 
   const tgl = new Date(order.tanggal).toLocaleDateString('id-ID', {
     weekday: 'long', day: '2-digit', month: 'long', year: 'numeric',
