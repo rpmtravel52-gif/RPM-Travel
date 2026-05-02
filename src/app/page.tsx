@@ -97,7 +97,7 @@ const cars = [
     name: 'Bus Pariwisata',
     type: 'Bus · 31 Penumpang',
     desc: 'Solusi transportasi rombongan terlengkap di Curup. Cocok untuk wisata keluarga besar, gathering perusahaan, dan study tour sekolah. BBM dan sopir sudah termasuk dalam paket.',
-    img: '/images/bus/exterior.jpg',
+    img: '/images/bus/luarbus.jpg',
     specs: ['31 Penumpang', 'All-In BBM', 'Sopir Profesional'],
     featured: true,
   },
