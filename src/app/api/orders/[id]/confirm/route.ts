@@ -49,7 +49,7 @@ function buildPesanKonfirmasi(order: {
     `✅ *E-TICKET ANDA*`,
     `━━━━━━━━━━━━━━━━━━━━━━`,
     `🎫 No. Tiket    : *${order.orderNumber}*`,
-    `🚌 Paket        : ${order.paket}`,
+    `🚌 Jurusan        : ${order.paket}`,
     `📅 Tanggal      : ${formatTanggal(order.tanggal)}`,
     order.jam ? `🕐 Jam          : ${order.jam} WIB` : '',
     `👥 Penumpang    : ${order.jumlahPax} orang`,
