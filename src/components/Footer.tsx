@@ -100,26 +100,25 @@ export default function Footer() {
           </span>
           <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-start">
             {/* QRIS */}
-            <div className="flex items-center gap-1.5">
-              <img
-                src="/images/qris-logo-white.png"
-                alt="QRIS"
-                width={48}
-                height={20}
-                loading="lazy"
-                decoding="async"
-                className="h-5 w-auto opacity-80"
-              />
-              <img
-                src="/images/gpn-logo.png"
-                alt="GPN"
-                width={28}
-                height={20}
-                loading="lazy"
-                decoding="async"
-                className="h-5 w-auto opacity-80"
-              />
-            </div>
+            <img
+              src="/images/qris-logo-white.png"
+              alt="QRIS"
+              width={400}
+              height={120}
+              loading="lazy"
+              decoding="async"
+              className="h-8 w-auto opacity-80"
+            />
+            {/* GPN */}
+            <img
+              src="/images/gpn-logo.png"
+              alt="GPN"
+              width={400}
+              height={120}
+              loading="lazy"
+              decoding="async"
+              className="h-8 w-auto opacity-80"
+            />
             {/* Tunai */}
             <div className="flex items-center gap-1.5 text-gray-400 text-xs">
               <span>💵</span>
