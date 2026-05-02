@@ -9,12 +9,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getOrder, saveOrder } from '@/lib/redis';
 import { sendWA, normalizeWaNumber } from '@/lib/fonnte';
 
-// ─── Nomor admin (tampilkan di pesan ke pemesan) ───────────────
-const ADMIN_NUMBERS: string[] = (process.env.ADMIN_WA_NUMBERS ?? '')
-  .split(',')
-  .map((n) => n.trim())
-  .filter(Boolean);
-
 // ─── Format Rupiah ─────────────────────────────────────────────
 function formatRupiah(amount: number) {
   return new Intl.NumberFormat('id-ID', {
