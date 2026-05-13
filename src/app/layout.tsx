@@ -8,6 +8,7 @@ import {
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import WAFloat from '@/components/WAFloat';
 
 // ── Font: Playfair Display (dipakai di konten utama) ──────────────
 const playfair = Playfair_Display({
@@ -79,6 +80,7 @@ export default function RootLayout({
         <Navbar />
         <main className="pt-16">{children}</main>
         <Footer />
+        <WAFloat />
       </body>
     </html>
   );
