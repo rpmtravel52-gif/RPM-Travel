@@ -124,7 +124,9 @@ function PesanForm() {
       `Tujuan     : ${form.tujuan}`,
       `Bayar      : ${order.metodePembayaran}`,
       `Total      : ${formatRupiah(order.totalHarga)}`,
-      order.metodePembayaran === 'QRIS' ? `\n✅ *Saya sudah melakukan pembayaran QRIS*` : '',
+      order.metodePembayaran === 'QRIS'
+        ? `\n✅ *Saya sudah melakukan pembayaran QRIS*`
+        : `\n📋 *Saya ingin konfirmasi pesanan — Pembayaran TUNAI ke sopir*`,
       form.catatan ? `Catatan    : ${form.catatan}` : '',
     ].filter(Boolean).join('\n');
   };
@@ -137,7 +139,7 @@ function PesanForm() {
     );
   };
 
-  // ─── FUNGSI KIRIM NOTIFIKASI WA (BARU) ─────────────────────
+  // ─── FUNGSI KIRIM NOTIFIKASI WA via Fonnte (hanya untuk QRIS) ─
   const sendWaNotification = async (order: Order) => {
     try {
       await fetch('/api/wa/notify-booking', {
@@ -203,15 +205,15 @@ function PesanForm() {
       const order: Order = data.order;
       setCreatedOrder(order);
 
-      // 2. Kirim notifikasi WA (tidak blocking — fire & forget)
-      sendWaNotification(order);
-
-      // 3. Tampilkan QRIS atau buka WA
       if (form.metode === 'QRIS') {
+        // 2a. QRIS: kirim notifikasi via Fonnte (fire & forget), lalu tampilkan modal QR
+        sendWaNotification(order);
         setShowQris(true);
       } else {
+        // 2b. TUNAI: skip Fonnte, langsung direct ke WhatsApp admin
         openWhatsApp(order);
       }
+
       setShowSuccess(true);
     } catch {
       setError('Koneksi bermasalah. Periksa internet Anda dan coba lagi.');
@@ -251,7 +253,7 @@ function PesanForm() {
               🎫 Pesan Tiket Online
             </h1>
             <p className="text-gray-500 text-sm">
-              Isi form di bawah — notifikasi otomatis ke WhatsApp Anda
+              Isi form di bawah — konfirmasi langsung ke WhatsApp admin kami
             </p>
           </div>
 
@@ -279,13 +281,15 @@ function PesanForm() {
             <div className="bg-green-50 border border-green-200 rounded-2xl px-5 py-4 mb-6">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-2xl">✅</span>
-                <p className="text-green-800 font-bold text-base">Pesanan Berhasil Dikonfirmasi!</p>
+                <p className="text-green-800 font-bold text-base">Pesanan Berhasil Dibuat!</p>
               </div>
               <p className="text-green-700 text-sm mb-1">
                 No. Pesanan: <span className="font-mono font-bold">{createdOrder.orderNumber}</span>
               </p>
               <p className="text-green-700 text-sm mb-3">
-                Notifikasi WhatsApp telah dikirim ke nomor Anda. Apabila Anda tidak menerima WA secara otomatis, silahkan hubungi admin kami:
+                {createdOrder.metodePembayaran === 'TUNAI'
+                  ? 'Silakan lanjutkan konfirmasi pesanan Anda via WhatsApp admin di bawah ini.'
+                  : 'Notifikasi WhatsApp telah dikirim ke nomor Anda. Apabila tidak menerima WA, silahkan hubungi admin kami:'}
               </p>
               <div className="flex flex-col sm:flex-row gap-2">
                 <a
@@ -355,7 +359,7 @@ function PesanForm() {
                 />
               </div>
               <p className="text-gray-400 text-xs mt-1">
-                📱 Notifikasi pesanan akan dikirim otomatis ke WhatsApp ini
+                📱 Nomor ini akan digunakan admin untuk konfirmasi pesanan Anda
               </p>
             </div>
 
@@ -528,7 +532,7 @@ function PesanForm() {
               )}
               {form.metode === 'TUNAI' && (
                 <p className="mt-2 text-xs text-gray-500 bg-gray-50 border border-gray-100 rounded-lg px-3 py-2">
-                  💵 Notifikasi WA otomatis terkirim ke nomor Anda setelah pesanan dibuat.
+                  💵 Setelah memesan, Anda akan langsung diarahkan ke WhatsApp admin untuk konfirmasi pesanan.
                 </p>
               )}
             </div>
@@ -627,7 +631,9 @@ function PesanForm() {
             </button>
 
             <p className="text-center text-xs text-gray-400">
-              📱 Notifikasi WA otomatis terkirim ke nomor Anda setelah pemesanan berhasil
+              {form.metode === 'QRIS'
+                ? '📱 Notifikasi WA otomatis terkirim ke nomor Anda setelah pemesanan berhasil'
+                : '💬 Anda akan diarahkan ke WhatsApp admin setelah pesanan dibuat'}
             </p>
           </form>
         </div>
