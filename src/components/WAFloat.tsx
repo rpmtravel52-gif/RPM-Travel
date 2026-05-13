@@ -1,7 +1,42 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
+
+// ── Peta pathname → jurusan untuk kalimat pesan WA ───────────
+const ROUTE_LABEL: Record<string, string> = {
+  '/travel-bengkulu-palembang': 'Travel Bengkulu – Palembang',
+  '/travel-palembang-bengkulu': 'Travel Palembang – Bengkulu',
+  '/travel-curup-palembang':    'Travel Curup – Palembang',
+  '/travel-palembang-curup':    'Travel Palembang – Curup',
+  '/travel-curup-lebong':       'Travel Curup – Lebong',
+  '/travel-lebong-curup':       'Travel Lebong – Curup',
+  '/travel-lebong-palembang':   'Travel Lebong – Palembang',
+  '/travel-palembang-lebong':   'Travel Palembang – Lebong',
+  '/sewa-hiace':                'Sewa Hiace',
+  '/sewa-bus-wisata':           'Sewa Bus Wisata',
+  '/pesan':                     'Pemesanan Tiket',
+  '/pesan-tiket':               'Pemesanan Tiket',
+};
+
+function buildMessage(pathname: string): string {
+  const jurusan = ROUTE_LABEL[pathname];
+
+  if (jurusan) {
+    return `Halo RPM, saya lihat di website dan mau pesan travel untuk jurusan ${jurusan}.`;
+  }
+
+  // Halaman beranda atau halaman lain yang tidak spesifik
+  return 'Halo RPM, saya lihat di website dan ingin bertanya mengenai layanan travel.';
+}
+
 export default function WAFloat() {
+  const pathname = usePathname();
+  const message  = buildMessage(pathname);
+  const href     = `https://wa.me/6285282828005?text=${encodeURIComponent(message)}`;
+
   return (
     <a
-      href="https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20bertanya"
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat WhatsApp RPM Travel"
