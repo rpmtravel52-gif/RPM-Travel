@@ -5,7 +5,7 @@ export const metadata = {
   description:
     "Nikmati travel Bengkulu ke Palembang dengan Hiace Executive Class kapasitas 8 seat. Kursi nyaman dengan sandaran kaki, tersedia jadwal siang & malam, harga ekonomis.",
   alternates: {
-    canonical: "/travel-bengkulu-palembang-hiace-executive",
+    canonical: "https://rpmtravel.co.id/travel-curup-executive",
   },
 };
 
@@ -16,7 +16,7 @@ export default function Page() {
     name: "RPM Travel Curup",
     description:
       "Layanan travel Bengkulu ke Palembang dengan Hiace Executive Class kapasitas 8 seat, nyaman dengan sandaran kaki, tersedia jadwal siang dan malam.",
-    url: "https://rpmtravel.co.id/travel-bengkulu-palembang-hiace-executive",
+    url: "https://rpmtravel.co.id/travel-curup-executive",
     telephone: "+628XXXXXXXXXX", // GANTI dengan nomor Anda
     address: {
       "@type": "PostalAddress",
@@ -67,6 +67,15 @@ export default function Page() {
   return (
     <>
       <article className="prose max-w-4xl mx-auto py-8">
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="not-prose flex items-center gap-2 text-gold-600 text-xs font-semibold mb-6">
+          <Link href="/" className="hover:text-gold-500 transition-colors">Beranda</Link>
+          <span className="text-gray-400">/</span>
+          <Link href="/travel-bengkulu-palembang" className="hover:text-gold-500 transition-colors">Travel Bengkulu – Palembang</Link>
+          <span className="text-gray-400">/</span>
+          <span className="text-gray-500">Hiace Executive</span>
+        </nav>
+
         <h1>Travel Bengkulu ke Palembang Nyaman dengan Hiace Executive Class</h1>
 
         <p>
@@ -78,7 +87,7 @@ export default function Page() {
 
         {/* GANTI NAMA FILE GAMBAR SESUAI YANG ANDA UPLOAD DI /public/images */}
         <img
-          src="/images/hiace-interior.jpg"
+          src="/images/hiace/interior.jpg"
           alt="Interior Hiace Executive travel Bengkulu Palembang"
           className="rounded-xl"
         />
@@ -154,6 +163,24 @@ export default function Page() {
           Palembang dengan Hiace Executive Class yang nyaman, aman, dan harga
           ekonomis bersama RPM Travel Curup.
         </p>
+
+        {/* Layanan Terkait */}
+        <div className="not-prose mt-8">
+          <h2 className="font-display text-xl font-bold text-primary-900 mb-4">Layanan Terkait</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {[
+              { href: '/travel-bengkulu-palembang', label: '🚐 Travel Bengkulu – Palembang', desc: 'Rute lengkap Bengkulu ke Palembang, 2 jadwal harian' },
+              { href: '/travel-palembang-bengkulu', label: '↔ Travel Palembang – Bengkulu', desc: 'Rute balik dari Palembang ke Bengkulu' },
+              { href: '/berapa-jam-palembang-bengkulu', label: '⏱ Berapa Jam Palembang ke Bengkulu?', desc: 'Estimasi waktu tempuh dan info perjalanan' },
+              { href: '/rute-travel-palembang-bengkulu', label: '🛣️ Rute Perjalanan Palembang – Bengkulu', desc: 'Panduan jalur dan waypoint yang dilalui' },
+            ].map(l => (
+              <Link key={l.href} href={l.href} className="block border border-gray-200 hover:border-gold-400 rounded-xl p-3 transition-all group no-underline">
+                <p className="font-semibold text-primary-900 text-sm group-hover:text-gold-600 transition-colors">{l.label}</p>
+                <p className="text-gray-400 text-xs mt-0.5">{l.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
       </article>
 
       {/* JSON-LD Schema */}

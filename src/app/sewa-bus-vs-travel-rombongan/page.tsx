@@ -285,7 +285,7 @@ export default function SewaBusVsTravelRombonganPage() {
               <h2 className="font-display text-xl font-bold text-primary-900 mb-4">Layanan Terkait</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
-                  { href: '/sewa-bus-wisata-30-seat', label: '🚌 Sewa Bus Wisata 30 Seat', desc: 'Info lengkap dan harga charter bus' },
+                  { href: '/sewa-bus-wisata', label: '🚌 Sewa Bus Wisata', desc: 'Info lengkap dan harga charter bus' },
                   { href: '/travel-palembang-bengkulu', label: '🚐 Travel Palembang – Bengkulu', desc: 'Hiace & Innova, berangkat tiap hari' },
                   { href: '/tips-sewa-bus-wisata', label: '💡 Tips Sewa Bus agar Tidak Rugi', desc: 'Panduan memilih penyedia yang tepat' },
                   { href: '/tips-naik-travel-jarak-jauh', label: '✈️ Tips Naik Travel Jarak Jauh', desc: 'Agar perjalanan tetap nyaman' },

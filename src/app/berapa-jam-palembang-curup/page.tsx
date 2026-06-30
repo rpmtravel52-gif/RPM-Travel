@@ -403,6 +403,11 @@ export default function BerapaJamPalembangCurupPage() {
                     desc: 'Rute balik dari Curup ke Palembang',
                   },
                   {
+                    href: '/jadwal-travel-palembang-curup',
+                    label: '🕐 Jadwal Travel Palembang – Curup',
+                    desc: 'Jam keberangkatan harian dan hari operasi',
+                  },
+                  {
                     href: '/travel-bengkulu-palembang',
                     label: '🗺️ Travel Bengkulu – Palembang',
                     desc: 'Rute lintas provinsi tersedia setiap hari',

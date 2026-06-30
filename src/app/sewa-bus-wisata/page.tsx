@@ -177,6 +177,24 @@ export default function SewaBusWisataPage() {
                 ))}
               </div>
             </div>
+
+            {/* Layanan Terkait */}
+            <div>
+              <h2 className="font-display text-xl font-bold text-primary-900 mb-4">Layanan Terkait</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { href: '/tips-sewa-bus-wisata', label: '💡 Tips Sewa Bus Wisata', desc: 'Panduan agar sewa bus tidak rugi' },
+                  { href: '/sewa-bus-vs-travel-rombongan', label: '⚖️ Sewa Bus vs Travel Rombongan', desc: 'Pilih mana yang lebih hemat?' },
+                  { href: '/sewa-hiace-curup', label: '🚐 Sewa Hiace Curup', desc: 'Armada lebih kecil, mulai Rp 1.800.000/hari' },
+                  { href: '/transportasi-perjalanan-dinas', label: '💼 Transportasi Perjalanan Dinas', desc: 'Solusi kendaraan untuk instansi & perusahaan' },
+                ].map(l => (
+                  <Link key={l.href} href={l.href} className="block border border-gray-100 hover:border-gold-400 rounded-xl p-3 transition-all group">
+                    <p className="font-semibold text-primary-900 text-sm group-hover:text-gold-600 transition-colors">{l.label}</p>
+                    <p className="text-gray-400 text-xs mt-0.5">{l.desc}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div>

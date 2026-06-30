@@ -150,7 +150,7 @@ export default function TipsSewaBusWisataPage() {
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-gold-400 text-xs font-semibold mb-4">
             <Link href="/" className="hover:text-gold-300 transition-colors">Beranda</Link>
             <span>/</span>
-            <Link href="/sewa-bus-wisata-30-seat" className="hover:text-gold-300 transition-colors">Sewa Bus Wisata</Link>
+            <Link href="/sewa-bus-wisata" className="hover:text-gold-300 transition-colors">Sewa Bus Wisata</Link>
             <span>/</span>
             <span className="text-gray-400">Tips Sewa Bus Agar Tidak Rugi</span>
           </nav>
@@ -292,7 +292,7 @@ export default function TipsSewaBusWisataPage() {
               <h2 className="font-display text-xl font-bold text-primary-900 mb-4">Layanan Terkait</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
-                  { href: '/sewa-bus-wisata-30-seat', label: '🚌 Sewa Bus Wisata 30 Seat', desc: 'Info armada dan harga charter' },
+                  { href: '/sewa-bus-wisata', label: '🚌 Sewa Bus Wisata', desc: 'Info armada dan harga charter' },
                   { href: '/sewa-bus-vs-travel-rombongan', label: '⚖️ Bus vs Travel Rombongan', desc: 'Perbandingan biaya & kenyamanan' },
                   { href: '/travel-palembang-bengkulu', label: '🚐 Travel Palembang – Bengkulu', desc: 'Hiace & Innova, berangkat tiap hari' },
                   { href: '/tips-naik-travel-jarak-jauh', label: '💡 Tips Naik Travel Jarak Jauh', desc: 'Panduan perjalanan nyaman' },

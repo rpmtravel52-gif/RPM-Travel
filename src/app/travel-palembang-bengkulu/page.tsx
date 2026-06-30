@@ -232,6 +232,24 @@ export default function TravelPalembangBengkuluPage() {
                 </div>
               ))}
             </div>
+
+            {/* Rute Terkait */}
+            <div className="mt-8">
+              <h2 className="font-display text-xl font-bold text-primary-900 mb-4">Rute & Informasi Terkait</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { href: '/travel-bengkulu-palembang', label: '↔ Travel Bengkulu – Palembang', desc: 'Rute balik dari Bengkulu ke Palembang' },
+                  { href: '/berapa-jam-palembang-bengkulu', label: '⏱ Berapa Jam Palembang ke Bengkulu?', desc: 'Estimasi waktu tempuh 8–10 jam' },
+                  { href: '/rute-travel-palembang-bengkulu', label: '🛣️ Rute Jalur Palembang – Bengkulu', desc: 'Panduan waypoint via Lubuklinggau–Curup' },
+                  { href: '/travel-palembang-curup', label: '🗺️ Travel Palembang – Curup', desc: 'Rute langsung ke Curup, Rejang Lebong' },
+                ].map(l => (
+                  <Link key={l.href} href={l.href} className="block border border-gray-100 hover:border-gold-400 rounded-xl p-3 transition-all group">
+                    <p className="font-semibold text-primary-900 text-sm group-hover:text-gold-600 transition-colors">{l.label}</p>
+                    <p className="text-gray-400 text-xs mt-0.5">{l.desc}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
           <div>
             <div className="bg-primary-900 rounded-2xl p-6 sticky top-20">

@@ -91,7 +91,7 @@ export default function TravelBengkuluPalembangPage() {
         dengan priority + fetchPriority="high" → LCP element berpindah ke gambar.
 
         Tambahkan juga di layout.tsx untuk page ini:
-        <link rel="preload" as="image" href="/images/hiace/exterior.webp"
+        <link rel="preload" as="image" href="/images/hiace/exterior.jpg"
           imageSizes="(max-width: 768px) 100vw, 45vw" fetchPriority="high" />
       */}
       <section className="bg-primary-900 pt-10 pb-0 relative overflow-hidden">
@@ -247,7 +247,7 @@ export default function TravelBengkuluPalembangPage() {
                 <div className="mt-6">
                   <div className="rounded-xl overflow-hidden shadow-md">
                     <Image
-                      src="/images/hiace/interior.webp"
+                      src="/images/hiace/interior.jpg"
                       alt="Interior kabin Toyota Hiace RPM Travel — kursi ergonomis dan AC dingin untuk perjalanan Bengkulu–Palembang"
                       width={800}
                       height={450}
@@ -281,6 +281,8 @@ export default function TravelBengkuluPalembangPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {[
                     { href: '/travel-palembang-bengkulu', label: '← Travel Palembang – Bengkulu', desc: 'Hiace Executive & Regular' },
+                    { href: '/berapa-jam-palembang-bengkulu', label: '⏱ Berapa Jam Palembang ke Bengkulu?', desc: 'Estimasi waktu tempuh 8–10 jam' },
+                    { href: '/rute-travel-palembang-bengkulu', label: '🛣️ Rute Jalur Perjalanan', desc: 'Panduan waypoint via Lubuklinggau–Curup' },
                     { href: '/sewa-hiace-curup', label: '🚐 Sewa Hiace Curup', desc: 'Rp 1.800.000/hari all-in' },
                     { href: '/transportasi-perjalanan-dinas', label: '💼 Transportasi Perjalanan Dinas', desc: 'Hiace Executive' },
                     { href: '/sewa-bus-wisata', label: '🚌 Sewa Bus Wisata', desc: '31 kursi · All-in' },

@@ -278,7 +278,7 @@ export default function TipsNaikTravelJarakJauhPage() {
                   { href: '/travel-palembang-bengkulu', label: '🚐 Travel Palembang – Bengkulu', desc: 'Hiace & Innova, berangkat tiap hari' },
                   { href: '/travel-bengkulu-palembang', label: '↩ Travel Bengkulu – Palembang', desc: 'Rute balik dari Bengkulu' },
                   { href: '/rute-travel-palembang-bengkulu', label: '🛣️ Rute & Jalur Perjalanan', desc: 'Panduan jalur yang dilalui' },
-                  { href: '/sewa-bus-wisata-30-seat', label: '🚌 Sewa Bus Wisata 30 Seat', desc: 'Cocok untuk rombongan besar' },
+                  { href: '/sewa-bus-wisata', label: '🚌 Sewa Bus Wisata', desc: 'Cocok untuk rombongan besar' },
                 ].map((l) => (
                   <Link key={l.href} href={l.href} className="block border border-gray-100 hover:border-gold-400 rounded-xl p-3 transition-all group">
                     <p className="font-semibold text-primary-900 text-sm group-hover:text-gold-600 transition-colors">{l.label}</p>

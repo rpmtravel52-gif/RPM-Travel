@@ -167,6 +167,24 @@ export default function TravelCurupLebongPage() {
                 ))}
               </div>
             </div>
+
+            {/* Rute Terkait */}
+            <div>
+              <h2 className="font-display text-xl font-bold text-primary-900 mb-4">Rute Terkait</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { href: '/travel-lebong-curup', label: '↔ Travel Lebong – Curup', desc: 'Rute balik dari Lebong ke Curup, berangkat tiap jam' },
+                  { href: '/travel-curup-palembang', label: '🚐 Travel Curup – Palembang', desc: 'Rute Curup ke Palembang, Hiace & Innova' },
+                  { href: '/travel-palembang-lebong', label: '🗺️ Travel Palembang – Lebong', desc: 'Dari Palembang langsung ke Lebong' },
+                  { href: '/sewa-hiace-curup', label: '🔑 Sewa Hiace Curup', desc: 'Armada harian mulai Rp 1.800.000 all-in' },
+                ].map(l => (
+                  <Link key={l.href} href={l.href} className="block border border-gray-100 hover:border-gold-400 rounded-xl p-3 transition-all group">
+                    <p className="font-semibold text-primary-900 text-sm group-hover:text-gold-600 transition-colors">{l.label}</p>
+                    <p className="text-gray-400 text-xs mt-0.5">{l.desc}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div>

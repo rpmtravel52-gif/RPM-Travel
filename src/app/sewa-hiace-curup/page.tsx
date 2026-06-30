@@ -232,6 +232,24 @@ export default function SewaHiaceCurupPage() {
                 </div>
               ))}
             </div>
+
+            {/* Layanan Terkait */}
+            <div className="mt-8">
+              <h2 className="font-display text-xl font-bold text-primary-900 mb-4">Layanan Terkait</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { href: '/sewa-bus-wisata', label: '🚌 Sewa Bus Wisata', desc: 'Bus 31 kursi all-in BBM & sopir, Rp 3.000.000/hari' },
+                  { href: '/transportasi-perjalanan-dinas', label: '💼 Transportasi Perjalanan Dinas', desc: 'Armada Hiace Executive untuk instansi & perusahaan' },
+                  { href: '/travel-curup-palembang', label: '🚐 Travel Curup – Palembang', desc: 'Rute harian door to door Curup ke Palembang' },
+                  { href: '/tips-sewa-bus-wisata', label: '💡 Tips Sewa Bus Wisata', desc: 'Panduan sebelum menyewa kendaraan rombongan' },
+                ].map(l => (
+                  <Link key={l.href} href={l.href} className="block border border-gray-100 hover:border-gold-400 rounded-xl p-3 transition-all group">
+                    <p className="font-semibold text-primary-900 text-sm group-hover:text-gold-600 transition-colors">{l.label}</p>
+                    <p className="text-gray-400 text-xs mt-0.5">{l.desc}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
           <div>
             <div className="bg-primary-900 rounded-2xl p-6 sticky top-20">

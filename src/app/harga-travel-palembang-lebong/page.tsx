@@ -309,6 +309,11 @@ export default function HargaTravelPalembangLebongPage() {
                     desc: 'Info lengkap jadwal, armada, dan pemesanan',
                   },
                   {
+                    href: '/berapa-jam-palembang-lebong',
+                    label: '⏱ Berapa Jam Palembang ke Lebong?',
+                    desc: 'Estimasi waktu tempuh dan kondisi jalan',
+                  },
+                  {
                     href: '/travel-lebong-palembang',
                     label: '↔ Travel Lebong – Palembang',
                     desc: 'Rute balik dari Lebong ke Palembang',

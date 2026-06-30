@@ -277,6 +277,8 @@ export default function TravelPalembangCurupPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
                   { href: '/travel-curup-palembang', label: '↔ Travel Curup – Palembang', desc: 'Rute balik dari Curup ke Palembang' },
+                  { href: '/berapa-jam-palembang-curup', label: '⏱ Berapa Jam Palembang ke Curup?', desc: 'Estimasi waktu tempuh dan kondisi jalan' },
+                  { href: '/jadwal-travel-palembang-curup', label: '🕐 Jadwal Travel Palembang – Curup', desc: 'Jam keberangkatan harian dari Palembang' },
                   { href: '/travel-bengkulu-palembang', label: '🚐 Travel Bengkulu – Palembang', desc: 'Hiace 14 kursi, 2 jadwal harian' },
                   { href: '/sewa-hiace-curup', label: '🔑 Sewa Hiace Curup', desc: 'Rp 1.800.000/hari all-in' },
                   { href: '/travel-curup-lebong', label: '🗺️ Travel Curup – Lebong', desc: 'Rute lokal harian Curup–Lebong' },

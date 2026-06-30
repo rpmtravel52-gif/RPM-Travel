@@ -244,6 +244,8 @@ export default function TravelPalembangLebongPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
                   { href: '/travel-lebong-palembang', label: '↔ Travel Lebong – Palembang', desc: 'Rute balik dari Lebong ke Palembang' },
+                  { href: '/berapa-jam-palembang-lebong', label: '⏱ Berapa Jam Palembang ke Lebong?', desc: 'Estimasi waktu tempuh dan info perjalanan' },
+                  { href: '/harga-travel-palembang-lebong', label: '💰 Harga Travel Palembang – Lebong', desc: 'Tarif resmi dan perbandingan kelas armada' },
                   { href: '/travel-lebong-curup', label: '🗺️ Travel Lebong – Curup', desc: 'Rute lokal setiap jam' },
                   { href: '/travel-curup-lebong', label: '🔄 Travel Curup – Lebong', desc: 'Rute Curup ke Lebong harian' },
                   { href: '/travel-palembang-bengkulu', label: '🚐 Travel Palembang – Bengkulu', desc: 'Hiace Executive & Regular' },
