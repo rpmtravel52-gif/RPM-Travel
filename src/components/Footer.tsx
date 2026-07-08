@@ -36,7 +36,7 @@ export default function Footer() {
 
         {/* Layanan */}
         <div>
-          <h4 className="text-gold-400 text-xs font-bold uppercase tracking-widest mb-4">Layanan</h4>
+          <h3 className="text-gold-400 text-xs font-bold uppercase tracking-widest mb-4">Layanan</h3>
           <ul className="space-y-2.5">
             {[
               { href: '/travel-bengkulu-palembang', label: 'Travel Bengkulu – Palembang' },
@@ -56,7 +56,7 @@ export default function Footer() {
 
         {/* Kontak */}
         <div id="kontak">
-          <h4 className="text-gold-400 text-xs font-bold uppercase tracking-widest mb-4">Kontak & Lokasi</h4>
+          <h3 className="text-gold-400 text-xs font-bold uppercase tracking-widest mb-4">Kontak & Lokasi</h3>
           <ul className="space-y-3 text-sm text-gray-400">
             <li className="flex gap-2">
               <span>📍</span>

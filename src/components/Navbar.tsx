@@ -147,7 +147,7 @@ export default function Navbar() {
               </div>
               <div
                 className="rpm-nav-font text-[0.56rem] font-medium tracking-[0.42em] uppercase mt-[2px]"
-                style={{ color: '#a8854a', paddingLeft: '1px' }}
+                style={{ color: '#7a5c28', paddingLeft: '1px' }}
               >
                 Curup &nbsp;·&nbsp; Bengkulu
               </div>
