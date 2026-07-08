@@ -95,7 +95,7 @@ export default function Footer() {
       {/* Metode Pembayaran */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
-          <span className="text-xs font-bold uppercase tracking-widest text-gray-500 shrink-0">
+          <span className="text-xs font-bold uppercase tracking-widest text-gray-400 shrink-0">
             Metode Pembayaran
           </span>
           <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-start">
@@ -130,7 +130,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-gray-500">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-gray-400">
           <p>© {new Date().getFullYear()} RPM Travel Curup. Hak Cipta Dilindungi.</p>
           <p>Jl. S. Parman, Talang Benih, Curup, Bengkulu 39119</p>
         </div>
