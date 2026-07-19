@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://rpmtravel.co.id/rute-travel-palembang-bengkulu' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Rute Travel Palembang ke Bengkulu Lewat Mana? Jalur Tercepat & Aman',
     description:
       'Panduan rute travel Palembang–Bengkulu: jalur lintas Sumatera via Lubuklinggau dan Curup, estimasi waktu, dan titik yang perlu diwaspadai.',

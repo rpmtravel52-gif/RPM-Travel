@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   keywords: ['travel lebong curup','travel lebong curup setiap jam','travel lebong ke curup','angkutan lebong curup','travel lebong curup murah','travel lebong curup terpercaya','travel lebong rejang lebong','jasa travel lebong curup hiace innova'],
   alternates: { canonical: 'https://rpmtravel.co.id/travel-lebong-curup' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Travel Lebong–Curup Berangkat Tiap Jam | RPM Travel',
     description: 'RPM Travel melayani rute Lebong–Curup hampir setiap jam. Hiace 14 kursi & Innova, door to door, harga bersaing.',
     url: 'https://rpmtravel.co.id/travel-lebong-curup',

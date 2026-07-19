@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://rpmtravel.co.id/sewa-bus-vs-travel-rombongan' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Sewa Bus vs Travel Rombongan – Lebih Hemat & Nyaman Mana?',
     description:
       'Perbandingan biaya dan kenyamanan antara sewa bus wisata 30 seat dan travel rombongan. Dilengkapi simulasi harga untuk membantu keputusan terbaik.',

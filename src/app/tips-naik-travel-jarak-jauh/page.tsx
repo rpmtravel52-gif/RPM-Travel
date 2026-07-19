@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://rpmtravel.co.id/tips-naik-travel-jarak-jauh' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Tips Naik Travel Jarak Jauh Supaya Tetap Nyaman & Tidak Capek',
     description:
       'Panduan praktis agar perjalanan travel 10+ jam tetap nyaman: perlengkapan yang wajib dibawa, cara memilih kursi, dan tips anti mabuk perjalanan.',

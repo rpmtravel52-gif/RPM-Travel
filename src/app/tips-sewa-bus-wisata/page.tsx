@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://rpmtravel.co.id/tips-sewa-bus-wisata' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Tips Sewa Bus Wisata Agar Tidak Rugi & Lebih Aman',
     description:
       'Panduan memilih penyedia bus wisata terpercaya, hal yang wajib ditanyakan sebelum booking, dan tips aman agar perjalanan rombongan berjalan lancar.',

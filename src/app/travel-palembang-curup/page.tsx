@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://rpmtravel.co.id/travel-palembang-curup' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Travel Palembang Curup Hiace & Innova | RPM Travel',
     description: 'Travel Palembang–Curup berangkat 10.00 & 19.00 WIB. Armada Hiace dan Innova, door to door ke Curup Rejang Lebong.',
     url: 'https://rpmtravel.co.id/travel-palembang-curup',

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   keywords: ['sewa hiace curup','rental hiace curup','sewa hiace bengkulu','sewa hiace curup murah','rental mobil hiace curup rejang lebong','sewa hiace curup sudah sopir bensin','sewa hiace executive curup'],
   alternates: { canonical: 'https://rpmtravel.co.id/sewa-hiace-curup' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Sewa Hiace Curup Rp 1.800.000/Hari All-In | RPM Travel',
     description: 'Sewa Hiace di Curup sudah termasuk bensin & sopir. Regular 14 kursi & Executive 8 kursi. Bebas ke mana saja.',
     url: 'https://rpmtravel.co.id/sewa-hiace-curup',

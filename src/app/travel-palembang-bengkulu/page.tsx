@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical:'https://rpmtravel.co.id/travel-palembang-bengkulu' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Travel Palembang ke Bengkulu Langsung | Hiace Executive & Regular – RPM Travel',
     description: 'Dua kelas armada Hiace siap tiap hari dari Palembang ke Bengkulu. Executive 8 kursi atau Regular 14 kursi, berangkat 10.00 & 16.00 WIB.',
     url: 'https://rpmtravel.co.id/travel-palembang-bengkulu',

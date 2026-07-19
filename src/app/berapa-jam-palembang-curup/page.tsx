@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://rpmtravel.co.id/berapa-jam-palembang-curup' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Berapa Jam Palembang ke Curup? Estimasi Waktu & Rute 2026',
     description:
       'Estimasi perjalanan Palembang–Curup 8–10 jam via Muara Enim dan Lahat. Pilih travel door to door untuk kenyamanan terbaik.',

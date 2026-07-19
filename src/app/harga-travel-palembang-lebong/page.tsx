@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://rpmtravel.co.id/harga-travel-palembang-ke-lebong' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Harga Travel Palembang ke Lebong 2025 | RPM Travel',
     description: 'Ongkos travel Palembang–Lebong Rp 300.000. Cek juga harga via Curup dan jadwal keberangkatan harian.',
     url: 'https://rpmtravel.co.id/harga-travel-palembang-ke-lebong',

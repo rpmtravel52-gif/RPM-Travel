@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: '/transportasi-perjalanan-dinas' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Transportasi Perjalanan Dinas Curup Bengkulu | RPM Travel',
     description: 'Jasa transportasi dinas profesional di Curup & Bengkulu. Hiace Executive, sopir berpenampilan rapi, tepat waktu.',
     url: 'https://rpmtravel.co.id/transportasi-perjalanan-dinas',

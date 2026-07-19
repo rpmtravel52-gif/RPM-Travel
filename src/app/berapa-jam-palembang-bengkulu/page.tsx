@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://rpmtravel.co.id/berapa-jam-palembang-bengkulu' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Berapa Jam Travel Palembang ke Bengkulu? Estimasi Real Perjalanan | RPM Travel',
     description:
       'Waktu tempuh travel Palembang ke Bengkulu berkisar 10–14 jam. Pelajari faktor yang mempengaruhi lama perjalanan dan tips agar tetap nyaman.',

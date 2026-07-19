@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://rpmtravel.co.id/travel-bengkulu-palembang' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Travel Bengkulu Palembang Hiace | RPM Travel Curup',
     description: 'Layanan travel Bengkulu–Palembang dengan Toyota Hiace 14 kursi. Berangkat 10.00 & 19.00 WIB. Door to door.',
     url: 'https://rpmtravel.co.id/travel-bengkulu-palembang',

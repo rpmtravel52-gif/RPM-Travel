@@ -45,9 +45,34 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://rpmtravel.co.id'),
   title: 'RPM Travel Curup | Travel & Sewa Bus Wisata Bengkulu',
   description:
     'RPM Travel Curup – Jasa travel door to door dan sewa bus wisata. Hubungi 085282828005.',
+  openGraph: {
+    type: 'website',
+    locale: 'id_ID',
+    siteName: 'RPM Travel Curup',
+    title: 'RPM Travel Curup | Travel & Sewa Bus Wisata Bengkulu',
+    description:
+      'RPM Travel Curup – Jasa travel door to door dan sewa bus wisata. Hubungi 085282828005.',
+    url: 'https://rpmtravel.co.id',
+    images: [
+      {
+        url: '/images/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'RPM Travel Curup - Travel & Sewa Bus Wisata Bengkulu',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'RPM Travel Curup | Travel & Sewa Bus Wisata Bengkulu',
+    description:
+      'RPM Travel Curup – Jasa travel door to door dan sewa bus wisata. Hubungi 085282828005.',
+    images: ['/images/og-image.png'],
+  },
 };
 
 export default function RootLayout({

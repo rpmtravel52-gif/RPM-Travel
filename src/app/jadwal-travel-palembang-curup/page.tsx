@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://rpmtravel.co.id/jadwal-travel-palembang-curup' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Jadwal Travel Palembang Curup Terbaru 2026 | Berangkat Setiap Hari',
     description:
       'Travel Palembang–Curup berangkat setiap hari pukul 10.00 & 19.00 WIB. Door to door, armada Hiace & Innova. Pesan via WhatsApp RPM Travel.',

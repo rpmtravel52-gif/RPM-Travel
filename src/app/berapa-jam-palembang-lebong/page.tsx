@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://rpmtravel.co.id/berapa-jam-palembang-ke-lebong' },
   openGraph: {
+    images: ['/images/og-image.png'],
     title: 'Berapa Jam Perjalanan Palembang ke Lebong? | RPM Travel',
     description: 'Estimasi waktu tempuh Palembang–Lebong sekitar 10–12 jam. Cek rincian tiap segmen dan tips perjalanan.',
     url: 'https://rpmtravel.co.id/berapa-jam-palembang-ke-lebong',
