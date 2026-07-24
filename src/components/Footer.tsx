@@ -133,6 +133,17 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-gray-400">
           <p>© {new Date().getFullYear()} RPM Travel Curup. Hak Cipta Dilindungi.</p>
           <p>Jl. S. Parman, Talang Benih, Curup, Bengkulu 39119</p>
+          <p>
+            Dibuat oleh{' '}
+            <a
+              href="https://webklaten.biz.id/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white underline"
+            >
+              Web Klaten
+            </a>
+          </p>
         </div>
       </div>
     </footer>
