@@ -63,7 +63,7 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
 
   const showToast = (msg: string) => {
     setToast(msg);
-    setTimeout(() => setToast(''), 3000);
+    setTimeout(() => setToast(''), 6000);
   };
 
   const handleConfirm = async () => {
@@ -81,8 +81,11 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
     setInvoiceLoading(true);
     try {
       const res = await fetch(`/api/orders/${order.id}/send-invoice`, { method: 'POST' });
+      const data = await res.json().catch(() => null);
       if (res.ok) showToast(`📧 Faktur dikirim ke ${order.email}`);
-      else showToast('❌ Gagal kirim faktur');
+      else showToast(`❌ ${data?.error ?? 'Gagal kirim faktur'}`);
+    } catch {
+      showToast('❌ Gagal kirim faktur (koneksi terputus)');
     } finally { setInvoiceLoading(false); }
   };
 
@@ -91,8 +94,11 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
     setTicketLoading(true);
     try {
       const res = await fetch(`/api/orders/${order.id}/send-ticket`, { method: 'POST' });
+      const data = await res.json().catch(() => null);
       if (res.ok) showToast(`🎫 E-Ticket dikirim ke ${order.email}`);
-      else showToast('❌ Gagal kirim tiket');
+      else showToast(`❌ ${data?.error ?? 'Gagal kirim tiket'}`);
+    } catch {
+      showToast('❌ Gagal kirim tiket (koneksi terputus)');
     } finally { setTicketLoading(false); }
   };
 
@@ -164,7 +170,7 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
   return (
     <div className="bg-white/5 border border-white/10 rounded-xl p-5 relative hover:border-sky-500/30 transition-all">
       {toast && (
-        <div className="absolute top-3 right-3 bg-slate-700 text-white text-xs px-3 py-1.5 rounded-lg shadow-lg z-10 animate-in fade-in duration-200">
+        <div className="absolute top-3 right-3 max-w-[260px] bg-slate-700 text-white text-xs px-3 py-1.5 rounded-lg shadow-lg z-10 animate-in fade-in duration-200 break-words">
           {toast}
         </div>
       )}
