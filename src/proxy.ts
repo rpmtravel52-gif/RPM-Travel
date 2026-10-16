@@ -5,7 +5,7 @@ const SECRET = new TextEncoder().encode(
   process.env.ADMIN_JWT_SECRET || 'ganti-dengan-secret-yang-kuat-min-32-karakter'
 );
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {

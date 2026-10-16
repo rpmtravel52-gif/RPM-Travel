@@ -8,13 +8,9 @@ const nextConfig: NextConfig = {
   // menyebabkan tombol Email Faktur/Email Tiket selalu gagal di production.
   serverExternalPackages: ['@react-pdf/renderer'],
 
-  // @react-pdf/renderer needs canvas to be excluded from server bundle
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.externals = [...(config.externals as string[]), 'canvas'];
-    }
-    return config;
-  },
+  // Next.js 16 memakai Turbopack secara default. Config webpack lama (externals 'canvas')
+  // dihapus; serverExternalPackages di atas sudah menjaga react-pdf tetap eksternal.
+  turbopack: {},
 
   // Compress output — aktifkan gzip/brotli compression di level Next.js
   compress: true,
