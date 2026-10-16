@@ -269,7 +269,7 @@ function PesanForm() {
                   <p className="text-gray-400 text-xs mt-0.5">{selectedPkg.keterangan}</p>
                 )}
               </div>
-              <div className="text-right flex-shrink-0">
+              <div className="text-right shrink-0">
                 <p className="text-white font-bold text-lg">{formatRupiah(selectedPkg.harga)}</p>
                 <p className="text-gray-400 text-xs">{selectedPkg.satuanLabel}</p>
               </div>
@@ -321,14 +321,14 @@ function PesanForm() {
           {/* Error banner */}
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 mb-4 text-sm flex items-start gap-2">
-              <span className="flex-shrink-0">⚠️</span>
+              <span className="shrink-0">⚠️</span>
               <span>{error}</span>
             </div>
           )}
 
           <form
             onSubmit={handleSubmit}
-            className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8 space-y-5"
+            className="bg-white rounded-2xl border border-gray-100 shadow-xs p-6 md:p-8 space-y-5"
           >
             {/* Nama */}
             <div>
@@ -338,7 +338,7 @@ function PesanForm() {
               <input
                 type="text" name="nama" required value={form.nama} onChange={handleChange}
                 placeholder="Contoh: Budi Santoso"
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-hidden focus:ring-2 focus:ring-gold-500"
               />
             </div>
 
@@ -355,7 +355,7 @@ function PesanForm() {
                   type="tel" name="hp" required value={form.hp} onChange={handleChange}
                   placeholder="8123456789"
                   pattern="[0-9]{8,13}"
-                  className="flex-1 border border-gray-200 rounded-r-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
+                  className="flex-1 border border-gray-200 rounded-r-xl px-4 py-3 text-sm focus:outline-hidden focus:ring-2 focus:ring-gold-500"
                 />
               </div>
               <p className="text-gray-400 text-xs mt-1">
@@ -370,7 +370,7 @@ function PesanForm() {
               </label>
               <select
                 name="paket" required value={form.paket} onChange={handleChange}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gold-500"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm bg-white focus:outline-hidden focus:ring-2 focus:ring-gold-500"
               >
                 <option value="">-- Pilih Paket --</option>
                 <optgroup label="✈️ Travel Antarkota">
@@ -416,7 +416,7 @@ function PesanForm() {
                 <input
                   type="date" name="tanggal" required value={form.tanggal}
                   onChange={handleChange} min={today}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
+                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-hidden focus:ring-2 focus:ring-gold-500"
                 />
               </div>
 
@@ -431,7 +431,7 @@ function PesanForm() {
                     onChange={handleChange}
                     required={jamOptions.length > 0}
                     disabled={!form.paket}
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gold-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm bg-white focus:outline-hidden focus:ring-2 focus:ring-gold-500 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <option value="">
                       {!form.paket ? '-- Pilih paket dulu --' : '-- Pilih Jam --'}
@@ -468,7 +468,7 @@ function PesanForm() {
                 <input
                   type="number" name="jumlahPax" required min={1} max={14}
                   value={form.jumlahPax} onChange={handleChange}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
+                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-hidden focus:ring-2 focus:ring-gold-500"
                 />
               </div>
             )}
@@ -481,7 +481,7 @@ function PesanForm() {
               <input
                 type="text" name="asal" required value={form.asal} onChange={handleChange}
                 placeholder="Contoh: Jl. Merdeka No. 10, Curup"
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-hidden focus:ring-2 focus:ring-gold-500"
               />
             </div>
             <div>
@@ -491,7 +491,7 @@ function PesanForm() {
               <input
                 type="text" name="tujuan" required value={form.tujuan} onChange={handleChange}
                 placeholder="Contoh: Bandara SMB II Palembang"
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-hidden focus:ring-2 focus:ring-gold-500"
               />
             </div>
 
@@ -544,7 +544,7 @@ function PesanForm() {
                 onClick={() => setForm((p) => ({ ...p, wantEmail: !p.wantEmail }))}
               >
                 <div
-                  className={`mt-0.5 w-5 h-5 flex-shrink-0 rounded border-2 flex items-center justify-center transition-all ${
+                  className={`mt-0.5 w-5 h-5 shrink-0 rounded border-2 flex items-center justify-center transition-all ${
                     form.wantEmail ? 'bg-primary-900 border-primary-900' : 'border-gray-300'
                   }`}
                 >
@@ -570,7 +570,7 @@ function PesanForm() {
                 <input
                   type="email" name="email" required={form.wantEmail} value={form.email}
                   onChange={handleChange} placeholder="nama@email.com"
-                  className="w-full border border-gold-300 rounded-xl px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gold-500"
+                  className="w-full border border-gold-300 rounded-xl px-4 py-3 text-sm bg-white focus:outline-hidden focus:ring-2 focus:ring-gold-500"
                 />
               </div>
             )}
@@ -583,7 +583,7 @@ function PesanForm() {
               <textarea
                 name="catatan" value={form.catatan} onChange={handleChange} rows={2}
                 placeholder="Misal: ada bayi, bawa koper besar, dll."
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-gold-500"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm resize-none focus:outline-hidden focus:ring-2 focus:ring-gold-500"
               />
             </div>
 

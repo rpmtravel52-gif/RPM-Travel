@@ -144,7 +144,7 @@ export default function JadwalTravelPalembangCurupPage() {
             >
               <span className="relative z-10">💬 Cek Jadwal & Booking</span>
               <span
-                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
+                className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
                 style={{ animation: 'shimmer 2.5s infinite ease-in-out' }}
               />
             </a>
@@ -163,7 +163,7 @@ export default function JadwalTravelPalembangCurupPage() {
           ].map((item) => (
             <div
               key={item.label}
-              className="text-center bg-white rounded-xl p-4 shadow-sm border border-gray-100"
+              className="text-center bg-white rounded-xl p-4 shadow-xs border border-gray-100"
             >
               <p className="text-gold-600 text-xs font-bold uppercase tracking-wide mb-1">
                 {item.label}
@@ -295,7 +295,7 @@ export default function JadwalTravelPalembangCurupPage() {
             </div>
             <Link
               href="/berapa-jam-palembang-curup"
-              className="flex-shrink-0 text-gold-600 hover:text-gold-700 font-semibold text-sm border border-gold-400 hover:border-gold-600 rounded-xl px-4 py-2 transition-all whitespace-nowrap"
+              className="shrink-0 text-gold-600 hover:text-gold-700 font-semibold text-sm border border-gold-400 hover:border-gold-600 rounded-xl px-4 py-2 transition-all whitespace-nowrap"
             >
               Selengkapnya →
             </Link>
@@ -350,7 +350,7 @@ export default function JadwalTravelPalembangCurupPage() {
                 { icon: '🌧️', text: 'Cuaca buruk dapat mempengaruhi waktu tempuh' },
               ].map((item) => (
                 <li key={item.text} className="flex items-start gap-3 text-sm text-gray-600">
-                  <span className="text-xl flex-shrink-0">{item.icon}</span>
+                  <span className="text-xl shrink-0">{item.icon}</span>
                   {item.text}
                 </li>
               ))}
@@ -470,7 +470,7 @@ export default function JadwalTravelPalembangCurupPage() {
               <h3 className="font-display font-bold text-white text-lg mb-1">
                 Booking Sekarang
               </h3>
-              <div className="w-10 h-0.5 bg-gold-500 rounded mb-4" />
+              <div className="w-10 h-0.5 bg-gold-500 rounded-sm mb-4" />
 
               <div className="space-y-3 mb-5">
                 {[
@@ -517,7 +517,7 @@ export default function JadwalTravelPalembangCurupPage() {
               >
                 <span className="relative z-10">💬 Chat WhatsApp</span>
                 <span
-                  className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
+                  className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
                   style={{ animation: 'shimmer 2.5s infinite ease-in-out' }}
                 />
               </a>
@@ -551,7 +551,7 @@ export default function JadwalTravelPalembangCurupPage() {
             >
               <span className="relative z-10">💬 Hubungi via WhatsApp</span>
               <span
-                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
+                className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
                 style={{ animation: 'shimmer 2.5s infinite ease-in-out' }}
               />
             </a>

@@ -94,7 +94,7 @@ export default function TransportasiPerjalananDinasPage() {
               className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-xl text-base relative overflow-hidden"
               style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 20px rgba(201,168,76,0.4)' }}>
               <span className="relative z-10">🎫 Pesan Sekarang</span>
-              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
+              <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
             </Link>
           </div>
         </div>
@@ -104,7 +104,7 @@ export default function TransportasiPerjalananDinasPage() {
       <section className="py-14 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Mengapa Pilih RPM Travel untuk Perjalanan Dinas?</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-8" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-8" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {keunggulan.map(k => (
               <div key={k.title} className="bg-cream-50 border border-gray-100 rounded-2xl p-5 hover:border-gold-400 hover:shadow-md transition-all">
@@ -121,11 +121,11 @@ export default function TransportasiPerjalananDinasPage() {
       <section className="py-14 bg-primary-900">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-white mb-2">Jenis Layanan yang Tersedia</h2>
-          <div className="w-12 h-0.5 bg-gold-500 rounded mb-8" />
+          <div className="w-12 h-0.5 bg-gold-500 rounded-sm mb-8" />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {layananList.map(l => (
               <div key={l.label} className="flex items-start gap-4 bg-white/5 border border-white/10 hover:border-gold-500/30 rounded-2xl p-5 transition-all">
-                <span className="text-3xl flex-shrink-0">{l.icon}</span>
+                <span className="text-3xl shrink-0">{l.icon}</span>
                 <div>
                   <p className="font-bold text-white text-sm mb-1">{l.label}</p>
                   <p className="text-gray-400 text-xs leading-relaxed">{l.desc}</p>
@@ -140,7 +140,7 @@ export default function TransportasiPerjalananDinasPage() {
       <section className="py-14 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Armada Andalan: Hiace Executive</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-8" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-8" />
           <div className="bg-white border-2 border-gold-400 rounded-2xl p-8">
             <div className="flex flex-col md:flex-row gap-8 items-center">
               <div className="text-8xl">⭐🚐</div>
@@ -177,7 +177,7 @@ export default function TransportasiPerjalananDinasPage() {
         <div className="max-w-4xl mx-auto px-4 grid md:grid-cols-3 gap-12">
           <div className="md:col-span-2">
             <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Pertanyaan Umum</h2>
-            <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+            <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
             <div className="space-y-3">
               {faqs.map(faq => (
                 <div key={faq.q} className="border border-gray-100 rounded-xl p-4 bg-cream-50">
@@ -190,7 +190,7 @@ export default function TransportasiPerjalananDinasPage() {
           <div>
             <div className="bg-primary-900 rounded-2xl p-6 sticky top-20">
               <h3 className="font-display font-bold text-white text-lg mb-1">Hubungi Kami</h3>
-              <div className="w-10 h-0.5 bg-gold-500 rounded mb-4" />
+              <div className="w-10 h-0.5 bg-gold-500 rounded-sm mb-4" />
               <p className="text-gray-400 text-sm mb-5 leading-relaxed">
                 Diskusikan kebutuhan transportasi dinas Anda dengan tim kami. Kami siap menyesuaikan layanan sesuai kebutuhan instansi.
               </p>
@@ -208,7 +208,7 @@ export default function TransportasiPerjalananDinasPage() {
                 className="flex items-center justify-center w-full font-bold py-3 rounded-xl text-sm relative overflow-hidden"
                 style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 16px rgba(201,168,76,0.4)' }}>
                 <span className="relative z-10">🎫 Pesan Sekarang</span>
-                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
+                <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
               </Link>
               <p className="text-center text-gray-500 text-xs mt-3">📞 0852-8282-8005</p>
             </div>

@@ -191,7 +191,7 @@ export default function RuteTravelPalembangBengkuluPage() {
       <section className="py-14 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Jalur Rute yang Dilalui</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
           <p className="text-gray-600 text-sm leading-relaxed mb-6">
             Travel Palembang–Bengkulu melewati jalur lintas Sumatera yang merupakan jalan utama penghubung kota-kota besar di Pulau Sumatera. Jalur ini dipilih karena kondisinya yang paling stabil dan sudah sangat familiar bagi para pengemudi profesional.
           </p>
@@ -200,7 +200,7 @@ export default function RuteTravelPalembangBengkuluPage() {
             {waypoints.map((wp, idx) => (
               <div key={wp.name} className="flex items-center gap-4">
                 <div className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full bg-primary-900 flex items-center justify-center text-xl shadow">{wp.icon}</div>
+                  <div className="w-10 h-10 rounded-full bg-primary-900 flex items-center justify-center text-xl shadow-sm">{wp.icon}</div>
                   {idx < waypoints.length - 1 && <div className="w-0.5 h-8 bg-gold-400" />}
                 </div>
                 <div className="pb-2">
@@ -220,7 +220,7 @@ export default function RuteTravelPalembangBengkuluPage() {
       <section className="py-14 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Estimasi Waktu per Segmen</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
           <p className="text-gray-600 text-sm leading-relaxed mb-6">
             Perjalanan dari Palembang ke Bengkulu tidak terasa berat jika kamu tahu kira-kira waktu yang dibutuhkan di setiap tahap. Berikut estimasi durasi masing-masing segmen dalam kondisi normal.
           </p>
@@ -256,7 +256,7 @@ export default function RuteTravelPalembangBengkuluPage() {
               <div className="space-y-4">
                 {warnings.map((w) => (
                   <div key={w.title} className="border border-gray-100 rounded-xl p-4 bg-cream-50 flex gap-4">
-                    <span className="text-3xl flex-shrink-0">{w.icon}</span>
+                    <span className="text-3xl shrink-0">{w.icon}</span>
                     <div>
                       <p className="font-semibold text-primary-900 text-sm mb-1">{w.title}</p>
                       <p className="text-gray-500 text-sm leading-relaxed">{w.desc}</p>
@@ -305,7 +305,7 @@ export default function RuteTravelPalembangBengkuluPage() {
           <div>
             <div className="bg-primary-900 rounded-2xl p-6 sticky top-20">
               <h3 className="font-display font-bold text-white text-lg mb-1">Pesan Tiket Sekarang</h3>
-              <div className="w-10 h-0.5 bg-gold-500 rounded mb-4" />
+              <div className="w-10 h-0.5 bg-gold-500 rounded-sm mb-4" />
               <div className="space-y-2 mb-5 text-sm text-gray-300">
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Rute Palembang langsung ke Bengkulu</div>
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Hiace (14 kursi) / Innova (7 kursi)</div>

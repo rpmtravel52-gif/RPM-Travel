@@ -191,8 +191,8 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-const inputCls = "w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all";
-const selectCls = "w-full bg-slate-700 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all";
+const inputCls = "w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-hidden focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all";
+const selectCls = "w-full bg-slate-700 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-hidden focus:ring-2 focus:ring-sky-500 transition-all";
 
 // ── Preview Modal ─────────────────────────────────────────────
 function PreviewPanel({ data, onClose }: { data: ReceiptData; onClose: () => void }) {
@@ -235,7 +235,7 @@ function PreviewPanel({ data, onClose }: { data: ReceiptData; onClose: () => voi
   const brandBg    = data.perusahaan === 'BengkuluTravel' ? 'bg-sky-600'   : 'bg-green-600';
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 flex items-center justify-center p-4">
       <div className="bg-slate-800 border border-white/10 rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden">
 
         {/* Header modal */}
@@ -598,7 +598,7 @@ export default function ReceiptTab() {
                   onClick={() => setKirimEmail((v) => !v)}
                   className={`relative w-11 h-6 rounded-full transition-all ${kirimEmail ? 'bg-emerald-500' : 'bg-white/20'}`}
                 >
-                  <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all shadow ${kirimEmail ? 'left-6' : 'left-1'}`} />
+                  <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all shadow-sm ${kirimEmail ? 'left-6' : 'left-1'}`} />
                 </button>
               </div>
               {kirimEmail && (

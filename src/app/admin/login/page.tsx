@@ -38,7 +38,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
 
         {/* Logo / Header */}
@@ -53,7 +53,7 @@ export default function AdminLoginPage() {
 </div>
 
         {/* Card */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-xs">
           <h2 className="text-white font-semibold text-lg mb-5">🔐 Login Admin</h2>
 
           <form onSubmit={handleLogin} className="space-y-4">
@@ -69,7 +69,7 @@ export default function AdminLoginPage() {
                 placeholder="Masukkan username"
                 required
                 autoComplete="username"
-                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-hidden focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
               />
             </div>
 
@@ -86,7 +86,7 @@ export default function AdminLoginPage() {
                   placeholder="Masukkan password"
                   required
                   autoComplete="current-password"
-                  className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 pr-10 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 pr-10 text-sm text-white placeholder-slate-500 focus:outline-hidden focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                 />
                 <button
                   type="button"

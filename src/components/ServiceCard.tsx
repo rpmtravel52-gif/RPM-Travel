@@ -37,14 +37,14 @@ export default function ServiceCard({
               <span className="text-5xl">{emoji ?? '🚗'}</span>
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-primary-900/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-primary-900/80 via-transparent to-transparent" />
           {badge && (
             <span className="absolute top-3 left-3 bg-gold-500 text-primary-900 text-xs font-bold px-2.5 py-1 rounded-full">
               {badge}
             </span>
           )}
           {price && (
-            <span className="absolute bottom-3 right-3 bg-white/95 text-primary-900 text-xs font-bold px-2.5 py-1 rounded-full shadow">
+            <span className="absolute bottom-3 right-3 bg-white/95 text-primary-900 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
               {price}
             </span>
           )}

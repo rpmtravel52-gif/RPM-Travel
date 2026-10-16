@@ -170,7 +170,7 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
   return (
     <div className="bg-white/5 border border-white/10 rounded-xl p-5 relative hover:border-sky-500/30 transition-all">
       {toast && (
-        <div className="absolute top-3 right-3 max-w-[260px] bg-slate-700 text-white text-xs px-3 py-1.5 rounded-lg shadow-lg z-10 animate-in fade-in duration-200 break-words">
+        <div className="absolute top-3 right-3 max-w-[260px] bg-slate-700 text-white text-xs px-3 py-1.5 rounded-lg shadow-lg z-10 animate-in fade-in duration-200 wrap-break-word">
           {toast}
         </div>
       )}
@@ -341,7 +341,7 @@ function OrdersTab() {
         <input
           type="text" placeholder="Cari nama / no. pesanan / HP..."
           value={search} onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 min-w-[200px] bg-white/10 border border-white/20 rounded-xl px-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
+          className="flex-1 min-w-[200px] bg-white/10 border border-white/20 rounded-xl px-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-hidden focus:ring-2 focus:ring-sky-500"
         />
         <button
           onClick={fetchOrders}
@@ -406,7 +406,7 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-8 px-4">
+    <div className="min-h-screen bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 py-8 px-4">
       <div className="max-w-5xl mx-auto">
 
         {/* Header */}

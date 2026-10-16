@@ -203,14 +203,14 @@ export default function TipsSewaBusWisataPage() {
       <section className="py-14 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">6 Tips Wajib Sebelum Menyewa Bus Wisata</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
           <p className="text-gray-600 text-sm leading-relaxed mb-8">
             Tips ini disusun berdasarkan pengalaman nyata di lapangan. Terapkan semuanya dan risiko kekecewaan akan jauh berkurang.
           </p>
           <div className="space-y-4">
             {tipsUtama.map((t) => (
-              <div key={t.nomor} className="border border-gray-100 rounded-2xl p-5 hover:border-gold-400 hover:shadow-sm transition-all flex gap-5 items-start">
-                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary-900 flex items-center justify-center text-gold-400 font-display font-bold text-sm">
+              <div key={t.nomor} className="border border-gray-100 rounded-2xl p-5 hover:border-gold-400 hover:shadow-xs transition-all flex gap-5 items-start">
+                <div className="shrink-0 w-10 h-10 rounded-full bg-primary-900 flex items-center justify-center text-gold-400 font-display font-bold text-sm">
                   {t.nomor}
                 </div>
                 <div>
@@ -230,7 +230,7 @@ export default function TipsSewaBusWisataPage() {
       <section className="py-14 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Pertanyaan yang Wajib Kamu Tanyakan</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
           <p className="text-gray-600 text-sm leading-relaxed mb-6">
             Sebelum menyetujui harga atau menandatangani perjanjian, pastikan kamu sudah mendapat jawaban yang memuaskan atas pertanyaan-pertanyaan berikut.
           </p>
@@ -240,7 +240,7 @@ export default function TipsSewaBusWisataPage() {
                 key={p}
                 className={`flex items-start gap-4 px-5 py-4 ${idx !== pertanyaanWajibDitanya.length - 1 ? 'border-b border-gray-100' : ''}`}
               >
-                <span className="text-gold-500 font-bold text-base flex-shrink-0 mt-0.5">?</span>
+                <span className="text-gold-500 font-bold text-base shrink-0 mt-0.5">?</span>
                 <p className="text-gray-700 text-sm">{p}</p>
               </div>
             ))}
@@ -265,10 +265,10 @@ export default function TipsSewaBusWisataPage() {
                     key={c.item}
                     className={`flex items-center gap-3 border rounded-xl px-4 py-3 ${c.penting ? 'border-gold-300 bg-gold-50' : 'border-gray-100 bg-cream-50'}`}
                   >
-                    <span className={`font-bold flex-shrink-0 ${c.penting ? 'text-gold-600' : 'text-gold-500'}`}>✓</span>
+                    <span className={`font-bold shrink-0 ${c.penting ? 'text-gold-600' : 'text-gold-500'}`}>✓</span>
                     <p className="text-gray-700 text-sm">{c.item}</p>
                     {c.penting && (
-                      <span className="ml-auto text-gold-600 text-xs font-bold flex-shrink-0">Penting</span>
+                      <span className="ml-auto text-gold-600 text-xs font-bold shrink-0">Penting</span>
                     )}
                   </div>
                 ))}
@@ -311,7 +311,7 @@ export default function TipsSewaBusWisataPage() {
           <div>
             <div className="bg-primary-900 rounded-2xl p-6 sticky top-20">
               <h3 className="font-display font-bold text-white text-lg mb-1">Amankan Tanggal Kamu</h3>
-              <div className="w-10 h-0.5 bg-gold-500 rounded mb-4" />
+              <div className="w-10 h-0.5 bg-gold-500 rounded-sm mb-4" />
               <div className="space-y-2 mb-5 text-sm text-gray-300">
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Bus 30 seat terawat & ber-AC</div>
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Pengemudi berlisensi & berpengalaman</div>

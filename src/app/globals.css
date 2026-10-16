@@ -1,6 +1,127 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-primary-50: #f0f3f9;
+  --color-primary-100: #d6dff0;
+  --color-primary-200: #adbfe1;
+  --color-primary-300: #7a9acc;
+  --color-primary-400: #4a75b5;
+  --color-primary-500: #1e4d8c;
+  --color-primary-600: #163d75;
+  --color-primary-700: #0f2d5c;
+  --color-primary-800: #0d1f3c;
+  --color-primary-900: #0a1628;
+
+  --color-gold-50: #fdf9ec;
+  --color-gold-100: #f9f0cc;
+  --color-gold-200: #f2dd90;
+  --color-gold-300: #e8c75a;
+  --color-gold-400: #e2c46e;
+  --color-gold-500: #c9a84c;
+  --color-gold-600: #856a22;
+  --color-gold-700: #7d6120;
+
+  --color-cream-50: #faf8f3;
+  --color-cream-100: #f2efe6;
+  --color-cream-200: #e8e2d0;
+
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-body: var(--font-jakarta), system-ui, sans-serif;
+
+  --animate-fade-up: fadeUp 0.6s ease-out forwards;
+  --animate-fade-in: fadeIn 0.4s ease-out forwards;
+  --animate-slide-right: slideRight 0.5s ease-out forwards;
+  --animate-pulse-slow: pulse 3s ease-in-out infinite;
+
+  @keyframes fadeUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes slideRight {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility btn-wa {
+  @apply inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-all duration-200;
+}
+
+@utility btn-primary {
+  @apply inline-flex items-center justify-center gap-2 bg-primary-900 hover:bg-primary-800 text-white font-bold rounded-xl transition-all duration-200;
+}
+
+@utility btn-gold {
+  @apply inline-flex items-center justify-center gap-2 font-bold rounded-xl transition-all duration-200;
+  background: linear-gradient(135deg, #c9a84c, #e2c46e);
+  color: #0a1628;
+  &:hover {
+    box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4);
+    transform: translateY(-1px);
+  }
+}
+
+@utility btn-outline {
+  @apply inline-flex items-center justify-center gap-2 border-2 border-primary-900 text-primary-900 hover:bg-primary-900 hover:text-white font-bold rounded-xl transition-all duration-200;
+}
+
+@utility card {
+  @apply bg-white rounded-2xl shadow-xs border border-gray-100 hover:shadow-md transition-all duration-200;
+}
+
+@utility section-label {
+  @apply text-xs font-bold tracking-widest uppercase text-gold-700 mb-2;
+}
+
+@utility section-title {
+  @apply font-display text-3xl md:text-4xl font-bold text-primary-900 leading-tight;
+}
+
+@utility gold-bar {
+  @apply w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm my-3;
+}
+
+@utility animate-fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
 
 @layer base {
   /* ✅ FIX: Hapus --font-playfair dan --font-jakarta dari sini.
@@ -15,46 +136,10 @@
   }
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { @apply bg-cream-100; }
-  ::-webkit-scrollbar-thumb { @apply bg-gold-500 rounded; }
-}
-
-@layer components {
-  .btn-wa {
-    @apply inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-all duration-200;
-  }
-  .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 bg-primary-900 hover:bg-primary-800 text-white font-bold rounded-xl transition-all duration-200;
-  }
-  .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 font-bold rounded-xl transition-all duration-200;
-    background: linear-gradient(135deg, #c9a84c, #e2c46e);
-    color: #0a1628;
-  }
-  .btn-gold:hover {
-    box-shadow: 0 6px 20px rgba(201,168,76,0.4);
-    transform: translateY(-1px);
-  }
-  .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-primary-900 text-primary-900 hover:bg-primary-900 hover:text-white font-bold rounded-xl transition-all duration-200;
-  }
-  .card {
-    @apply bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200;
-  }
-  .section-label {
-    @apply text-xs font-bold tracking-widest uppercase text-gold-700 mb-2;
-  }
-  .section-title {
-    @apply font-display text-3xl md:text-4xl font-bold text-primary-900 leading-tight;
-  }
-  .gold-bar {
-    @apply w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded my-3;
-  }
+  ::-webkit-scrollbar-thumb { @apply bg-gold-500 rounded-sm; }
 }
 
 @layer utilities {
-  .animate-fade-in {
-    animation: fadeIn 0.3s ease forwards;
-  }
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-6px); }
     to   { opacity: 1; transform: translateY(0); }

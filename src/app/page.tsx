@@ -110,7 +110,7 @@ export default function HomePage() {
       <section className="relative min-h-[90vh] flex items-center bg-primary-900 overflow-hidden">
         {/* Background effects */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900" />
+          <div className="absolute inset-0 bg-linear-to-br from-primary-900 via-primary-800 to-primary-900" />
           <div className="absolute top-0 right-0 w-1/2 h-full opacity-10"
             style={{ backgroundImage: 'radial-gradient(circle, rgba(201,168,76,0.3) 1px, transparent 1px)', backgroundSize: '32px 32px' }}
           />
@@ -128,7 +128,7 @@ export default function HomePage() {
             - sizes mencakup mobile (100vw) agar gambar tidak di-skip
           */}
           <div className="order-first lg:order-last flex justify-center items-center">
-            <div className="relative w-full max-w-sm lg:max-w-md aspect-[4/3]">
+            <div className="relative w-full max-w-sm lg:max-w-md aspect-4/3">
               {/* Ring dekoratif */}
               <div className="absolute -inset-3 lg:-inset-4 bg-gold-500/10 rounded-3xl border border-gold-500/20" />
               <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gold-500/30">
@@ -142,10 +142,10 @@ export default function HomePage() {
                   sizes="(max-width: 1024px) 90vw, 45vw"
                 />
                 {/* Overlay gradient bawah */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-primary-900/60 via-transparent to-transparent" />
                 {/* Label */}
                 <div className="absolute bottom-3 left-3 right-3">
-                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-3 py-2 flex items-center justify-between">
+                  <div className="bg-white/10 backdrop-blur-xs border border-white/20 rounded-xl px-3 py-2 flex items-center justify-between">
                     <div>
                       <p className="text-white font-bold text-sm">Toyota Hiace</p>
                       <p className="text-gold-300 text-xs">Armada Unggulan RPM Travel</p>
@@ -198,7 +198,7 @@ export default function HomePage() {
         </div>
 
         {/* Stats bar */}
-        <div className="absolute bottom-0 left-0 right-0 bg-white/10 backdrop-blur border-t border-white/10">
+        <div className="absolute bottom-0 left-0 right-0 bg-white/10 backdrop-blur-sm border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 py-4 grid grid-cols-2 md:grid-cols-4 gap-4">
             {stats.map((s) => (
               <div key={s.label} className="text-center">
@@ -264,7 +264,7 @@ export default function HomePage() {
                       sizes="(max-width: 768px) 100vw, 25vw"
                     />
                   ) : null}
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary-900/70 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-primary-900/70 to-transparent" />
                   <div className="absolute bottom-3 left-3 right-3 flex gap-1.5 flex-wrap">
                     {car.specs.map((sp) => (
                       <span key={sp} className="bg-white/90 text-primary-900 text-xs font-semibold px-2 py-0.5 rounded-full">
@@ -292,7 +292,7 @@ export default function HomePage() {
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
               Keunggulan RPM Travel Curup
             </h2>
-            <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mx-auto mt-3 mb-4" />
+            <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mx-auto mt-3 mb-4" />
             <p className="text-gray-400 max-w-xl mx-auto text-sm leading-relaxed">
               Lebih dari sekadar jasa antar-jemput — kami hadir untuk memastikan setiap perjalanan Anda terasa mudah, aman, dan tepat waktu.
             </p>
@@ -315,7 +315,7 @@ export default function HomePage() {
       </section>
 
       {/* ── CTA STRIP ── */}
-      <section className="py-16 bg-gradient-to-r from-gold-500 to-gold-400">
+      <section className="py-16 bg-linear-to-r from-gold-500 to-gold-400">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="font-display text-2xl md:text-3xl font-bold text-primary-900 mb-3">
             Mau Berangkat? Hubungi Kami Sekarang

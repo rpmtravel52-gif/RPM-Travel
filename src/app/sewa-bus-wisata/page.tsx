@@ -108,7 +108,7 @@ export default function SewaBusWisataPage() {
           <h2 className="text-center font-display text-xl font-bold text-primary-900 mb-6">Yang Sudah Masuk dalam Satu Harga</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {includes.map((item) => (
-              <div key={item.label} className="text-center bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+              <div key={item.label} className="text-center bg-white rounded-xl p-5 shadow-xs border border-gray-100">
                 <div className="text-3xl mb-2">{item.icon}</div>
                 <p className="font-bold text-primary-900 text-sm">{item.label}</p>
                 <p className="text-gray-400 text-xs mt-1">{item.desc}</p>

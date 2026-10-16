@@ -195,14 +195,14 @@ export default function TipsNaikTravelJarakJauhPage() {
       <section className="py-14 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Tips Utama agar Perjalanan Tetap Nyaman</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
           <p className="text-gray-600 text-sm leading-relaxed mb-8">
             Tidak perlu membawa banyak hal. Justru persiapan yang tepat dan efisien yang membuat perbedaan besar antara perjalanan yang melelahkan dan yang terasa ringan. Berikut tips yang sudah terbukti efektif.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {tipsUtama.map((t) => (
-              <div key={t.title} className="border border-gray-100 rounded-2xl p-5 hover:border-gold-400 hover:shadow-sm transition-all bg-cream-50 flex gap-4">
-                <span className="text-3xl flex-shrink-0">{t.icon}</span>
+              <div key={t.title} className="border border-gray-100 rounded-2xl p-5 hover:border-gold-400 hover:shadow-xs transition-all bg-cream-50 flex gap-4">
+                <span className="text-3xl shrink-0">{t.icon}</span>
                 <div>
                   <p className="font-display font-bold text-primary-900 text-sm mb-1.5">{t.title}</p>
                   <p className="text-gray-500 text-sm leading-relaxed">{t.desc}</p>
@@ -217,7 +217,7 @@ export default function TipsNaikTravelJarakJauhPage() {
       <section className="py-14 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Checklist Bawaan Wajib</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
           <p className="text-gray-600 text-sm leading-relaxed mb-6">
             Simpan checklist ini sebelum berangkat. Semua barang ini ringan dan tidak memakan ruang, tapi masing-masing punya peran penting dalam menjaga kenyamanan perjalanan.
           </p>
@@ -227,7 +227,7 @@ export default function TipsNaikTravelJarakJauhPage() {
                 key={b.item}
                 className={`flex items-center gap-4 px-5 py-4 ${idx !== bawaanWajib.length - 1 ? 'border-b border-gray-100' : ''}`}
               >
-                <span className="text-gold-500 font-bold text-lg flex-shrink-0">✓</span>
+                <span className="text-gold-500 font-bold text-lg shrink-0">✓</span>
                 <div>
                   <p className="font-semibold text-primary-900 text-sm">{b.item}</p>
                   <p className="text-gray-400 text-xs mt-0.5">{b.ket}</p>
@@ -294,7 +294,7 @@ export default function TipsNaikTravelJarakJauhPage() {
           <div>
             <div className="bg-primary-900 rounded-2xl p-6 sticky top-20">
               <h3 className="font-display font-bold text-white text-lg mb-1">Booking Sekarang</h3>
-              <div className="w-10 h-0.5 bg-gold-500 rounded mb-4" />
+              <div className="w-10 h-0.5 bg-gold-500 rounded-sm mb-4" />
               <div className="space-y-2 mb-5 text-sm text-gray-300">
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Armada terawat & ber-AC</div>
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Pengemudi berpengalaman</div>

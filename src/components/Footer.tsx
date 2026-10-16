@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="bg-primary-900 text-white">
       {/* Gold top border */}
-      <div className="h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent" />
+      <div className="h-1 bg-linear-to-r from-transparent via-gold-500 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 py-14 grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Brand */}

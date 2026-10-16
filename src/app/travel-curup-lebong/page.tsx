@@ -99,7 +99,7 @@ export default function TravelCurupLebongPage() {
             { label: 'Estimasi', value: '1,5–2 jam' },
             { label: 'Armada', value: 'Avanza & Innova' },
           ].map((item) => (
-            <div key={item.label} className="text-center bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <div key={item.label} className="text-center bg-white rounded-xl p-4 shadow-xs border border-gray-100">
               <p className="text-gold-500 text-xs font-bold uppercase tracking-wide mb-1">{item.label}</p>
               <p className="font-display font-bold text-primary-900 text-sm">{item.value}</p>
             </div>
@@ -117,7 +117,7 @@ export default function TravelCurupLebongPage() {
               <ul className="space-y-3 mt-4">
                 {features.map((f) => (
                   <li key={f.label} className="flex items-start gap-3 text-sm text-gray-600">
-                    <span className="text-lg flex-shrink-0">{f.icon}</span>
+                    <span className="text-lg shrink-0">{f.icon}</span>
                     <span>{f.label}</span>
                   </li>
                 ))}
