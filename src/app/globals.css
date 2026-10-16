@@ -25,6 +25,12 @@
   --color-cream-100: #f2efe6;
   --color-cream-200: #e8e2d0;
 
+  --color-ink: #0b1220;
+  --shadow-soft: 0 1px 2px rgb(10 22 40 / 0.04), 0 8px 24px -8px rgb(10 22 40 / 0.10);
+  --shadow-lift: 0 2px 4px rgb(10 22 40 / 0.05), 0 18px 40px -12px rgb(10 22 40 / 0.18);
+  --shadow-gold: 0 10px 30px -8px rgb(201 168 76 / 0.55);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
   --font-display: var(--font-playfair), Georgia, serif;
   --font-body: var(--font-jakarta), system-ui, sans-serif;
 
@@ -82,41 +88,52 @@
 }
 
 @utility btn-wa {
-  @apply inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-all duration-200;
+  @apply inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-full px-6 py-3 shadow-soft transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:shadow-lift active:translate-y-0 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600;
 }
 
 @utility btn-primary {
-  @apply inline-flex items-center justify-center gap-2 bg-primary-900 hover:bg-primary-800 text-white font-bold rounded-xl transition-all duration-200;
+  @apply inline-flex items-center justify-center gap-2 bg-primary-900 hover:bg-primary-800 text-white font-semibold rounded-full px-6 py-3 shadow-soft transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:shadow-lift active:translate-y-0 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-900;
 }
 
 @utility btn-gold {
-  @apply inline-flex items-center justify-center gap-2 font-bold rounded-xl transition-all duration-200;
-  background: linear-gradient(135deg, #c9a84c, #e2c46e);
+  @apply inline-flex items-center justify-center gap-2 font-semibold rounded-full px-6 py-3 transition-all duration-300 ease-out-expo hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500;
+  background: linear-gradient(135deg, #c9a84c 0%, #e8cf85 50%, #c9a84c 100%);
+  background-size: 200% 100%;
   color: #0a1628;
+  box-shadow: 0 4px 14px -4px rgb(201 168 76 / 0.5);
   &:hover {
-    box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4);
-    transform: translateY(-1px);
+    background-position: 100% 0;
+    box-shadow: var(--shadow-gold);
   }
 }
 
 @utility btn-outline {
-  @apply inline-flex items-center justify-center gap-2 border-2 border-primary-900 text-primary-900 hover:bg-primary-900 hover:text-white font-bold rounded-xl transition-all duration-200;
+  @apply inline-flex items-center justify-center gap-2 border-2 border-primary-900 text-primary-900 hover:bg-primary-900 hover:text-white font-semibold rounded-full px-6 py-3 transition-all duration-300 ease-out-expo hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-900;
 }
 
 @utility card {
-  @apply bg-white rounded-2xl shadow-xs border border-gray-100 hover:shadow-md transition-all duration-200;
+  @apply bg-white rounded-3xl shadow-soft border border-primary-900/5 hover:shadow-lift hover:-translate-y-1 transition-all duration-500 ease-out-expo;
 }
 
 @utility section-label {
-  @apply text-xs font-bold tracking-widest uppercase text-gold-700 mb-2;
+  @apply inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-gold-700 mb-3;
+  &::before {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold-500));
+  }
 }
 
 @utility section-title {
-  @apply font-display text-3xl md:text-4xl font-bold text-primary-900 leading-tight;
+  @apply font-display font-bold text-primary-900 tracking-tight text-balance;
+  font-size: clamp(1.875rem, 1.4rem + 2vw, 2.875rem);
+  line-height: 1.12;
 }
 
 @utility gold-bar {
-  @apply w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm my-3;
+  @apply w-16 h-1 rounded-full my-4;
+  background: linear-gradient(90deg, var(--color-gold-500), var(--color-gold-300), transparent);
 }
 
 @utility animate-fade-in {
@@ -129,10 +146,13 @@
      Mendefinisikannya ulang di sini dengan nama string 'Playfair Display'
      menyebabkan browser meminta font dari Google Fonts secara langsung,
      membypass optimasi next/font dan menyebabkan render-blocking request. */
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; text-rendering: optimizeLegibility; }
+  ::selection { background: var(--color-gold-200); color: var(--color-primary-900); }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
   body {
     font-family: var(--font-jakarta);
-    @apply bg-white text-gray-800 antialiased;
+    @apply bg-white text-gray-700 antialiased leading-relaxed;
   }
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { @apply bg-cream-100; }
@@ -144,4 +164,22 @@
     from { opacity: 0; transform: translateY(-6px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+}
+
+/* Reveal saat scroll — CSS murni, tanpa JS. Hanya aktif di browser yang mendukung. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .card, .reveal {
+      animation: revealUp linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }

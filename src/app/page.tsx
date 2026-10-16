@@ -115,6 +115,7 @@ export default function HomePage() {
             style={{ backgroundImage: 'radial-gradient(circle, rgba(201,168,76,0.3) 1px, transparent 1px)', backgroundSize: '32px 32px' }}
           />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl" />
+          <div className="absolute -top-40 left-1/3 w-[40rem] h-[40rem] bg-primary-500/20 rounded-full blur-3xl" />
           <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-gold-400/8 rounded-full blur-3xl" />
         </div>
 
@@ -168,7 +169,7 @@ export default function HomePage() {
               Siap Melayani 24 Jam · Curup, Bengkulu
             </div>
 
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-5">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.05] tracking-tight mb-6">
               Travel <br />
               <span className="text-gold-400">Andal &</span><br />
               Terjangkau
@@ -211,7 +212,7 @@ export default function HomePage() {
       </section>
 
       {/* ── LAYANAN ── */}
-      <section id="layanan" className="py-20 bg-cream-50">
+      <section id="layanan" className="py-24 bg-cream-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <p className="section-label">Pilihan Layanan Kami</p>
@@ -230,7 +231,7 @@ export default function HomePage() {
       </section>
 
       {/* ── ARMADA ── */}
-      <section id="armada" className="py-20 bg-white">
+      <section id="armada" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <p className="section-label">Kendaraan Kami</p>
@@ -285,7 +286,7 @@ export default function HomePage() {
       </section>
 
       {/* ── KENAPA KAMI ── */}
-      <section id="kenapa-kami" className="py-20 bg-primary-900">
+      <section id="kenapa-kami" className="py-24 bg-primary-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <p className="text-gold-400 text-xs font-bold uppercase tracking-widest mb-2">Mengapa Pilih Kami</p>
@@ -340,7 +341,7 @@ export default function HomePage() {
       </section>
 
       {/* ── MAPS ── */}
-      <section className="py-20 bg-cream-50" id="kontak-peta">
+      <section className="py-24 bg-cream-50" id="kontak-peta">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-10">
             <p className="section-label">Lokasi Kami</p>
