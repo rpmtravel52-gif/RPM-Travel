@@ -83,7 +83,7 @@ export default function TravelLebongCurupPage() {
                   className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-xl text-base relative overflow-hidden"
                   style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 20px rgba(201,168,76,0.4)' }}>
                   <span className="relative z-10">🎫 Pesan Sekarang</span>
-                  <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
+                  <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
                 </Link>
               </div>
             </div>
@@ -116,7 +116,7 @@ export default function TravelLebongCurupPage() {
             { label: 'Estimasi', value: '1,5–2,5 jam' },
             { label: 'Jadwal', value: 'Tiap jam 06–17' },
           ].map(item => (
-            <div key={item.label} className="text-center bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <div key={item.label} className="text-center bg-white rounded-xl p-4 shadow-xs border border-gray-100">
               <p className="text-gold-600 text-xs font-bold uppercase tracking-wide mb-1">{item.label}</p>
               <p className="font-display font-bold text-primary-900 text-sm">{item.value}</p>
             </div>
@@ -128,7 +128,7 @@ export default function TravelLebongCurupPage() {
       <section className="py-14 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Jadwal Keberangkatan dari Lebong</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-5" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-5" />
           <p className="text-gray-500 text-sm mb-5">Dua belas slot keberangkatan tersedia setiap harinya — dari pagi buta hingga sore menjelang malam. Pilih jam yang paling nyaman untuk Anda.</p>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-5">
             {jamBerangkat.map(jam => (
@@ -148,11 +148,11 @@ export default function TravelLebongCurupPage() {
       <section className="py-14 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Mengapa Pilih RPM Travel untuk Rute Lebong–Curup?</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-8" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-8" />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {keunggulan.map(k => (
               <div key={k.title} className="bg-white border border-gray-100 rounded-2xl p-5 hover:border-gold-400 hover:shadow-md transition-all flex gap-4">
-                <span className="text-3xl flex-shrink-0">{k.icon}</span>
+                <span className="text-3xl shrink-0">{k.icon}</span>
                 <div>
                   <h3 className="font-bold text-primary-900 text-base mb-1">{k.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{k.desc}</p>
@@ -167,7 +167,7 @@ export default function TravelLebongCurupPage() {
       <section className="py-14 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Pilihan Armada Rute Ini</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-8" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-8" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {armada.map(a => (
               <div key={a.nama} className="border border-gray-200 rounded-2xl p-6 hover:border-gold-400 hover:shadow-md transition-all relative">
@@ -186,7 +186,7 @@ export default function TravelLebongCurupPage() {
                   className="flex items-center justify-center w-full font-bold py-2.5 rounded-xl text-sm relative overflow-hidden"
                   style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 2px 12px rgba(201,168,76,0.35)' }}>
                   <span className="relative z-10">Pesan Sekarang</span>
-                  <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
+                  <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
                 </Link>
               </div>
             ))}
@@ -245,7 +245,7 @@ export default function TravelLebongCurupPage() {
           <div>
             <div className="bg-primary-900 rounded-2xl p-6 sticky top-20">
               <h3 className="font-display font-bold text-white text-lg mb-1">Mau Berangkat Sekarang?</h3>
-              <div className="w-10 h-0.5 bg-gold-500 rounded mb-4" />
+              <div className="w-10 h-0.5 bg-gold-500 rounded-sm mb-4" />
               <div className="space-y-2 mb-5 text-sm text-gray-300">
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Armada tersedia tiap jam</div>
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Hiace (14 kursi) / Innova (7 kursi)</div>
@@ -260,7 +260,7 @@ export default function TravelLebongCurupPage() {
                 className="flex items-center justify-center w-full font-bold py-3 rounded-xl text-sm relative overflow-hidden"
                 style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 16px rgba(201,168,76,0.4)' }}>
                 <span className="relative z-10">🎫 Pesan Sekarang</span>
-                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
+                <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
               </Link>
               <p className="text-center text-gray-500 text-xs mt-3">📞 0852-8282-8005</p>
             </div>

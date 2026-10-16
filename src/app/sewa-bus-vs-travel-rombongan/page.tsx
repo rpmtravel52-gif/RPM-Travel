@@ -181,7 +181,7 @@ export default function SewaBusVsTravelRombonganPage() {
       <section className="py-14 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Perbandingan Langsung: Travel vs Bus</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
           <p className="text-gray-600 text-sm leading-relaxed mb-6">
             Berikut perbandingan dari berbagai aspek antara menggunakan travel (Hiace/Innova) dengan menyewa bus wisata 30 seat.
           </p>
@@ -213,7 +213,7 @@ export default function SewaBusVsTravelRombonganPage() {
       <section className="py-14 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Simulasi Perbandingan Biaya</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
           <p className="text-gray-600 text-sm leading-relaxed mb-6">
             Angka di bawah adalah ilustrasi perkiraan biaya berdasarkan harga umum. Harga aktual bisa berbeda tergantung rute, tanggal, dan negosiasi. Hubungi kami untuk penawaran terbaik sesuai kebutuhan rombongan kamu.
           </p>
@@ -304,7 +304,7 @@ export default function SewaBusVsTravelRombonganPage() {
           <div>
             <div className="bg-primary-900 rounded-2xl p-6 sticky top-20">
               <h3 className="font-display font-bold text-white text-lg mb-1">Butuh Bus Rombongan?</h3>
-              <div className="w-10 h-0.5 bg-gold-500 rounded mb-4" />
+              <div className="w-10 h-0.5 bg-gold-500 rounded-sm mb-4" />
               <div className="space-y-2 mb-5 text-sm text-gray-300">
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Bus 30 seat ber-AC</div>
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Pengemudi berpengalaman</div>

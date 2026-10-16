@@ -165,7 +165,7 @@ export default function HargaTravelPalembangLebongPage() {
             { label: 'Curup → Lebong', value: 'Rp 60.000' },
             { label: 'Layanan', value: 'Door to Door' },
           ].map(item => (
-            <div key={item.label} className="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
+            <div key={item.label} className="bg-white rounded-xl p-4 text-center shadow-xs border border-gray-100">
               <p className="text-gray-400 text-xs mb-1">{item.label}</p>
               <p className="font-display font-bold text-primary-900 text-sm">{item.value}</p>
             </div>
@@ -177,7 +177,7 @@ export default function HargaTravelPalembangLebongPage() {
       <section className="py-14 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Daftar Harga Travel Palembang – Lebong</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
           <p className="text-gray-500 text-sm leading-relaxed mb-8">
             Berikut adalah tarif perjalanan yang berlaku untuk rute Palembang ke Lebong dan rute pendukungnya. Harga ditetapkan per orang dan sudah mencakup layanan door to door untuk rute utama Palembang–Lebong.
           </p>
@@ -224,7 +224,7 @@ export default function HargaTravelPalembangLebongPage() {
       <section className="py-14 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Mengapa Harga Travel Palembang–Lebong Berbeda dengan Rute Lain?</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
           <div className="space-y-5 text-gray-600 text-sm leading-relaxed">
             <p>
               Rute Palembang ke Lebong adalah salah satu perjalanan darat terpanjang dan paling menantang di wilayah Sumatera bagian selatan. Jarak yang harus ditempuh mencapai ratusan kilometer, melewati jalur lintas Sumatera yang padat, dilanjutkan dengan medan pegunungan di kawasan Kabupaten Rejang Lebong sebelum akhirnya tiba di Kabupaten Lebong yang berada di ketinggian lebih tinggi.
@@ -348,7 +348,7 @@ export default function HargaTravelPalembangLebongPage() {
           <div>
             <div className="bg-primary-900 rounded-2xl p-6 sticky top-20">
               <h3 className="font-display font-bold text-white text-lg mb-1">Pesan Sekarang</h3>
-              <div className="w-10 h-0.5 bg-gold-500 rounded mb-4" />
+              <div className="w-10 h-0.5 bg-gold-500 rounded-sm mb-4" />
               <div className="space-y-2 mb-5 text-sm text-gray-300">
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Palembang → Lebong Rp 300.000</div>
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Hiace (14 kursi) / Innova (7 kursi)</div>

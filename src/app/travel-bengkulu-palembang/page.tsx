@@ -183,7 +183,7 @@ export default function TravelBengkuluPalembangPage() {
       <section className="py-14 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Jadwal Keberangkatan</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             {schedules.map(s => (
               <div key={s.jam} className="bg-primary-900 rounded-2xl p-6 flex items-center gap-4">
@@ -206,7 +206,7 @@ export default function TravelBengkuluPalembangPage() {
       <section className="py-14 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Keunggulan Layanan Kami</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-8" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-8" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {features.map(f => (
               <div key={f.title} className="bg-white border border-gray-100 rounded-2xl p-5 hover:border-gold-400 hover:shadow-md transition-all">
@@ -302,7 +302,7 @@ export default function TravelBengkuluPalembangPage() {
             <div>
               <div className="bg-primary-900 rounded-2xl p-6 sticky top-20">
                 <h3 className="font-display font-bold text-white text-lg mb-1">Pesan Sekarang</h3>
-                <div className="w-10 h-0.5 bg-gold-500 rounded mb-4" />
+                <div className="w-10 h-0.5 bg-gold-500 rounded-sm mb-4" />
                 <div className="space-y-2 mb-5 text-sm text-gray-300">
                   <div className="flex items-center gap-2"><span className="text-gold-400">✓</span> Door to door</div>
                   <div className="flex items-center gap-2"><span className="text-gold-400">✓</span> Hiace 14 kursi</div>

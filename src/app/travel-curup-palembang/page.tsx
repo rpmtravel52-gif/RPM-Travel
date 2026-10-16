@@ -67,7 +67,7 @@ export default function TravelCurupPalembangPage() {
                   className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-xl text-base relative overflow-hidden"
                   style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 20px rgba(201,168,76,0.4)' }}>
                   <span className="relative z-10">🎫 Pesan Sekarang</span>
-                  <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
+                  <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
                 </Link>
               </div>
             </div>
@@ -100,7 +100,7 @@ export default function TravelCurupPalembangPage() {
             { label: 'Waktu', value: '6–7 jam' },
             { label: 'Mobil', value: 'Hiace & Innova' },
           ].map((item) => (
-            <div key={item.label} className="text-center bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <div key={item.label} className="text-center bg-white rounded-xl p-4 shadow-xs border border-gray-100">
               <p className="text-gold-500 text-xs font-bold uppercase tracking-wide mb-1">{item.label}</p>
               <p className="font-display font-bold text-primary-900 text-sm">{item.value}</p>
             </div>
@@ -118,7 +118,7 @@ export default function TravelCurupPalembangPage() {
               <ul className="space-y-3 mt-4">
                 {features.map((f) => (
                   <li key={f.label} className="flex items-start gap-3 text-sm text-gray-600">
-                    <span className="text-lg flex-shrink-0">{f.icon}</span>
+                    <span className="text-lg shrink-0">{f.icon}</span>
                     <span>{f.label}</span>
                   </li>
                 ))}
@@ -184,7 +184,7 @@ export default function TravelCurupPalembangPage() {
                 className="w-full py-3 text-sm flex items-center justify-center font-bold rounded-xl relative overflow-hidden"
                 style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 16px rgba(201,168,76,0.4)' }}>
                 <span className="relative z-10">🎫 Pesan Sekarang</span>
-                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
+                <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
               </Link>
               <p className="text-center text-xs text-gray-400 mt-3">📞 0852-8282-8005</p>
             </div>

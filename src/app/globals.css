@@ -1,6 +1,144 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-primary-50: #f0f3f9;
+  --color-primary-100: #d6dff0;
+  --color-primary-200: #adbfe1;
+  --color-primary-300: #7a9acc;
+  --color-primary-400: #4a75b5;
+  --color-primary-500: #1e4d8c;
+  --color-primary-600: #163d75;
+  --color-primary-700: #0f2d5c;
+  --color-primary-800: #0d1f3c;
+  --color-primary-900: #0a1628;
+
+  --color-gold-50: #fdf9ec;
+  --color-gold-100: #f9f0cc;
+  --color-gold-200: #f2dd90;
+  --color-gold-300: #e8c75a;
+  --color-gold-400: #e2c46e;
+  --color-gold-500: #c9a84c;
+  --color-gold-600: #856a22;
+  --color-gold-700: #7d6120;
+
+  --color-cream-50: #faf8f3;
+  --color-cream-100: #f2efe6;
+  --color-cream-200: #e8e2d0;
+
+  --color-ink: #0b1220;
+  --shadow-soft: 0 1px 2px rgb(10 22 40 / 0.04), 0 8px 24px -8px rgb(10 22 40 / 0.10);
+  --shadow-lift: 0 2px 4px rgb(10 22 40 / 0.05), 0 18px 40px -12px rgb(10 22 40 / 0.18);
+  --shadow-gold: 0 10px 30px -8px rgb(201 168 76 / 0.55);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-body: var(--font-jakarta), system-ui, sans-serif;
+
+  --animate-fade-up: fadeUp 0.6s ease-out forwards;
+  --animate-fade-in: fadeIn 0.4s ease-out forwards;
+  --animate-slide-right: slideRight 0.5s ease-out forwards;
+  --animate-pulse-slow: pulse 3s ease-in-out infinite;
+
+  @keyframes fadeUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes slideRight {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility btn-wa {
+  @apply inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-full px-6 py-3 shadow-soft transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:shadow-lift active:translate-y-0 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600;
+}
+
+@utility btn-primary {
+  @apply inline-flex items-center justify-center gap-2 bg-primary-900 hover:bg-primary-800 text-white font-semibold rounded-full px-6 py-3 shadow-soft transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:shadow-lift active:translate-y-0 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-900;
+}
+
+@utility btn-gold {
+  @apply inline-flex items-center justify-center gap-2 font-semibold rounded-full px-6 py-3 transition-all duration-300 ease-out-expo hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500;
+  background: linear-gradient(135deg, #c9a84c 0%, #e8cf85 50%, #c9a84c 100%);
+  background-size: 200% 100%;
+  color: #0a1628;
+  box-shadow: 0 4px 14px -4px rgb(201 168 76 / 0.5);
+  &:hover {
+    background-position: 100% 0;
+    box-shadow: var(--shadow-gold);
+  }
+}
+
+@utility btn-outline {
+  @apply inline-flex items-center justify-center gap-2 border-2 border-primary-900 text-primary-900 hover:bg-primary-900 hover:text-white font-semibold rounded-full px-6 py-3 transition-all duration-300 ease-out-expo hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-900;
+}
+
+@utility card {
+  @apply bg-white rounded-3xl shadow-soft border border-primary-900/5 hover:shadow-lift hover:-translate-y-1 transition-all duration-500 ease-out-expo;
+}
+
+@utility section-label {
+  @apply inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-gold-700 mb-3;
+  &::before {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold-500));
+  }
+}
+
+@utility section-title {
+  @apply font-display font-bold text-primary-900 tracking-tight text-balance;
+  font-size: clamp(1.875rem, 1.4rem + 2vw, 2.875rem);
+  line-height: 1.12;
+}
+
+@utility gold-bar {
+  @apply w-16 h-1 rounded-full my-4;
+  background: linear-gradient(90deg, var(--color-gold-500), var(--color-gold-300), transparent);
+}
+
+@utility animate-fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
 
 @layer base {
   /* ✅ FIX: Hapus --font-playfair dan --font-jakarta dari sini.
@@ -8,55 +146,40 @@
      Mendefinisikannya ulang di sini dengan nama string 'Playfair Display'
      menyebabkan browser meminta font dari Google Fonts secara langsung,
      membypass optimasi next/font dan menyebabkan render-blocking request. */
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; text-rendering: optimizeLegibility; }
+  ::selection { background: var(--color-gold-200); color: var(--color-primary-900); }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
   body {
     font-family: var(--font-jakarta);
-    @apply bg-white text-gray-800 antialiased;
+    @apply bg-white text-gray-700 antialiased leading-relaxed;
   }
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { @apply bg-cream-100; }
-  ::-webkit-scrollbar-thumb { @apply bg-gold-500 rounded; }
-}
-
-@layer components {
-  .btn-wa {
-    @apply inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-all duration-200;
-  }
-  .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 bg-primary-900 hover:bg-primary-800 text-white font-bold rounded-xl transition-all duration-200;
-  }
-  .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 font-bold rounded-xl transition-all duration-200;
-    background: linear-gradient(135deg, #c9a84c, #e2c46e);
-    color: #0a1628;
-  }
-  .btn-gold:hover {
-    box-shadow: 0 6px 20px rgba(201,168,76,0.4);
-    transform: translateY(-1px);
-  }
-  .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-primary-900 text-primary-900 hover:bg-primary-900 hover:text-white font-bold rounded-xl transition-all duration-200;
-  }
-  .card {
-    @apply bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200;
-  }
-  .section-label {
-    @apply text-xs font-bold tracking-widest uppercase text-gold-700 mb-2;
-  }
-  .section-title {
-    @apply font-display text-3xl md:text-4xl font-bold text-primary-900 leading-tight;
-  }
-  .gold-bar {
-    @apply w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded my-3;
-  }
+  ::-webkit-scrollbar-thumb { @apply bg-gold-500 rounded-sm; }
 }
 
 @layer utilities {
-  .animate-fade-in {
-    animation: fadeIn 0.3s ease forwards;
-  }
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-6px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+}
+
+/* Reveal saat scroll — CSS murni, tanpa JS. Hanya aktif di browser yang mendukung. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .card, .reveal {
+      animation: revealUp linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }

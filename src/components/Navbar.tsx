@@ -123,14 +123,14 @@ export default function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
             ? 'bg-white/96 backdrop-blur-md shadow-md border-b border-amber-100'
-            : 'bg-white/90 backdrop-blur-sm shadow-sm border-b border-gray-100'
+            : 'bg-white/90 backdrop-blur-xs shadow-xs border-b border-gray-100'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
 
           {/* ── Brand ── */}
-          <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-            <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-md ring-1 ring-amber-200 flex-shrink-0 transition-shadow group-hover:shadow-lg group-hover:ring-amber-400">
+          <Link href="/" className="flex items-center gap-3 group shrink-0">
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-md ring-1 ring-amber-200 shrink-0 transition-shadow group-hover:shadow-lg group-hover:ring-amber-400">
               <Image
                 src="/images/logo.png"
                 alt="RPM Travel Curup Logo"

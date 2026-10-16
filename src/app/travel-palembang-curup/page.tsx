@@ -106,7 +106,7 @@ export default function TravelPalembangCurupPage() {
                   className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-xl text-base relative overflow-hidden"
                   style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 20px rgba(201,168,76,0.4)' }}>
                   <span className="relative z-10">🎫 Pesan Sekarang</span>
-                  <span className="absolute inset-0 -translate-x-full animate-[shimmer_2.5s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animationName: 'shimmer', animationDuration: '2.5s', animationIterationCount: 'infinite', animationTimingFunction: 'ease-in-out' }} />
+                  <span className="absolute inset-0 -translate-x-full animate-[shimmer_2.5s_infinite] bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animationName: 'shimmer', animationDuration: '2.5s', animationIterationCount: 'infinite', animationTimingFunction: 'ease-in-out' }} />
                 </Link>
               </div>
             </div>
@@ -142,7 +142,7 @@ export default function TravelPalembangCurupPage() {
             { label: 'Estimasi', value: '8–10 Jam' },
             { label: 'Jadwal', value: '10.00 & 19.00 WIB' },
           ].map(item => (
-            <div key={item.label} className="text-center bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <div key={item.label} className="text-center bg-white rounded-xl p-4 shadow-xs border border-gray-100">
               <p className="text-gold-600 text-xs font-bold uppercase tracking-wide mb-1">{item.label}</p>
               <p className="font-display font-bold text-primary-900 text-sm">{item.value}</p>
             </div>
@@ -154,7 +154,7 @@ export default function TravelPalembangCurupPage() {
       <section className="py-14 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Jadwal Keberangkatan dari Palembang</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
             {schedules.map(s => (
               <div key={s.jam} className="bg-primary-900 rounded-2xl p-6 flex items-start gap-4">
@@ -177,10 +177,10 @@ export default function TravelPalembangCurupPage() {
       <section className="py-14 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Pilihan Armada</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
 
           {/* ── GAMBAR EXTERIOR — pakai width/height eksplisit, bukan fill ── */}
-          <div className="rounded-2xl overflow-hidden shadow-sm border border-gray-100 mb-8">
+          <div className="rounded-2xl overflow-hidden shadow-xs border border-gray-100 mb-8">
             <Image
               src="/images/hiace/exterior.jpg"
               alt="Eksterior Toyota Hiace RPM Travel Palembang Curup"
@@ -238,7 +238,7 @@ export default function TravelPalembangCurupPage() {
                 </p>
 
                 {/* ── GAMBAR INTERIOR — pakai width/height eksplisit, bukan fill ── */}
-                <div className="rounded-2xl overflow-hidden shadow-sm border border-gray-100 my-2">
+                <div className="rounded-2xl overflow-hidden shadow-xs border border-gray-100 my-2">
                   <Image
                     src="/images/hiace/interior.jpg"
                     alt="Interior kabin Toyota Hiace RPM Travel — nyaman untuk perjalanan Palembang Curup"
@@ -298,7 +298,7 @@ export default function TravelPalembangCurupPage() {
           <div>
             <div className="bg-primary-900 rounded-2xl p-6 sticky top-20">
               <h3 className="font-display font-bold text-white text-lg mb-1">Pesan Sekarang</h3>
-              <div className="w-10 h-0.5 bg-gold-500 rounded mb-4" />
+              <div className="w-10 h-0.5 bg-gold-500 rounded-sm mb-4" />
               <div className="space-y-2 mb-5 text-sm text-gray-300">
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Door to door Palembang–Curup</div>
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Hiace (14 kursi) atau Innova (7 kursi)</div>
@@ -310,7 +310,7 @@ export default function TravelPalembangCurupPage() {
                 className="flex items-center justify-center w-full font-bold py-3 rounded-xl text-sm relative overflow-hidden"
                 style={{ background: 'linear-gradient(135deg,#c9a84c,#e2c46e)', color: '#0a1628', boxShadow: '0 4px 16px rgba(201,168,76,0.4)' }}>
                 <span className="relative z-10">🎫 Pesan Tiket Online</span>
-                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
+                <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]" style={{ animation: 'shimmer 2.5s infinite ease-in-out' }} />
               </Link>
               <p className="text-center text-gray-500 text-xs mt-3">📞 0852-8282-8005</p>
             </div>

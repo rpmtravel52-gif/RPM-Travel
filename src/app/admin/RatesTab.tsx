@@ -68,7 +68,7 @@ function HargaInput({
         onChange={handleChange}
         placeholder="0"
         className="w-full bg-white/10 border border-white/20 rounded-lg pl-10 pr-3 py-2.5 text-sm text-white placeholder-slate-500
-                   focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent
+                   focus:outline-hidden focus:ring-2 focus:ring-sky-500 focus:border-transparent
                    disabled:opacity-50 disabled:cursor-not-allowed transition-all"
       />
     </div>

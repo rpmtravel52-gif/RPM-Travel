@@ -147,7 +147,7 @@ export default function BerapaJamPalembangCurupPage() {
             >
               <span className="relative z-10">🚐 Pesan Travel Sekarang</span>
               <span
-                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
+                className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
                 style={{ animation: 'shimmer 2.5s infinite ease-in-out' }}
               />
             </a>
@@ -166,7 +166,7 @@ export default function BerapaJamPalembangCurupPage() {
           ].map((item) => (
             <div
               key={item.label}
-              className="text-center bg-white rounded-xl p-4 shadow-sm border border-gray-100"
+              className="text-center bg-white rounded-xl p-4 shadow-xs border border-gray-100"
             >
               <p className="text-gold-600 text-xs font-bold uppercase tracking-wide mb-1">
                 {item.label}
@@ -223,7 +223,7 @@ export default function BerapaJamPalembangCurupPage() {
                 key={i}
                 className="flex items-start gap-4 bg-cream-50 border border-gray-100 rounded-xl p-4 hover:border-gold-300 transition-all"
               >
-                <div className="text-2xl flex-shrink-0 mt-0.5">{stage.icon}</div>
+                <div className="text-2xl shrink-0 mt-0.5">{stage.icon}</div>
                 <div>
                   <p className="font-semibold text-primary-900 text-sm">
                     {stage.from}{' '}
@@ -304,7 +304,7 @@ export default function BerapaJamPalembangCurupPage() {
                     key={f.label}
                     className="flex gap-3 bg-cream-50 border border-gray-100 rounded-xl p-4"
                   >
-                    <span className="text-2xl flex-shrink-0">{f.icon}</span>
+                    <span className="text-2xl shrink-0">{f.icon}</span>
                     <div>
                       <p className="font-semibold text-primary-900 text-sm">{f.label}</p>
                       <p className="text-gray-500 text-xs mt-0.5">{f.desc}</p>
@@ -359,7 +359,7 @@ export default function BerapaJamPalembangCurupPage() {
                   'Pesan tiket lebih awal agar mendapat kursi di jadwal yang Anda inginkan',
                 ].map((tip, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-gray-600">
-                    <span className="bg-gold-500/20 text-gold-700 font-bold text-xs rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="bg-gold-500/20 text-gold-700 font-bold text-xs rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">
                       {i + 1}
                     </span>
                     {tip}
@@ -440,7 +440,7 @@ export default function BerapaJamPalembangCurupPage() {
               <h3 className="font-display font-bold text-white text-lg mb-1">
                 Pesan Travel Sekarang
               </h3>
-              <div className="w-10 h-0.5 bg-gold-500 rounded mb-4" />
+              <div className="w-10 h-0.5 bg-gold-500 rounded-sm mb-4" />
               <div className="space-y-2 mb-5 text-sm text-gray-300">
                 <div className="flex gap-2">
                   <span className="text-gold-400">✓</span>Door to door Palembang–Curup
@@ -468,7 +468,7 @@ export default function BerapaJamPalembangCurupPage() {
               >
                 <span className="relative z-10">💬 Chat WhatsApp</span>
                 <span
-                  className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
+                  className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
                   style={{ animation: 'shimmer 2.5s infinite ease-in-out' }}
                 />
               </a>
@@ -524,7 +524,7 @@ export default function BerapaJamPalembangCurupPage() {
             >
               <span className="relative z-10">💬 Hubungi via WhatsApp</span>
               <span
-                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
+                className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
                 style={{ animation: 'shimmer 2.5s infinite ease-in-out' }}
               />
             </a>

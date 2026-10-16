@@ -177,7 +177,7 @@ export default function BerapaJamPalembangLebongPage() {
             { label: 'Segmen Terberat', value: 'Curup–Lebong' },
             { label: 'Jadwal Tersedia', value: '07.00 & 19.00 WIB' },
           ].map(item => (
-            <div key={item.label} className="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
+            <div key={item.label} className="bg-white rounded-xl p-4 text-center shadow-xs border border-gray-100">
               <p className="text-gray-400 text-xs mb-1">{item.label}</p>
               <p className="font-display font-bold text-primary-900 text-sm">{item.value}</p>
             </div>
@@ -189,7 +189,7 @@ export default function BerapaJamPalembangLebongPage() {
       <section className="py-14 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Rincian Waktu per Segmen Perjalanan</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
           <p className="text-gray-500 text-sm leading-relaxed mb-8">
             Perjalanan Palembang ke Lebong terbagi dalam beberapa segmen dengan karakteristik jalan yang berbeda. Memahami setiap segmen membantu Anda memperkirakan waktu tiba dengan lebih akurat.
           </p>
@@ -197,7 +197,7 @@ export default function BerapaJamPalembangLebongPage() {
           {/* Timeline vertikal */}
           <div className="relative">
             {/* Garis vertikal */}
-            <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gold-500 to-gold-300 hidden sm:block" />
+            <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-linear-to-b from-gold-500 to-gold-300 hidden sm:block" />
 
             <div className="space-y-6">
               {segmenRute.map((seg, idx) => (
@@ -207,7 +207,7 @@ export default function BerapaJamPalembangLebongPage() {
                     {seg.icon}
                   </div>
 
-                  <div className="bg-cream-50 border border-gray-200 rounded-2xl p-5 hover:border-gold-400 hover:shadow-sm transition-all">
+                  <div className="bg-cream-50 border border-gray-200 rounded-2xl p-5 hover:border-gold-400 hover:shadow-xs transition-all">
                     <div className="flex items-start justify-between gap-4 flex-wrap">
                       <div>
                         <p className="text-xs text-gold-600 font-semibold uppercase tracking-wide mb-1">{seg.jenis}</p>
@@ -254,7 +254,7 @@ export default function BerapaJamPalembangLebongPage() {
       <section className="py-14 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-primary-900 mb-2">Apa Saja yang Mempengaruhi Durasi Perjalanan?</h2>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-gold-500 to-gold-400 rounded mb-6" />
+          <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mb-6" />
 
           <div className="space-y-5 text-gray-600 text-sm leading-relaxed mb-10">
             <p>
@@ -358,7 +358,7 @@ export default function BerapaJamPalembangLebongPage() {
           <div>
             <div className="bg-primary-900 rounded-2xl p-6 sticky top-20">
               <h3 className="font-display font-bold text-white text-lg mb-1">Pesan Sekarang</h3>
-              <div className="w-10 h-0.5 bg-gold-500 rounded mb-4" />
+              <div className="w-10 h-0.5 bg-gold-500 rounded-sm mb-4" />
               <div className="space-y-2 mb-5 text-sm text-gray-300">
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Berangkat 07.00 & 19.00 WIB</div>
                 <div className="flex gap-2"><span className="text-gold-400">✓</span>Hiace (14 kursi) / Innova (7 kursi)</div>
