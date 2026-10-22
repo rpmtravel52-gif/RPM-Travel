@@ -183,3 +183,46 @@
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
+
+/* ── Bayangan bawah card (home) ──
+   Aktif saat card berada di tengah layar (data-glow="on" dari GlowObserver),
+   hilang saat di-scroll keluar. Hanya bayangan di sisi bawah (spread negatif).
+   Warna mengikuti tema: navy lembut + glow emas. Tanpa @layer agar menang atas utilitas. */
+.glow {
+  --glow-a: rgb(10 22 40 / 0);
+  --glow-b: rgb(201 168 76 / 0);
+  box-shadow:
+    var(--tw-inset-shadow, 0 0 #0000),
+    var(--tw-inset-ring-shadow, 0 0 #0000),
+    var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow, 0 0 #0000),
+    0 16px 20px -14px var(--glow-a),
+    0 28px 32px -24px var(--glow-b);
+  transition-duration: 0.6s;
+}
+.glow[data-glow='on'] {
+  --glow-a: rgb(10 22 40 / 0.28);
+  --glow-b: rgb(201 168 76 / 0.5);
+}
+/* Varian untuk section gelap (navy): glow emas saja */
+.glow-dark[data-glow='on'] {
+  --glow-a: rgb(0 0 0 / 0.35);
+  --glow-b: rgb(226 196 110 / 0.35);
+}
+
+/* Garis emas "menggambar" dari tengah saat masuk layar */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .bar-grow {
+      transform-origin: center;
+      animation: barGrow linear both;
+      animation-timeline: view();
+      animation-range: entry 20% entry 80%;
+    }
+  }
+}
+@keyframes barGrow {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}

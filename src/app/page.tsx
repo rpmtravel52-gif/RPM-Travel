@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ServiceCard from '@/components/ServiceCard';
 import MapSection from '@/components/MapSection';
+import GlowObserver from '@/components/GlowObserver';
 
 export const metadata: Metadata = {
   title: 'RPM Travel Curup | Travel Antar Jemput & Sewa Bus Wisata Bengkulu',
@@ -106,6 +107,7 @@ const cars = [
 export default function HomePage() {
   return (
     <>
+      <GlowObserver />
       {/* ── HERO ── */}
       <section className="relative min-h-[90vh] flex items-center bg-primary-900 overflow-hidden">
         {/* Background effects */}
@@ -217,7 +219,7 @@ export default function HomePage() {
           <div className="text-center mb-12">
             <p className="section-label">Pilihan Layanan Kami</p>
             <h2 className="section-title">Layanan RPM Travel Curup</h2>
-            <div className="gold-bar mx-auto" />
+            <div className="gold-bar bar-grow mx-auto" />
             <p className="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">
               Dari perjalanan pribadi antarkota hingga sewa bus untuk rombongan besar, RPM Travel Curup siap melayani kebutuhan transportasi Anda setiap hari.
             </p>
@@ -236,7 +238,7 @@ export default function HomePage() {
           <div className="text-center mb-12">
             <p className="section-label">Kendaraan Kami</p>
             <h2 className="section-title">Armada RPM Travel</h2>
-            <div className="gold-bar mx-auto" />
+            <div className="gold-bar bar-grow mx-auto" />
             <p className="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">
               Setiap kendaraan menjalani perawatan berkala dan pengecekan sebelum keberangkatan, sehingga perjalanan Anda aman dan nyaman dari awal hingga tujuan.
             </p>
@@ -245,7 +247,7 @@ export default function HomePage() {
             {cars.map((car, i) => (
               <div
                 key={car.name + i}
-                className={`card overflow-hidden relative group ${car.featured ? 'ring-2 ring-gold-500' : ''}`}
+                className={`card glow overflow-hidden relative group ${car.featured ? 'ring-2 ring-gold-500' : ''}`}
               >
                 {car.featured && (
                   <span className="absolute top-3 left-3 z-10 bg-gold-500 text-primary-900 text-xs font-bold px-2.5 py-1 rounded-full">
@@ -293,7 +295,7 @@ export default function HomePage() {
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
               Keunggulan RPM Travel Curup
             </h2>
-            <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mx-auto mt-3 mb-4" />
+            <div className="w-12 h-0.5 bg-linear-to-r from-gold-500 to-gold-400 rounded-sm mx-auto mt-3 mb-4 bar-grow" />
             <p className="text-gray-400 max-w-xl mx-auto text-sm leading-relaxed">
               Lebih dari sekadar jasa antar-jemput — kami hadir untuk memastikan setiap perjalanan Anda terasa mudah, aman, dan tepat waktu.
             </p>
@@ -302,9 +304,9 @@ export default function HomePage() {
             {whyUs.map((w) => (
               <div
                 key={w.title}
-                className="bg-white/5 border border-white/10 hover:border-gold-500/30 hover:bg-white/10 rounded-2xl p-6 transition-all duration-200 group"
+                className="glow glow-dark reveal bg-white/5 border border-white/10 hover:border-gold-500/30 hover:bg-white/10 rounded-2xl p-6 transition-all duration-200 group"
               >
-                <div className="w-12 h-12 bg-gold-500/10 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:bg-gold-500/20 transition-colors">
+                <div className="w-12 h-12 bg-gold-500/10 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:bg-gold-500/20 group-hover:scale-110 group-hover:-rotate-6 transition-all duration-300">
                   {w.icon}
                 </div>
                 <h3 className="font-display font-bold text-white text-lg mb-2">{w.title}</h3>
@@ -346,7 +348,7 @@ export default function HomePage() {
           <div className="text-center mb-10">
             <p className="section-label">Lokasi Kami</p>
             <h2 className="section-title">Kantor RPM Travel Curup</h2>
-            <div className="gold-bar mx-auto" />
+            <div className="gold-bar bar-grow mx-auto" />
             <p className="text-gray-500 text-sm mt-1">Jl. S. Parman, Talang Benih, Curup, Rejang Lebong, Bengkulu 39119</p>
           </div>
           <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 max-w-4xl mx-auto">

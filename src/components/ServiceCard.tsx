@@ -18,7 +18,7 @@ export default function ServiceCard({
   isPriority = false, // ✅ default false, hanya card pertama yang true
 }: ServiceCardProps) {
   return (
-    <div className="card group overflow-hidden flex flex-col hover:-translate-y-1 transition-all duration-200">
+    <div className="card glow group overflow-hidden flex flex-col hover:-translate-y-1 transition-all duration-200">
       {/* Image */}
       <Link href={href}>
         <div className="relative h-44 bg-primary-900 overflow-hidden">
