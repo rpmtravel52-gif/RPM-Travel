@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -49,24 +49,15 @@ const navLinks: NavLink[] = [
 ];
 
 export default function Navbar() {
-  const [open, setOpen]                     = useState(false);
   const [dropdown, setDropdown]             = useState<string | null>(null);
-  const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
   const [scrolled, setScrolled]             = useState(false);
-  const [hidden, setHidden]                 = useState(false);
-  const lastY                               = useRef(0);
 
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const y = window.scrollY;
-          setScrolled(y > 16);
-          // Mobile: sembunyikan header saat scroll turun, munculkan saat scroll naik
-          if (y > 80 && y > lastY.current + 6 && !open) setHidden(true);
-          else if (y < lastY.current - 6 || y <= 80) setHidden(false);
-          lastY.current = y;
+          setScrolled(window.scrollY > 16);
           ticking = false;
         });
         ticking = true;
@@ -74,7 +65,7 @@ export default function Navbar() {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, [open]);
+  }, []);
 
   return (
     <>
@@ -124,12 +115,10 @@ export default function Navbar() {
       `}</style>
 
       {/* Gold top line */}
-      <div className={`rpm-topline${scrolled ? ' show' : ''}`} />
+      <div className={`max-md:hidden rpm-topline${scrolled ? ' show' : ''}`} />
 
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          hidden && !open ? '-translate-y-full md:translate-y-0' : 'translate-y-0'
-        } ${
+        className={`max-md:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
             ? 'bg-white/96 backdrop-blur-md shadow-md border-b border-amber-100'
             : 'bg-white/90 backdrop-blur-xs shadow-xs border-b border-gray-100'
@@ -212,71 +201,7 @@ export default function Navbar() {
               )
             )}
           </nav>
-
-          {/* ── Hamburger (mobile) ── */}
-          <button
-            className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-amber-50 transition-colors"
-            onClick={() => setOpen(!open)}
-            aria-label="Buka menu navigasi"
-          >
-            {open ? (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
         </div>
-
-        {/* ── Mobile Menu ── */}
-        {open && (
-          <div className="rpm-nav-font md:hidden bg-white border-t border-amber-100 px-4 py-4 space-y-1 max-h-[80vh] overflow-y-auto">
-            {navLinks.map((link) =>
-              link.children ? (
-                <div key={link.label}>
-                  <button
-                    onClick={() => setExpandedMobile(expandedMobile === link.label ? null : link.label)}
-                    className="w-full flex items-center justify-between py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-widest hover:bg-amber-50 rounded-lg"
-                  >
-                    {link.label}
-                    <svg
-                      className={`w-4 h-4 transition-transform ${expandedMobile === link.label ? 'rotate-180' : ''}`}
-                      fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  {expandedMobile === link.label && (
-                    <div className="ml-2 mt-1 space-y-0.5 border-l-2 border-amber-200 pl-3">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          onClick={() => setOpen(false)}
-                          className="block py-2 px-3 text-sm text-gray-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg transition-colors"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="block py-2 px-3 text-sm text-gray-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg transition-colors"
-                >
-                  {link.label}
-                </Link>
-              )
-            )}
-          </div>
-        )}
       </header>
     </>
   );

@@ -8,7 +8,7 @@ export default function Footer() {
       {/* Gold top border */}
       <div className="h-1 bg-linear-to-r from-transparent via-gold-500 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 py-14 grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div className="max-w-7xl mx-auto px-4 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand */}
         <div>
           <div className="flex items-center gap-2 mb-4">
@@ -32,6 +32,29 @@ export default function Footer() {
             </svg>
             0852-8282-8005
           </a>
+        </div>
+
+        {/* Artikel & Info */}
+        <div>
+          <h3 className="text-gold-400 text-xs font-bold uppercase tracking-widest mb-4">Artikel &amp; Info</h3>
+          <ul className="space-y-2.5">
+            {[
+              { href: '/transportasi-perjalanan-dinas',   label: 'Perjalanan Dinas' },
+              { href: '/berapa-jam-palembang-bengkulu',   label: 'Berapa Jam Palembang – Bengkulu?' },
+              { href: '/berapa-jam-palembang-lebong',     label: 'Berapa Jam Palembang – Lebong?' },
+              { href: '/harga-travel-palembang-lebong',   label: 'Harga Travel Palembang – Lebong' },
+              { href: '/rute-travel-palembang-bengkulu',  label: 'Rute Travel Palembang – Bengkulu' },
+              { href: '/tips-naik-travel-jarak-jauh',     label: 'Tips Naik Travel Jarak Jauh' },
+              { href: '/tips-sewa-bus-wisata',            label: 'Tips Sewa Bus Wisata' },
+              { href: '/sewa-bus-vs-travel-rombongan',    label: 'Sewa Bus vs Travel Rombongan' },
+            ].map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="text-gray-400 hover:text-gold-400 text-sm transition-colors">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Layanan */}
