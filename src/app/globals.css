@@ -264,3 +264,15 @@
 @keyframes shimmer { to { background-position: -200% center; } }
 @keyframes ctaShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 @media (min-width: 768px) { .reveal { animation: none !important; } }
+
+/* ══ Bottom nav: bar penuh dengan lekukan + roda yang berpindah ══ */
+@property --nx { syntax: '<percentage>'; inherits: true; initial-value: 10%; }
+.bn { --nx: 10%; transition: --nx 0.6s cubic-bezier(0.34, 1.35, 0.5, 1); }
+.bn-wheel { left: var(--nx); }
+.bn-bar {
+  -webkit-mask: radial-gradient(circle 38px at var(--nx) -2px, transparent 37px, #000 38.5px);
+  mask: radial-gradient(circle 38px at var(--nx) -2px, transparent 37px, #000 38.5px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .bn { transition: none; }
+}
