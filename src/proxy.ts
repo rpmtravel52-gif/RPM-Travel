@@ -10,6 +10,24 @@ const SECRET = new TextEncoder().encode(
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
+  // ── API khusus admin: wajib token admin (sebelumnya terbuka untuk umum) ──
+  const adminOnlyApi =
+    (pathname === '/api/orders' && req.method === 'GET') ||
+    /^\/api\/orders\/[^/]+\/(confirm|send-invoice|send-ticket)$/.test(pathname) ||
+    pathname.startsWith('/api/receipt/') ||
+    (pathname === '/api/rates' && req.method === 'POST');
+
+  if (adminOnlyApi) {
+    const token = req.cookies.get('admin_token')?.value;
+    try {
+      if (!token) throw new Error('no token');
+      await jwtVerify(token, SECRET);
+      return NextResponse.next();
+    } catch {
+      return NextResponse.json({ error: 'Tidak diizinkan' }, { status: 401 });
+    }
+  }
+
   // ── Area admin (JWT admin, tidak berubah) ────────────────────
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
     const token = req.cookies.get('admin_token')?.value;
@@ -57,5 +75,8 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/akun/:path*', '/akun'],
+  matcher: [
+    '/admin/:path*', '/akun/:path*', '/akun',
+    '/api/orders', '/api/orders/:path*', '/api/receipt/:path*', '/api/rates',
+  ],
 };
