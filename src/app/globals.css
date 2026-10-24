@@ -228,3 +228,39 @@
   from { transform: scaleX(0); opacity: 0; }
   to   { transform: scaleX(1); opacity: 1; }
 }
+
+/* ══ Animasi tampilan PC (>= 768px) ══ */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  html.rv-ready [data-rv] {
+    opacity: 0;
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--rv-d, 0ms);
+    will-change: opacity, transform;
+  }
+  html.rv-ready [data-rv='up']    { transform: translateY(44px); }
+  html.rv-ready [data-rv='left']  { transform: translateX(-56px); }
+  html.rv-ready [data-rv='right'] { transform: translateX(56px); }
+  html.rv-ready [data-rv='zoom']  { transform: scale(0.92); }
+  html.rv-ready [data-rv][data-in='1'] { opacity: 1; transform: none; }
+
+  .hero-in { animation: heroIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: var(--d, 0ms); }
+  .hero-float { animation: heroFloat 7s ease-in-out infinite; }
+  .blob-drift { animation: blobDrift 14s ease-in-out infinite alternate; }
+  .shimmer-text {
+    background: linear-gradient(90deg, #e2c46e 0%, #fff3c4 50%, #e2c46e 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 4.5s linear infinite;
+  }
+  .cta-glow { background-size: 200% 200%; animation: ctaShift 9s ease-in-out infinite; }
+  .lift { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s; }
+  .lift:hover { transform: translateY(-8px); }
+}
+@keyframes heroIn { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes heroFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes blobDrift { from { transform: translate(0, 0) scale(1); } to { transform: translate(40px, 30px) scale(1.15); } }
+@keyframes shimmer { to { background-position: -200% center; } }
+@keyframes ctaShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+@media (min-width: 768px) { .reveal { animation: none !important; } }

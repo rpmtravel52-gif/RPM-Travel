@@ -104,7 +104,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <Navbar />
-        <main className="pt-16 pb-24 md:pb-0">{children}</main>
+        <main className="pt-12 md:pt-16 pb-24 md:pb-0">{children}</main>
         <Footer />
         <WAFloat />
         <BottomNav />

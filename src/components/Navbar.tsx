@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -53,13 +53,20 @@ export default function Navbar() {
   const [dropdown, setDropdown]             = useState<string | null>(null);
   const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
   const [scrolled, setScrolled]             = useState(false);
+  const [hidden, setHidden]                 = useState(false);
+  const lastY                               = useRef(0);
 
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 16);
+          const y = window.scrollY;
+          setScrolled(y > 16);
+          // Mobile: sembunyikan header saat scroll turun, munculkan saat scroll naik
+          if (y > 80 && y > lastY.current + 6 && !open) setHidden(true);
+          else if (y < lastY.current - 6 || y <= 80) setHidden(false);
+          lastY.current = y;
           ticking = false;
         });
         ticking = true;
@@ -67,7 +74,7 @@ export default function Navbar() {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [open]);
 
   return (
     <>
@@ -121,16 +128,18 @@ export default function Navbar() {
 
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          hidden && !open ? '-translate-y-full md:translate-y-0' : 'translate-y-0'
+        } ${
           scrolled
             ? 'bg-white/96 backdrop-blur-md shadow-md border-b border-amber-100'
             : 'bg-white/90 backdrop-blur-xs shadow-xs border-b border-gray-100'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 h-12 md:h-16 flex items-center justify-between">
 
           {/* ── Brand ── */}
           <Link href="/" className="flex items-center gap-3 group shrink-0">
-            <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-md ring-1 ring-amber-200 shrink-0 transition-shadow group-hover:shadow-lg group-hover:ring-amber-400">
+            <div className="relative w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl overflow-hidden shadow-md ring-1 ring-amber-200 shrink-0 transition-shadow group-hover:shadow-lg group-hover:ring-amber-400">
               <Image
                 src="/images/logo.png"
                 alt="RPM Travel Curup Logo"
@@ -142,11 +151,11 @@ export default function Navbar() {
 
             <div className="leading-none select-none">
               <div className="rpm-logo-text flex items-baseline gap-[5px]">
-                <span className="rpm-gold text-[1.35rem] font-bold tracking-widest">RPM</span>
-                <span className="text-gray-800 text-[1.1rem] font-semibold tracking-[0.18em]">TRAVEL</span>
+                <span className="rpm-gold text-[1.1rem] md:text-[1.35rem] font-bold tracking-widest">RPM</span>
+                <span className="text-gray-800 text-[0.9rem] md:text-[1.1rem] font-semibold tracking-[0.18em]">TRAVEL</span>
               </div>
               <div
-                className="rpm-nav-font text-[0.56rem] font-medium tracking-[0.42em] uppercase mt-[2px]"
+                className="rpm-nav-font hidden sm:block text-[0.56rem] font-medium tracking-[0.42em] uppercase mt-[2px]"
                 style={{ color: '#7a5c28', paddingLeft: '1px' }}
               >
                 Curup &nbsp;·&nbsp; Bengkulu
