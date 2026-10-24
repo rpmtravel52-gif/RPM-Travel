@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { useAuth, type AuthUser } from './AuthProvider';
+import Avatar from './Avatar';
 
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20bertanya';
 
@@ -17,12 +19,11 @@ type Item = {
 
 const stroke = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
 
-const items: Item[] = [
-  {
-    href: '/#layanan', label: 'Rute',
-    match: (p) => p.startsWith('/travel-') || p.startsWith('/jadwal-') || p.startsWith('/rute-'),
-    icon: <svg viewBox="0 0 24 24" {...stroke}><circle cx="6" cy="19" r="2.2" /><circle cx="18" cy="5" r="2.2" /><path d="M8 19h7a3 3 0 000-6H9a3 3 0 010-6h7" /></svg>,
-  },
+const accountIcon = (
+  <svg viewBox="0 0 24 24" {...stroke}><circle cx="12" cy="8" r="3.6" /><path d="M4.5 20c.8-3.6 3.6-5.4 7.5-5.4s6.7 1.8 7.5 5.4" /></svg>
+);
+
+const staticItems: Item[] = [
   {
     href: '/pesan', label: 'Pesan',
     match: (p) => p.startsWith('/pesan'),
@@ -43,6 +44,22 @@ const items: Item[] = [
     icon: <svg viewBox="0 0 24 24" {...stroke}><path d="M21 12a8.5 8.5 0 01-12.6 7.4L3 21l1.7-5.2A8.5 8.5 0 1121 12z" /></svg>,
   },
 ];
+
+/** Item pertama: tombol Masuk (belum login) atau Akun + foto (sudah login). */
+function buildItems(user: AuthUser | null): Item[] {
+  const first: Item = user
+    ? {
+        href: '/akun', label: 'Akun',
+        match: (p) => p.startsWith('/akun') || p.startsWith('/login'),
+        icon: <Avatar user={user} className="w-full h-full" />,
+      }
+    : {
+        href: '/login', label: 'Masuk',
+        match: (p) => p.startsWith('/login') || p.startsWith('/akun'),
+        icon: accountIcon,
+      };
+  return [first, ...staticItems];
+}
 
 /** Roda mobil: ban + velg emas + jari-jari. Hanya bagian ini yang berputar. */
 function Wheel({ rot }: { rot: number }) {
@@ -70,6 +87,8 @@ function Wheel({ rot }: { rot: number }) {
 
 export default function BottomNav() {
   const pathname = usePathname() ?? '/';
+  const { user } = useAuth();
+  const items = buildItems(user);
 
   const pathIdx = items.findIndex((it) => it.match?.(pathname));
   // sel = tab yang baru diketuk (roda langsung pindah), direset saat halaman berganti

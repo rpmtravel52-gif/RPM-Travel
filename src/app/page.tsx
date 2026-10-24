@@ -7,6 +7,7 @@ import AutoCarousel from '@/components/AutoCarousel';
 import RevealObserver from '@/components/RevealObserver';
 import StatsBar from '@/components/StatsBar';
 import GlowObserver from '@/components/GlowObserver';
+import { HeroAuth } from '@/components/AuthButtons';
 
 export const metadata: Metadata = {
   title: 'RPM Travel Curup | Travel Antar Jemput & Sewa Bus Wisata Bengkulu',
@@ -127,6 +128,8 @@ export default function HomePage() {
           <div className="blob-drift absolute -top-24 -right-20 w-72 h-72 md:w-[28rem] md:h-[28rem] bg-gold-500/20 rounded-full blur-3xl" />
           <div className="blob-drift absolute bottom-0 -left-16 w-64 h-64 md:w-96 md:h-96 bg-primary-400/25 rounded-full blur-3xl [animation-delay:-6s]" />
         </div>
+
+        <HeroAuth />
 
         <div className="relative max-w-6xl mx-auto px-4 pt-6 pb-16 md:pt-16 md:pb-28 grid md:grid-cols-2 gap-6 md:gap-14 items-center">
           <div>

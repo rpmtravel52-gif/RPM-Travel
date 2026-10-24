@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { NavAuth } from './AuthButtons';
 
 type ChildLink = { href: string; label: string };
 type NavLink =
@@ -200,6 +201,7 @@ export default function Navbar() {
                 </Link>
               )
             )}
+            <NavAuth />
           </nav>
         </div>
       </header>
