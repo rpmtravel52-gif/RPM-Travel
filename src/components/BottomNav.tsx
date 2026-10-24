@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20bertanya';
@@ -18,11 +19,6 @@ const stroke = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeL
 
 const items: Item[] = [
   {
-    href: '/', label: 'Beranda',
-    match: (p) => p === '/',
-    icon: <svg viewBox="0 0 24 24" {...stroke}><path d="M3 11l9-8 9 8v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-9z" /></svg>,
-  },
-  {
     href: '/#layanan', label: 'Rute',
     match: (p) => p.startsWith('/travel-') || p.startsWith('/jadwal-') || p.startsWith('/rute-'),
     icon: <svg viewBox="0 0 24 24" {...stroke}><circle cx="6" cy="19" r="2.2" /><circle cx="18" cy="5" r="2.2" /><path d="M8 19h7a3 3 0 000-6H9a3 3 0 010-6h7" /></svg>,
@@ -31,6 +27,11 @@ const items: Item[] = [
     href: '/pesan', label: 'Pesan',
     match: (p) => p.startsWith('/pesan'),
     icon: <svg viewBox="0 0 24 24" {...stroke}><path d="M3 9a2 2 0 012-2h14a2 2 0 012 2v1.5a1.5 1.5 0 000 3V15a2 2 0 01-2 2H5a2 2 0 01-2-2v-1.5a1.5 1.5 0 000-3V9z" /><path d="M14 7v10" strokeDasharray="2 2.5" /></svg>,
+  },
+  {
+    href: '/', label: 'Beranda',
+    match: (p) => p === '/',
+    icon: <Image src="/android-chrome-192x192.png" alt="" width={40} height={40} className="rounded-full" />,
   },
   {
     href: '/#armada', label: 'Armada',
@@ -102,7 +103,7 @@ export default function BottomNav() {
         aria-hidden
       >
         <Wheel rot={cur.rot} />
-        <div className="absolute inset-[17px] rounded-full bg-white ring-2 ring-gold-500 text-primary-900 flex items-center justify-center [&>svg]:w-[18px] [&>svg]:h-[18px] shadow-inner">
+        <div className="absolute inset-[17px] rounded-full bg-white ring-2 ring-gold-500 text-primary-900 flex items-center justify-center [&>svg]:w-[18px] [&>svg]:h-[18px] [&>img]:w-full [&>img]:h-full shadow-inner overflow-hidden">
           {active >= 0 && items[active].icon}
         </div>
       </div>
@@ -112,7 +113,7 @@ export default function BottomNav() {
           const isActive = i === active;
           const body = (
             <>
-              <span className={`block w-[22px] h-[22px] mt-3.5 transition-opacity duration-200 [&>svg]:w-full [&>svg]:h-full ${isActive ? 'opacity-0' : 'opacity-100'}`}>
+              <span className={`block w-[22px] h-[22px] mt-3.5 transition-opacity duration-200 [&>svg]:w-full [&>svg]:h-full [&>img]:w-full [&>img]:h-full ${isActive ? 'opacity-0' : 'opacity-100'}`}>
                 {it.icon}
               </span>
               <span className={`mt-[3px] mb-2 text-[0.68rem] leading-[0.9rem] ${isActive ? 'font-bold text-primary-900' : 'font-medium text-gray-500'}`}>
