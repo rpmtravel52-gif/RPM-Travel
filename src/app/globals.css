@@ -146,13 +146,15 @@
      Mendefinisikannya ulang di sini dengan nama string 'Playfair Display'
      menyebabkan browser meminta font dari Google Fonts secara langsung,
      membypass optimasi next/font dan menyebabkan render-blocking request. */
-  html { scroll-behavior: smooth; text-rendering: optimizeLegibility; }
+  html { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; text-rendering: optimizeLegibility; }
   ::selection { background: var(--color-gold-200); color: var(--color-primary-900); }
   h1, h2, h3 { text-wrap: balance; }
   p { text-wrap: pretty; }
   body {
+    overscroll-behavior-y: none;
+    background-color: #faf8f3;
     font-family: var(--font-jakarta);
-    @apply bg-white text-gray-700 antialiased leading-relaxed;
+    @apply text-gray-700 antialiased leading-relaxed;
   }
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { @apply bg-cream-100; }

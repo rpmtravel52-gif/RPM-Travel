@@ -40,7 +40,7 @@ export default function WAFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat WhatsApp RPM Travel"
-      className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-200"
+      className="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-40 w-12 h-12 md:w-14 md:h-14 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-200"
       style={{ boxShadow: '0 4px 20px rgba(37,211,102,0.45)' }}
     >
       <svg className="w-7 h-7 fill-white" viewBox="0 0 24 24">

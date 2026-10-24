@@ -4,7 +4,7 @@ const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel';
 
 export default function Footer() {
   return (
-    <footer className="bg-primary-900 text-white">
+    <footer className="bg-primary-900 text-white mt-10 rounded-t-[2.5rem] md:rounded-none overflow-hidden">
       {/* Gold top border */}
       <div className="h-1 bg-linear-to-r from-transparent via-gold-500 to-transparent" />
 
