@@ -130,6 +130,11 @@ export default function HomePage() {
 
         <div className="relative max-w-6xl mx-auto px-4 pt-6 pb-16 md:pt-16 md:pb-28 grid md:grid-cols-2 gap-6 md:gap-14 items-center">
           <div>
+            {/* Nama brand (teks saja) — menggantikan header yang disembunyikan di mobile */}
+            <p className="md:hidden flex items-baseline gap-1.5 mb-3 font-[family-name:var(--font-cormorant)]" aria-label="RPM Travel">
+              <span className="text-[1.7rem] font-bold tracking-widest bg-linear-to-br from-gold-500 via-gold-300 to-gold-500 bg-clip-text text-transparent">RPM</span>
+              <span className="text-[1.35rem] font-semibold tracking-[0.18em] text-white">TRAVEL</span>
+            </p>
             <div className="hero-in [--d:100ms] inline-flex items-center gap-2 bg-white/10 border border-white/15 text-gold-300 text-xs font-medium px-3 py-1.5 rounded-full mb-4">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               Online 24 Jam · Curup, Bengkulu
