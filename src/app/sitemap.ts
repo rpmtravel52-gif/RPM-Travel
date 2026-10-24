@@ -32,6 +32,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/harga-travel-palembang-lebong`,   lastModified: now, changeFrequency: 'weekly', priority: 0.80 },
     
 
+    // ── Legal
+    { url: `${base}/kebijakan-privasi`, lastModified: now, changeFrequency: 'yearly', priority: 0.30 },
+    { url: `${base}/syarat-ketentuan`, lastModified: now, changeFrequency: 'yearly', priority: 0.30 },
+
     // ── Sewa
     { url: `${base}/sewa-hiace-curup`,          lastModified: now, changeFrequency: 'weekly',  priority: 0.88 },
     { url: `${base}/sewa-bus-wisata`,           lastModified: now, changeFrequency: 'weekly',  priority: 0.85 },

@@ -9,6 +9,7 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BottomNav from '@/components/BottomNav';
+import AuthProvider from '@/components/AuthProvider';
 
 // ── Font: Playfair Display (dipakai di konten utama) ──────────────
 const playfair = Playfair_Display({
@@ -102,10 +103,12 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        <Navbar />
-        <main className="pt-0 md:pt-16 pb-24 md:pb-0">{children}</main>
-        <Footer />
-        <BottomNav />
+        <AuthProvider>
+          <Navbar />
+          <main className="pt-0 md:pt-16 pb-24 md:pb-0">{children}</main>
+          <Footer />
+          <BottomNav />
+        </AuthProvider>
       </body>
     </html>
   );

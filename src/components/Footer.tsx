@@ -155,7 +155,10 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-gray-400">
           <p>© {new Date().getFullYear()} RPM Travel Curup. Hak Cipta Dilindungi.</p>
-          <p>Jl. S. Parman, Talang Benih, Curup, Bengkulu 39119</p>
+          <p className="flex items-center gap-3">
+            <Link href="/kebijakan-privasi" className="hover:text-white underline">Kebijakan Privasi</Link>
+            <Link href="/syarat-ketentuan" className="hover:text-white underline">Syarat & Ketentuan</Link>
+          </p>
           <p>
             Dibuat oleh{' '}
             <a
