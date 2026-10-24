@@ -4,6 +4,10 @@ export type OrderStatus = 'UNPAID' | 'PAID';
 export interface Order {
   id: string;
   orderNumber: string;       // RPM-20250425-001
+  userId?: string;           // id akun Supabase (jika pemesan sedang login)
+  paketId?: string;          // id paket (untuk fitur "Pesan Kembali")
+  asal?: string;             // lokasi penjemputan
+  tujuan?: string;           // tujuan / drop off
   nama: string;
   hp?: string;               // nomor WhatsApp pelanggan
   paket: string;
@@ -28,6 +32,8 @@ export interface CreateOrderInput {
   tanggal: string;
   jam?: string;              // jam keberangkatan, opsional
   jumlahPax: number;
+  asal?: string;
+  tujuan?: string;
   metodePembayaran: PaymentMethod;
   email?: string;
   catatan?: string;          // catatan tambahan, opsional

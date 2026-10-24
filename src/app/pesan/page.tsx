@@ -1,10 +1,13 @@
 'use client';
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { formatRupiah, type TravelPackage } from '@/lib/packages';
 import { usePackages } from '@/lib/usePackages';
 import { QrisModal } from '@/components/QrisModal';
+import { useAuth } from '@/components/AuthProvider';
+import { getSupabaseBrowser } from '@/lib/supabase/client';
+import { normalizeHp } from '@/lib/profile';
 
 // ─── Types ────────────────────────────────────────────────────
 interface Order {
@@ -47,6 +50,12 @@ const ALL_JAM = ['06.00','07.00','08.00','09.00','10.00','11.00','12.00',
 function PesanForm() {
   const searchParams = useSearchParams();
   const paketFromUrl = searchParams.get('paket') ?? '';
+  const { user } = useAuth();
+  // Parameter dari tombol "Pesan Kembali" di halaman akun (tanggal sengaja dikosongkan)
+  const paxFromUrl = Math.min(14, Math.max(1, Number(searchParams.get('pax')) || 1));
+  const metodeFromUrl = searchParams.get('metode') === 'TUNAI' ? 'TUNAI' : 'QRIS';
+  const initJam = useRef(searchParams.get('jam') ?? '');
+  const [prefilled, setPrefilled] = useState(false);
 
   const { packages } = usePackages();
 
@@ -57,10 +66,10 @@ function PesanForm() {
     paket: paketFromUrl,
     tanggal: '',
     jam: '',
-    jumlahPax: 1,
-    asal: '',
-    tujuan: '',
-    metode: 'QRIS' as 'QRIS' | 'TUNAI',
+    jumlahPax: paxFromUrl,
+    asal: searchParams.get('asal') ?? '',
+    tujuan: searchParams.get('tujuan') ?? '',
+    metode: metodeFromUrl as 'QRIS' | 'TUNAI',
     wantEmail: false,
     email: '',
     catatan: '',
@@ -75,8 +84,42 @@ function PesanForm() {
   useEffect(() => {
     const pkg = packages.find((p) => p.id === form.paket) ?? null;
     setSelectedPkg(pkg);
-    setForm((prev) => ({ ...prev, jam: '' }));
+    // Jam dari "Pesan Kembali" dipakai sekali, begitu paketnya sudah termuat
+    const jam = pkg ? initJam.current : '';
+    if (pkg) initJam.current = '';
+    setForm((prev) => ({ ...prev, jam }));
   }, [form.paket, packages]);
+
+  // Isi otomatis dari data tersimpan di akun (hanya kolom yang masih kosong)
+  useEffect(() => {
+    if (!user) return;
+    const sb = getSupabaseBrowser();
+    if (!sb) return;
+    let alive = true;
+    (async () => {
+      let row: Record<string, unknown> | null = null;
+      try {
+        const res = await sb.from('profiles').select('nama,hp,email,alamat').eq('id', user.id).maybeSingle();
+        row = res.data;
+      } catch { row = null; }
+      if (!alive) return;
+      const str = (k: string) => (row && typeof row[k] === 'string' ? (row[k] as string) : '');
+      const nama = str('nama') || user.nama;
+      const hp = normalizeHp(str('hp'));
+      const email = str('email') || user.email;
+      const alamat = str('alamat');
+      setForm((p) => ({
+        ...p,
+        nama: p.nama || nama,
+        hp: p.hp || hp,
+        asal: p.asal || alamat,
+        email: p.email || email,
+        wantEmail: p.email ? p.wantEmail : Boolean(email),
+      }));
+      setPrefilled(Boolean(hp || alamat));
+    })();
+    return () => { alive = false; };
+  }, [user]);
 
   const jadwalPaket = form.paket ? (JADWAL[form.paket] ?? null) : undefined;
   const isSelalu    = Array.isArray(jadwalPaket) && jadwalPaket.length === 0;
@@ -324,6 +367,18 @@ function PesanForm() {
               <span className="shrink-0">⚠️</span>
               <span>{error}</span>
             </div>
+          )}
+
+          {user ? (
+            prefilled && (
+              <p className="mb-4 text-xs text-green-700 bg-green-50 border border-green-200 rounded-xl px-4 py-2.5">
+                ✅ Data Anda terisi otomatis dari akun. Ubah di <Link href="/akun" className="font-semibold underline">halaman akun</Link> bila perlu.
+              </p>
+            )
+          ) : (
+            <p className="mb-4 text-xs text-gray-500 bg-white border border-gray-100 rounded-xl px-4 py-2.5">
+              Punya akun? <Link href="/login?next=/pesan" className="font-semibold text-gold-700 underline">Masuk</Link> agar data tidak perlu diisi ulang dan riwayat pesanan tersimpan.
+            </p>
           )}
 
           <form

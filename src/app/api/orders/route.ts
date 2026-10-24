@@ -5,14 +5,27 @@ import type { Order, CreateOrderInput } from '@/lib/types';
 import { saveOrder, getNextOrderNumber } from '@/lib/redis';
 import { getPackage } from '@/lib/packages';
 import { staticToDynamic } from '@/lib/qris';
+import { getSupabaseServer } from '@/lib/supabase/server';
 
 export async function POST(req: NextRequest) {
   try {
     const body: CreateOrderInput = await req.json();
     const {
       nama, hp, paket, tanggal, jam,
-      jumlahPax, metodePembayaran, email, catatan,
+      jumlahPax, metodePembayaran, email, catatan, asal, tujuan,
     } = body;
+
+    // Jika pemesan sedang login, kaitkan pesanan ke akunnya (id diambil dari sesi server, bukan dari klien)
+    let userId: string | undefined;
+    try {
+      const sb = await getSupabaseServer();
+      if (sb) {
+        const { data } = await sb.auth.getUser();
+        userId = data.user?.id;
+      }
+    } catch {
+      userId = undefined;
+    }
 
     // Validasi field wajib
     if (!nama || !hp || !paket || !tanggal || !jumlahPax || !metodePembayaran) {
@@ -46,6 +59,10 @@ export async function POST(req: NextRequest) {
     const order: Order = {
       id,
       orderNumber,
+      userId,
+      paketId: pkg.id,
+      asal: asal || undefined,
+      tujuan: tujuan || undefined,
       nama,
       hp,                          // ← nomor WA pelanggan
       paket: pkg.label,

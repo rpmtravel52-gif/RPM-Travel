@@ -22,13 +22,28 @@ import type { Order } from './types';
 const PREFIX = 'rpm:order:';
 const INDEX  = 'rpm:orders:index'; // sorted set by createdAt score
 
+const userIndex = (userId: string) => `rpm:user:${userId}:orders`; // sorted set per akun
+
 export async function saveOrder(order: Order): Promise<void> {
   const score = new Date(order.createdAt).getTime();
-  await redis
+  const tx = redis
     .multi()
     .set(`${PREFIX}${order.id}`, JSON.stringify(order))
-    .zadd(INDEX, score, order.id)
-    .exec();
+    .zadd(INDEX, score, order.id);
+  if (order.userId) tx.zadd(userIndex(order.userId), score, order.id);
+  await tx.exec();
+}
+
+/** Pesanan milik satu akun, terbaru lebih dulu. */
+export async function listOrdersByUser(userId: string, limit = 100): Promise<Order[]> {
+  const ids = await redis.zrevrange(userIndex(userId), 0, limit - 1);
+  if (!ids.length) return [];
+  const pipeline = redis.pipeline();
+  ids.forEach((id) => pipeline.get(`${PREFIX}${id}`));
+  const results = await pipeline.exec();
+  return (results ?? [])
+    .map((r) => (r && r[1] ? (JSON.parse(r[1] as string) as Order) : null))
+    .filter(Boolean) as Order[];
 }
 
 export async function getOrder(id: string): Promise<Order | null> {
