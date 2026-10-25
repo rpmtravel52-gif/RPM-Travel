@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
   // dihapus; serverExternalPackages di atas sudah menjaga react-pdf tetap eksternal.
   turbopack: {},
 
+  // Gambar: AVIF/WebP lebih kecil, cache lama, dan daftar quality yang diizinkan
+  // (Next.js 16 hanya menerima quality yang terdaftar di sini).
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
+    qualities: [60, 75],
+  },
+
   // Compress output — aktifkan gzip/brotli compression di level Next.js
   compress: true,
 

@@ -212,7 +212,7 @@ export default function HomePage() {
               <article className="glow lift h-full bg-white rounded-3xl shadow-soft border border-primary-900/5 overflow-hidden flex flex-col">
                 <Link href={s.href} className="relative block h-40 overflow-hidden">
                   <Image src={s.image} alt={s.title} fill loading={i === 0 ? 'eager' : 'lazy'}
-                    className="object-cover" sizes="(max-width: 768px) 72vw, 25vw" />
+                    className="object-cover" quality={60} sizes="(max-width: 768px) 72vw, 25vw" />
                   <div className="absolute inset-0 bg-linear-to-t from-primary-900/75 via-transparent to-transparent" />
                   {s.badge && (
                     <span className="absolute top-3 left-3 bg-gold-500 text-primary-900 text-[0.65rem] font-bold px-2.5 py-1 rounded-full">{s.badge}</span>
@@ -242,7 +242,7 @@ export default function HomePage() {
           {cars.map((car, i) => (
             <div key={car.name + i} data-rv="zoom" style={{ '--rv-d': `${i * 120}ms` } as React.CSSProperties} className="snap-start shrink-0 w-[62%] sm:w-[40%] md:w-auto">
               <div className={`glow lift relative aspect-4/3 rounded-3xl overflow-hidden bg-primary-900 shadow-soft ${car.featured ? 'ring-2 ring-gold-500' : ''}`}>
-                <Image src={car.img} alt={car.name} fill loading="lazy" className="object-cover" sizes="(max-width: 768px) 62vw, 25vw" />
+                <Image src={car.img} alt={car.name} fill loading="lazy" quality={60} className="object-cover" sizes="(max-width: 768px) 62vw, 25vw" />
                 <div className="absolute inset-0 bg-linear-to-b from-primary-900/80 via-primary-900/10 to-transparent" />
                 <h3 className="absolute top-3 left-4 right-4 text-white font-display font-bold text-base md:text-lg drop-shadow">{car.name}</h3>
               </div>
