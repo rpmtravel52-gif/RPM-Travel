@@ -6,14 +6,17 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useAuth, type AuthUser } from './AuthProvider';
 import Avatar from './Avatar';
-
-const WA = 'https://wa.me/6285282828005?text=Halo%20RPM%20Travel%2C%20saya%20ingin%20bertanya';
+import { buildWaHref } from '@/lib/waChat';
 
 type Item = {
   href: string;
   label: string;
   icon: React.ReactNode;
   external?: boolean;
+  /** true = link WhatsApp yang isinya dibuat dinamis sesuai halaman aktif */
+  waDynamic?: boolean;
+  /** kelas warna khusus untuk ikon (mis. hijau untuk Chat) */
+  iconTone?: string;
   match?: (p: string) => boolean;
 };
 
@@ -40,8 +43,9 @@ const staticItems: Item[] = [
     icon: <svg viewBox="0 0 24 24" {...stroke}><rect x="3" y="5" width="18" height="12" rx="2.5" /><path d="M3 11h18M7 17v2M17 17v2" /><circle cx="7.5" cy="14" r=".6" /><circle cx="16.5" cy="14" r=".6" /></svg>,
   },
   {
-    href: WA, label: 'Chat', external: true,
-    icon: <svg viewBox="0 0 24 24" {...stroke}><path d="M21 12a8.5 8.5 0 01-12.6 7.4L3 21l1.7-5.2A8.5 8.5 0 1121 12z" /></svg>,
+    href: '/', label: 'Chat', external: true, waDynamic: true,
+    iconTone: 'text-green-600',
+    icon: <svg viewBox="0 0 24 24" {...stroke} fill="rgba(22,163,74,0.15)"><path d="M21 12a8.5 8.5 0 01-12.6 7.4L3 21l1.7-5.2A8.5 8.5 0 1121 12z" /></svg>,
   },
 ];
 
@@ -132,7 +136,7 @@ export default function BottomNav() {
           const isActive = i === active;
           const body = (
             <>
-              <span className={`block w-[22px] h-[22px] mt-3.5 transition-opacity duration-200 [&>svg]:w-full [&>svg]:h-full [&>img]:w-full [&>img]:h-full ${isActive ? 'opacity-0' : 'opacity-100'}`}>
+              <span className={`block w-[22px] h-[22px] mt-3.5 transition-opacity duration-200 [&>svg]:w-full [&>svg]:h-full [&>img]:w-full [&>img]:h-full ${it.iconTone ?? ''} ${isActive ? 'opacity-0' : 'opacity-100'}`}>
                 {it.icon}
               </span>
               <span className={`mt-[3px] mb-2 text-[0.68rem] leading-[0.9rem] ${isActive ? 'font-bold text-primary-900' : 'font-medium text-gray-500'}`}>
@@ -144,7 +148,17 @@ export default function BottomNav() {
           return (
             <li key={it.label}>
               {it.external ? (
-                <a href={it.href} target="_blank" rel="noopener noreferrer" className={cls}>{body}</a>
+                <a
+                  href={it.waDynamic ? buildWaHref(pathname) : it.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cls}
+                  onClick={it.waDynamic ? (e) => {
+                    // Baca query terbaru (mis. ?paket=...) saat diklik agar pesan akurat
+                    e.preventDefault();
+                    window.open(buildWaHref(pathname, window.location.search), '_blank', 'noopener,noreferrer');
+                  } : undefined}
+                >{body}</a>
               ) : (
                 <Link
                   href={it.href}
