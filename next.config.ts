@@ -10,7 +10,17 @@ const nextConfig: NextConfig = {
 
   // Next.js 16 memakai Turbopack secara default. Config webpack lama (externals 'canvas')
   // dihapus; serverExternalPackages di atas sudah menjaga react-pdf tetap eksternal.
-  turbopack: {},
+  turbopack: {
+    resolveAlias: {
+      'next/dist/build/polyfills/polyfill-module': './src/lib/noop-polyfill.js',
+      '../build/polyfills/polyfill-module': './src/lib/noop-polyfill.js',
+    },
+  },
+
+  // Inline CSS ke HTML: menghilangkan request CSS yang memblokir render.
+  experimental: {
+    inlineCss: true,
+  },
 
   // Gambar: AVIF/WebP lebih kecil, cache lama, dan daftar quality yang diizinkan
   // (Next.js 16 hanya menerima quality yang terdaftar di sini).
