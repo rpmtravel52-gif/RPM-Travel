@@ -22,6 +22,8 @@ export interface Order {
   status: OrderStatus;
   createdAt: string;         // ISO datetime
   paidAt?: string;           // ISO datetime, set when PAID
+  autoPaid?: boolean;        // true jika LUNAS otomatis (tunai, 2 jam setelah keberangkatan)
+  invoiceSentAt?: string;    // ISO datetime faktur terakhir terkirim ke email
   qrisData?: string;         // base64 QR image for dynamic QRIS
   reviewEmailSent?: boolean; // true setelah email permintaan ulasan terkirim (cron)
   reviewEmailSentAt?: string; // ISO datetime pengiriman email ulasan

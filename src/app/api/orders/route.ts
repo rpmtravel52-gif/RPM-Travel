@@ -1,19 +1,26 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, after } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import type { Order, CreateOrderInput } from '@/lib/types';
-import { saveOrder, getNextOrderNumber } from '@/lib/redis';
+import { saveOrder, getNextOrderNumber, getOrder, updateOrder } from '@/lib/redis';
+import { QRIS_ENABLED } from '@/lib/payment';
+import { sendInvoiceEmail } from '@/lib/invoiceEmail';
+import { settleDueOrders } from '@/lib/autoSettle';
 import { getPackage } from '@/lib/packages';
 import { staticToDynamic } from '@/lib/qris';
 import { getSupabaseServer } from '@/lib/supabase/server';
+
+export const maxDuration = 30;
 
 export async function POST(req: NextRequest) {
   try {
     const body: CreateOrderInput = await req.json();
     const {
       nama, hp, paket, tanggal, jam,
-      jumlahPax, metodePembayaran, email, catatan, asal, tujuan,
+      jumlahPax, email, catatan, asal, tujuan,
     } = body;
+    // QRIS sementara dimatikan: semua pesanan dipaksa TUNAI (juga untuk klien lama yang masih mengirim QRIS)
+    const metodePembayaran = QRIS_ENABLED ? body.metodePembayaran : 'TUNAI';
 
     // Jika pemesan sedang login, kaitkan pesanan ke akunnya (id diambil dari sesi server, bukan dari klien)
     let userId: string | undefined;
@@ -81,6 +88,23 @@ export async function POST(req: NextRequest) {
 
     await saveOrder(order);
 
+    // Faktur otomatis dikirim ke email begitu pesanan dikonfirmasi pemesan (tidak menunda respons)
+    if (order.email) {
+      after(async () => {
+        try {
+          const result = await sendInvoiceEmail(order);
+          if (!result.ok) {
+            console.error('[auto-invoice] gagal:', order.orderNumber, result.error);
+            return;
+          }
+          const fresh = await getOrder(order.id);
+          if (fresh) await updateOrder({ ...fresh, invoiceSentAt: new Date().toISOString() });
+        } catch (err) {
+          console.error('[auto-invoice] error:', order.orderNumber, err);
+        }
+      });
+    }
+
     return NextResponse.json({ order }, { status: 201 });
   } catch (err) {
     console.error('Create order error:', err);
@@ -91,7 +115,8 @@ export async function POST(req: NextRequest) {
 export async function GET() {
   try {
     const { listOrders } = await import('@/lib/redis');
-    const orders = await listOrders(200);
+    // Pesanan tunai otomatis LUNAS 2 jam setelah jadwal keberangkatan
+    const orders = await settleDueOrders(await listOrders(200));
     return NextResponse.json({ orders });
   } catch (err) {
     console.error('List orders error:', err);

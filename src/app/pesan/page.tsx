@@ -8,6 +8,7 @@ import { QrisModal } from '@/components/QrisModal';
 import { useAuth } from '@/components/AuthProvider';
 import { getSupabaseBrowser } from '@/lib/supabase/client';
 import { normalizeHp } from '@/lib/profile';
+import { QRIS_ENABLED } from '@/lib/payment';
 
 // ─── Types ────────────────────────────────────────────────────
 interface Order {
@@ -53,7 +54,6 @@ function PesanForm() {
   const { user } = useAuth();
   // Parameter dari tombol "Pesan Kembali" di halaman akun (tanggal sengaja dikosongkan)
   const paxFromUrl = Math.min(14, Math.max(1, Number(searchParams.get('pax')) || 1));
-  const metodeFromUrl = searchParams.get('metode') === 'TUNAI' ? 'TUNAI' : 'QRIS';
   const initJam = useRef(searchParams.get('jam') ?? '');
   const [prefilled, setPrefilled] = useState(false);
 
@@ -69,7 +69,7 @@ function PesanForm() {
     jumlahPax: paxFromUrl,
     asal: searchParams.get('asal') ?? '',
     tujuan: searchParams.get('tujuan') ?? '',
-    metode: metodeFromUrl as 'QRIS' | 'TUNAI',
+    metode: 'TUNAI' as 'QRIS' | 'TUNAI', // default selalu Tunai (QRIS sementara dimatikan)
     wantEmail: false,
     email: '',
     catatan: '',
@@ -232,7 +232,7 @@ function PesanForm() {
           jumlahPax:        form.jumlahPax,
           asal:             form.asal,
           tujuan:           form.tujuan,
-          metodePembayaran: form.metode,
+          metodePembayaran: QRIS_ENABLED ? form.metode : 'TUNAI',
           email:            form.wantEmail ? form.email : undefined,
           catatan:          form.catatan || undefined,
         }),
@@ -248,7 +248,7 @@ function PesanForm() {
       const order: Order = data.order;
       setCreatedOrder(order);
 
-      if (form.metode === 'QRIS') {
+      if (order.metodePembayaran === 'QRIS') {
         // 2a. QRIS: kirim notifikasi via Fonnte (fire & forget), lalu tampilkan modal QR
         sendWaNotification(order);
         setShowQris(true);
@@ -334,6 +334,11 @@ function PesanForm() {
                   ? 'Silakan lanjutkan konfirmasi pesanan Anda via WhatsApp admin di bawah ini.'
                   : 'Notifikasi WhatsApp telah dikirim ke nomor Anda. Apabila tidak menerima WA, silahkan hubungi admin kami:'}
               </p>
+              {createdOrder.email && (
+                <p className="text-green-700 text-sm mb-3">
+                  📧 Faktur dikirim otomatis ke <span className="font-semibold">{createdOrder.email}</span>.
+                </p>
+              )}
               <div className="flex flex-col sm:flex-row gap-2">
                 <a
                   href="https://wa.me/6285282828005"
@@ -556,30 +561,42 @@ function PesanForm() {
                 Metode Pembayaran *
               </label>
               <div className="grid grid-cols-2 gap-3">
-                {(['QRIS', 'TUNAI'] as const).map((m) => (
-                  <label
-                    key={m}
-                    className={`flex items-center gap-3 border-2 rounded-xl px-4 py-3 cursor-pointer transition-all ${
-                      form.metode === m
-                        ? 'border-primary-900 bg-primary-50'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    <input
-                      type="radio" name="metode" value={m} checked={form.metode === m}
-                      onChange={() => setForm((p) => ({ ...p, metode: m }))}
-                      className="sr-only"
-                    />
-                    <span className="text-2xl">{m === 'QRIS' ? '📱' : '💵'}</span>
-                    <div>
-                      <p className="font-bold text-primary-900 text-sm">{m}</p>
-                      <p className="text-gray-400 text-xs">
-                        {m === 'QRIS' ? 'Scan QR Code' : 'Bayar ke sopir'}
-                      </p>
-                    </div>
-                  </label>
-                ))}
+                {(['QRIS', 'TUNAI'] as const).map((m) => {
+                  const disabled = m === 'QRIS' && !QRIS_ENABLED;
+                  return (
+                    <label
+                      key={m}
+                      aria-disabled={disabled}
+                      className={`flex items-center gap-3 border-2 rounded-xl px-4 py-3 transition-all ${
+                        disabled
+                          ? 'border-gray-200 bg-gray-100 opacity-60 cursor-not-allowed'
+                          : form.metode === m
+                            ? 'border-primary-900 bg-primary-50 cursor-pointer'
+                            : 'border-gray-200 hover:border-gray-300 cursor-pointer'
+                      }`}
+                    >
+                      <input
+                        type="radio" name="metode" value={m} checked={form.metode === m}
+                        disabled={disabled}
+                        onChange={() => setForm((p) => ({ ...p, metode: m }))}
+                        className="sr-only"
+                      />
+                      <span className={`text-2xl ${disabled ? 'grayscale' : ''}`}>{m === 'QRIS' ? '📱' : '💵'}</span>
+                      <div>
+                        <p className="font-bold text-primary-900 text-sm">{m}</p>
+                        <p className="text-gray-600 text-xs">
+                          {disabled ? 'Sedang gangguan' : m === 'QRIS' ? 'Scan QR Code' : 'Bayar ke sopir'}
+                        </p>
+                      </div>
+                    </label>
+                  );
+                })}
               </div>
+              {!QRIS_ENABLED && (
+                <p className="mt-2 text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+                  ⚠️ QRIS sementara tidak tersedia (dalam perbaikan). Pembayaran dilakukan tunai ke sopir.
+                </p>
+              )}
               {form.metode === 'QRIS' && (
                 <p className="mt-2 text-xs text-blue-600 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
                   📱 QR Code tampil setelah form dikirim. Notifikasi WA otomatis terkirim ke nomor Anda.
@@ -612,7 +629,7 @@ function PesanForm() {
                 <div>
                   <p className="text-primary-900 text-sm font-medium">Kirimkan invoice/tiket ke email saya</p>
                   <p className="text-gray-400 text-xs mt-0.5">
-                    Faktur & e-ticket dikirim otomatis setelah konfirmasi admin
+                    Faktur dikirim otomatis begitu Anda menekan Konfirmasi Pemesanan
                   </p>
                 </div>
               </label>
@@ -644,16 +661,19 @@ function PesanForm() {
 
             {/* Total */}
             {totalHarga > 0 && (
-              <div className="bg-primary-900 rounded-xl px-5 py-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-400 text-sm">
+              <div className="rounded-2xl border-2 border-gold-300 bg-linear-to-br from-gold-50 to-gold-100 px-5 py-4 shadow-soft">
+                <p className="text-gold-700 text-[11px] font-bold uppercase tracking-wider mb-1.5">
+                  Total Pembayaran
+                </p>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-gray-600 text-sm">
                     {selectedPkg?.kategori === 'sewa'
                       ? 'Harga sewa per hari (all-in)'
                       : `${formatRupiah(selectedPkg?.harga ?? 0)} × ${form.jumlahPax} pax`}
                   </span>
-                  <span className="text-white font-bold text-xl">{formatRupiah(totalHarga)}</span>
+                  <span className="text-primary-900 font-bold text-xl">{formatRupiah(totalHarga)}</span>
                 </div>
-                <p className="text-gray-500 text-xs mt-1">
+                <p className="text-gray-600 text-xs mt-1">
                   {selectedPkg?.kategori === 'sewa'
                     ? '*Sudah termasuk BBM & sopir'
                     : '*Sudah termasuk antar jemput'}
@@ -665,7 +685,7 @@ function PesanForm() {
             <button
               type="submit"
               disabled={!selectedPkg || submitting}
-              className="w-full flex items-center justify-center gap-2 bg-primary-900 hover:bg-primary-800 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl text-base transition-all"
+              className="btn-confirm w-full flex items-center justify-center gap-2.5 bg-linear-to-r from-green-700 to-emerald-700 text-white font-bold py-4 rounded-2xl text-base ring-1 ring-green-900/20 shadow-[0_10px_24px_-8px_rgba(21,128,61,0.75)] transition-all hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] disabled:opacity-50 disabled:grayscale disabled:shadow-none disabled:cursor-not-allowed disabled:translate-y-0"
             >
               {submitting ? (
                 <>
@@ -681,12 +701,13 @@ function PesanForm() {
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                   </svg>
                   Konfirmasi Pemesanan
+                  <span aria-hidden="true" className="text-lg leading-none">→</span>
                 </>
               )}
             </button>
 
             <p className="text-center text-xs text-gray-400">
-              {form.metode === 'QRIS'
+              {QRIS_ENABLED && form.metode === 'QRIS'
                 ? '📱 Notifikasi WA otomatis terkirim ke nomor Anda setelah pemesanan berhasil'
                 : '💬 Anda akan diarahkan ke WhatsApp admin setelah pesanan dibuat'}
             </p>

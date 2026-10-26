@@ -27,6 +27,8 @@ interface Order {
   status: OrderStatus;
   createdAt: string;
   paidAt?: string;
+  autoPaid?: boolean;
+  invoiceSentAt?: string;
   qrisData?: string;
 }
 
@@ -43,10 +45,10 @@ function normalizeHp(hp: string): string {
   return '62' + digits;
 }
 
-function StatusBadge({ status }: { status: OrderStatus }) {
+function StatusBadge({ status, auto }: { status: OrderStatus; auto?: boolean }) {
   return status === 'PAID' ? (
     <span className="inline-flex items-center gap-1 bg-green-500/20 text-green-400 text-xs font-bold px-2.5 py-1 rounded-full border border-green-500/30">
-      ✓ LUNAS
+      ✓ LUNAS{auto ? ' · OTOMATIS' : ''}
     </span>
   ) : (
     <span className="inline-flex items-center gap-1 bg-yellow-500/20 text-yellow-400 text-xs font-bold px-2.5 py-1 rounded-full border border-yellow-500/30">
@@ -180,7 +182,7 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
         <div>
           <div className="flex items-center gap-2 flex-wrap mb-1">
             <span className="font-mono text-sky-400 text-xs font-bold">{order.orderNumber}</span>
-            <StatusBadge status={order.status} />
+            <StatusBadge status={order.status} auto={order.autoPaid} />
           </div>
           <p className="text-white font-semibold">{order.nama}</p>
           {order.hp && (
@@ -198,7 +200,7 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
         <p>🚌 {order.paket}</p>
         <p>📅 {new Date(order.tanggal).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}{order.jam ? ` · 🕐 ${order.jam} WIB` : ''}</p>
         <p>👥 {order.jumlahPax} penumpang · {formatRupiah(order.hargaPerPax)}/pax</p>
-        {order.email && <p>📧 {order.email}</p>}
+        {order.email && <p>📧 {order.email}{order.invoiceSentAt ? ' · faktur terkirim ✓' : ''}</p>}
       </div>
 
       {/* Tombol aksi */}
@@ -371,8 +373,8 @@ function OrdersTab() {
       <div className="mt-8 bg-white/5 border border-white/10 rounded-xl p-4 text-xs text-slate-400">
         <p className="font-semibold text-slate-300 mb-2">📌 Panduan Tombol:</p>
         <div className="space-y-1">
-          <p><span className="text-yellow-400">✅ Konfirmasi Lunas</span> — Ubah status ke LUNAS (muncul jika belum bayar).</p>
-          <p><span className="text-sky-400">📄 Email Faktur</span> — Kirim invoice ke email pelanggan.</p>
+          <p><span className="text-yellow-400">✅ Konfirmasi Lunas</span> — Ubah status ke LUNAS (muncul jika belum bayar). Pesanan tunai otomatis menjadi LUNAS 2 jam setelah jadwal keberangkatan.</p>
+          <p><span className="text-sky-400">📄 Email Faktur</span> — Kirim ulang invoice ke email pelanggan (faktur pertama sudah terkirim otomatis saat pesanan dibuat).</p>
           <p><span className="text-green-400">🎫 Email Tiket</span> — Kirim e-ticket ke email (hanya aktif setelah LUNAS).</p>
           <p><span className="text-emerald-400">WA Invoice</span> — Kirim info tagihan ke WhatsApp pelanggan.</p>
           <p><span className="text-green-400">WA Tiket ✓</span> — Kirim konfirmasi lunas + tiket ke WhatsApp (hanya aktif setelah LUNAS).</p>

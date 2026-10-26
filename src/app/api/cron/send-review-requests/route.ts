@@ -8,6 +8,7 @@ import { getOrder, listOrders, updateOrder } from '@/lib/redis';
 import {
   claimReviewSend, createReviewToken, isDueForReview, releaseReviewSend,
 } from '@/lib/reviews';
+import { settleDueOrders } from '@/lib/autoSettle';
 import type { Order } from '@/lib/types';
 
 export const runtime = 'nodejs';
@@ -82,7 +83,9 @@ async function run(req: NextRequest) {
 
   const resend = new Resend(process.env.RESEND_API_KEY);
   const now = Date.now();
-  const due = (await listOrders(500)).filter((o) => isDueForReview(o, now)).slice(0, MAX_PER_RUN);
+  // Pesanan tunai yang sudah lewat 2 jam dari keberangkatan otomatis LUNAS dulu (cadangan bila dashboard belum dibuka)
+  const all = await settleDueOrders(await listOrders(500), now);
+  const due = all.filter((o) => isDueForReview(o, now)).slice(0, MAX_PER_RUN);
 
   let sent = 0, failed = 0, skipped = 0;
 
