@@ -8,7 +8,15 @@ import { useAuth, type AuthUser } from '@/components/AuthProvider';
 import { getSupabaseBrowser } from '@/lib/supabase/client';
 import { formatRupiah, PACKAGES } from '@/lib/packages';
 import { normalizeHp, type Profile } from '@/lib/profile';
+import { Stars } from '@/components/ReviewParts';
 import type { Order } from '@/lib/types';
+
+/** Status ulasan sebuah pesanan (hanya ada untuk pesanan lunas yang sudah berangkat). */
+export interface ReviewInfo {
+  token: string;
+  rating?: number;   // terisi jika sudah mengulas
+  comment?: string;
+}
 
 const WA_NUMBER = '6285282828005';
 
@@ -48,7 +56,7 @@ function StatusBadge({ order }: { order: Order }) {
   );
 }
 
-function OrderCard({ order, detail }: { order: Order; detail: boolean }) {
+function OrderCard({ order, detail, review }: { order: Order; detail: boolean; review?: ReviewInfo }) {
   const [showQr, setShowQr] = useState(false);
   const waHref = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Halo RPM Travel, saya ingin menanyakan pesanan ${order.orderNumber}`)}`;
 
@@ -109,6 +117,27 @@ function OrderCard({ order, detail }: { order: Order; detail: boolean }) {
           )}
         </div>
       )}
+
+      {review?.rating ? (
+        <div className="mt-4 rounded-xl bg-gold-50 border border-gold-200 p-3">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-xs font-bold uppercase tracking-wide text-primary-900">Ulasan Anda</p>
+            <Link href={`/review?token=${encodeURIComponent(review.token)}&from=akun`}
+              className="text-sm font-semibold text-gold-700 underline">
+              Edit
+            </Link>
+          </div>
+          <div className="mt-1"><Stars value={review.rating} size={16} /></div>
+          {review.comment && <p className="mt-1 text-sm text-gray-700 line-clamp-3 break-words">{review.comment}</p>}
+        </div>
+      ) : review ? (
+        <div className="mt-4">
+          <Link href={`/review?token=${encodeURIComponent(review.token)}&from=akun`}
+            className="inline-flex items-center gap-1.5 bg-gold-500 hover:bg-gold-400 text-primary-900 text-sm font-bold rounded-full px-4 py-2 transition-colors">
+            ⭐ Beri Ulasan
+          </Link>
+        </div>
+      ) : null}
 
       <div className="mt-4 flex flex-wrap gap-2">
         {detail ? (
@@ -211,7 +240,9 @@ function ProfileForm({ user, initial }: { user: AuthUser; initial: Profile }) {
   );
 }
 
-export default function AkunClient({ user, orders, profile }: { user: AuthUser; orders: Order[]; profile: Profile }) {
+export default function AkunClient({
+  user, orders, profile, reviews = {},
+}: { user: AuthUser; orders: Order[]; profile: Profile; reviews?: Record<string, ReviewInfo> }) {
   const router = useRouter();
   const { signOut } = useAuth();
   const [tab, setTab] = useState<'pesanan' | 'data'>('pesanan');
@@ -263,7 +294,7 @@ export default function AkunClient({ user, orders, profile }: { user: AuthUser; 
             <section aria-labelledby="h-berjalan">
               <h2 id="h-berjalan" className="font-display text-xl font-bold text-primary-900 mb-3">Pesanan Berjalan</h2>
               {berjalan.length ? (
-                <ul className="space-y-3">{berjalan.map((o) => <OrderCard key={o.id} order={o} detail />)}</ul>
+                <ul className="space-y-3">{berjalan.map((o) => <OrderCard key={o.id} order={o} detail review={reviews[o.id]} />)}</ul>
               ) : (
                 <p className="bg-white rounded-2xl border border-gray-100 p-5 text-sm text-gray-500">
                   Belum ada pesanan yang sedang berjalan.{' '}
@@ -275,7 +306,7 @@ export default function AkunClient({ user, orders, profile }: { user: AuthUser; 
             <section aria-labelledby="h-riwayat">
               <h2 id="h-riwayat" className="font-display text-xl font-bold text-primary-900 mb-3">Riwayat Pesanan</h2>
               {riwayat.length ? (
-                <ul className="space-y-3">{riwayat.map((o) => <OrderCard key={o.id} order={o} detail={false} />)}</ul>
+                <ul className="space-y-3">{riwayat.map((o) => <OrderCard key={o.id} order={o} detail={false} review={reviews[o.id]} />)}</ul>
               ) : (
                 <p className="bg-white rounded-2xl border border-gray-100 p-5 text-sm text-gray-500">
                   Riwayat perjalanan Anda akan muncul di sini setelah pesanan selesai.

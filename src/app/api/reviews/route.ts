@@ -54,24 +54,29 @@ export async function POST(req: NextRequest) {
 
   const reviewer = showProfile ? await resolveReviewer(order, admin, session) : null;
 
-  const { error } = await admin.from('reviews').insert({
-    booking_id: order.id,
+  const fields = {
     user_id: reviewer?.userId ?? null,          // anonim → tidak menyimpan user_id
     rating,
     comment,
     is_anonymous: !showProfile,
     display_name: reviewer?.displayName ?? null,
     avatar_url: reviewer?.avatarUrl ?? null,
-  });
+  };
+
+  // Sudah pernah mengulas → perbarui (is_published & created_at sengaja tidak diubah)
+  const { data: existing } = await admin.from('reviews').select('id').eq('booking_id', order.id).maybeSingle();
+  const { error } = existing
+    ? await admin.from('reviews').update(fields).eq('id', existing.id)
+    : await admin.from('reviews').insert({ booking_id: order.id, ...fields });
 
   if (error) {
     if (error.code === '23505') {
       return NextResponse.json({ error: 'Ulasan untuk pesanan ini sudah pernah dikirim. Terima kasih!' }, { status: 409 });
     }
-    console.error('[reviews] insert error:', error.message);
+    console.error('[reviews] save error:', error.message);
     return NextResponse.json({ error: 'Gagal menyimpan ulasan, coba lagi' }, { status: 500 });
   }
 
-  revalidatePath('/'); // beranda langsung memuat ulasan baru
-  return NextResponse.json({ success: true });
+  revalidatePath('/'); // beranda langsung memuat ulasan terbaru
+  return NextResponse.json({ success: true, edited: Boolean(existing) });
 }

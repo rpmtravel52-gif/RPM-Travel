@@ -3,7 +3,10 @@ import { redirect } from 'next/navigation';
 import { getSupabaseServer } from '@/lib/supabase/server';
 import { listOrdersByUser } from '@/lib/redis';
 import { rowToProfile } from '@/lib/profile';
+import { createReviewToken, hasDeparted } from '@/lib/reviews';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import type { Order } from '@/lib/types';
+import type { ReviewInfo } from './AkunClient';
 import AkunClient from './AkunClient';
 
 export const metadata: Metadata = {
@@ -26,6 +29,30 @@ export default async function AkunPage() {
     console.error('Gagal memuat pesanan akun:', e);
   }
 
+  // Tombol ulasan: hanya untuk pesanan lunas yang perjalanannya sudah berangkat
+  const reviewMap: Record<string, ReviewInfo> = {};
+  try {
+    const admin = getSupabaseAdmin();
+    const eligible = orders.filter((o) => o.status === 'PAID' && hasDeparted(o));
+    if (admin && eligible.length) {
+      const { data: rows } = await admin
+        .from('reviews')
+        .select('booking_id,rating,comment')
+        .in('booking_id', eligible.map((o) => o.id));
+      const byBooking = new Map((rows ?? []).map((r) => [r.booking_id as string, r]));
+      for (const o of eligible) {
+        const r = byBooking.get(o.id);
+        reviewMap[o.id] = {
+          token: await createReviewToken(o.id),
+          rating: r ? (r.rating as number) : undefined,
+          comment: r ? (r.comment as string) : undefined,
+        };
+      }
+    }
+  } catch (e) {
+    console.error('Gagal memuat status ulasan:', e); // tombol ulasan saja yang hilang; halaman tetap tampil
+  }
+
   // Profil tersimpan (tabel `profiles`); jika tabel belum dibuat, tampilkan form kosong
   let profileRow: Record<string, unknown> | null = null;
   try {
@@ -45,6 +72,7 @@ export default async function AkunPage() {
         foto: meta.avatar_url || meta.picture || null,
       }}
       orders={orders}
+      reviews={reviewMap}
       profile={rowToProfile(profileRow)}
     />
   );

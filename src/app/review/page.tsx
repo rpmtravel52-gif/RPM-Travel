@@ -26,9 +26,9 @@ function Notice({ title, children }: { title: string; children: React.ReactNode 
 export default async function ReviewPage({
   searchParams,
 }: {
-  searchParams: Promise<{ token?: string; rating?: string }>;
+  searchParams: Promise<{ token?: string; rating?: string; from?: string }>;
 }) {
-  const { token, rating } = await searchParams;
+  const { token, rating, from } = await searchParams;
 
   const orderId = await getOrderIdByToken(token);
   const order = orderId ? await getOrder(orderId) : null;
@@ -45,15 +45,12 @@ export default async function ReviewPage({
     return <Notice title="Segera Hadir">Fitur ulasan sedang disiapkan. Silakan coba lagi nanti.</Notice>;
   }
 
-  // Sudah pernah mengulas?
-  const { data: existing } = await admin.from('reviews').select('id').eq('booking_id', order.id).maybeSingle();
-  if (existing) {
-    return (
-      <Notice title="Terima Kasih! 🙏">
-        Ulasan untuk perjalanan ini sudah kami terima. Kami sangat menghargai waktu Anda.
-      </Notice>
-    );
-  }
+  // Sudah pernah mengulas? → tampilkan form dalam mode edit
+  const { data: existing } = await admin
+    .from('reviews')
+    .select('rating,comment,is_anonymous')
+    .eq('booking_id', order.id)
+    .maybeSingle();
 
   // Pratinjau identitas yang akan tampil jika pelanggan memilih "tampilkan profil saya"
   let session = null;
@@ -66,9 +63,11 @@ export default async function ReviewPage({
   const initial = Number(rating);
   return (
     <main className="max-w-lg mx-auto px-4 py-10 md:py-16">
-      <p className="section-label !mb-1">Ulasan Perjalanan</p>
+      <p className="section-label !mb-1">{existing ? 'Ubah Ulasan' : 'Ulasan Perjalanan'}</p>
       <h1 className="font-display font-bold text-primary-900 text-2xl md:text-3xl mb-1">
-        Halo {order.nama.split(' ')[0]}, bagaimana perjalanan Anda?
+        {existing
+          ? `Halo ${order.nama.split(' ')[0]}, ubah ulasan Anda`
+          : `Halo ${order.nama.split(' ')[0]}, bagaimana perjalanan Anda?`}
       </h1>
       <p className="text-gray-600 text-sm mb-6">
         {order.paket} ·{' '}
@@ -78,7 +77,9 @@ export default async function ReviewPage({
       </p>
       <ReviewForm
         token={token}
-        initialRating={Number.isInteger(initial) && initial >= 1 && initial <= 5 ? initial : 0}
+        initialRating={existing ? existing.rating : Number.isInteger(initial) && initial >= 1 && initial <= 5 ? initial : 0}
+        existing={existing ? { comment: existing.comment, isAnonymous: existing.is_anonymous } : undefined}
+        backHref={from === 'akun' ? '/akun' : '/'}
         previewName={reviewer.displayName}
         previewAvatar={reviewer.avatarUrl}
       />

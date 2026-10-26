@@ -10,6 +10,7 @@ const TOKEN_TTL_SEC = 60 * 24 * 60 * 60;                  // tautan ulasan berla
 
 const TOKEN_KEY = (t: string) => `rpm:review:token:${t}`;
 const SENT_KEY  = (id: string) => `rpm:review:sent:${id}`;
+const ORDER_TOKEN_KEY = (id: string) => `rpm:review:order:${id}`; // pesanan → token aktif
 
 /** Waktu keberangkatan (epoch ms, zona WIB). Tanpa jam → dianggap 23.59 di hari itu. */
 export function departureAt(order: Pick<Order, 'tanggal' | 'jam'>): number | null {
@@ -31,10 +32,23 @@ export function isDueForReview(order: Order, now = Date.now()): boolean {
 }
 
 // ── Token tautan ulasan (acak, disimpan di Redis → id pesanan) ─
+/** Satu token aktif per pesanan: dipakai ulang jika masih berlaku (email, halaman akun, edit ulasan). */
 export async function createReviewToken(orderId: string): Promise<string> {
+  const existing = await redis.get(ORDER_TOKEN_KEY(orderId));
+  if (existing && (await redis.exists(TOKEN_KEY(existing)))) return existing;
   const token = crypto.randomBytes(24).toString('base64url'); // 32 karakter, tak bisa ditebak
-  await redis.set(TOKEN_KEY(token), orderId, 'EX', TOKEN_TTL_SEC);
+  await redis
+    .multi()
+    .set(TOKEN_KEY(token), orderId, 'EX', TOKEN_TTL_SEC)
+    .set(ORDER_TOKEN_KEY(orderId), token, 'EX', TOKEN_TTL_SEC)
+    .exec();
   return token;
+}
+
+/** Perjalanan sudah berangkat (waktu keberangkatan lewat)? */
+export function hasDeparted(order: Pick<Order, 'tanggal' | 'jam'>, now = Date.now()): boolean {
+  const dep = departureAt(order);
+  return dep !== null && now >= dep;
 }
 
 export async function getOrderIdByToken(token: string | null | undefined): Promise<string | null> {

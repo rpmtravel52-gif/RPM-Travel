@@ -9,16 +9,18 @@ const MIN = 10;
 const MAX = 600;
 
 export default function ReviewForm({
-  token, initialRating, previewName, previewAvatar,
+  token, initialRating, previewName, previewAvatar, existing, backHref = '/',
 }: {
   token: string;
   initialRating: number;
+  existing?: { comment: string; isAnonymous: boolean };
+  backHref?: string;
   previewName: string;
   previewAvatar: string | null;
 }) {
   const [rating, setRating] = useState(initialRating);
-  const [comment, setComment] = useState('');
-  const [showProfile, setShowProfile] = useState(true); // default: tampilkan
+  const [comment, setComment] = useState(existing?.comment ?? '');
+  const [showProfile, setShowProfile] = useState(existing ? !existing.isAnonymous : true); // default: tampilkan
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [done, setDone] = useState(false);
@@ -38,8 +40,7 @@ export default function ReviewForm({
         body: JSON.stringify({ token, rating, comment, showProfile }),
       });
       const data = (await res.json().catch(() => ({}))) as { error?: string };
-      if (res.ok) return setDone(true);
-      if (res.status === 409) return setDone(true); // sudah pernah mengirim
+      if (res.ok || res.status === 409) return setDone(true);
       setError(data.error || 'Gagal mengirim ulasan, coba lagi.');
     } catch {
       setError('Koneksi bermasalah, coba lagi.');
@@ -52,9 +53,11 @@ export default function ReviewForm({
     return (
       <div role="status" className="bg-white rounded-2xl border border-primary-900/5 shadow-soft p-6 text-center">
         <p className="text-4xl mb-2" aria-hidden="true">🙏</p>
-        <h2 className="font-display font-bold text-primary-900 text-xl mb-1">Terima kasih atas ulasan Anda!</h2>
+        <h2 className="font-display font-bold text-primary-900 text-xl mb-1">
+          {existing ? 'Ulasan Anda berhasil diperbarui!' : 'Terima kasih atas ulasan Anda!'}
+        </h2>
         <p className="text-gray-600 text-sm mb-5">Ulasan Anda sangat berarti bagi kami dan calon penumpang lain.</p>
-        <Link href="/" className="btn-primary">Kembali ke Beranda</Link>
+        <Link href={backHref} className="btn-primary">{backHref === '/akun' ? 'Kembali ke Akun Saya' : 'Kembali ke Beranda'}</Link>
       </div>
     );
   }
@@ -124,7 +127,7 @@ export default function ReviewForm({
       {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
 
       <button type="submit" disabled={busy} className="btn-primary w-full justify-center disabled:opacity-60">
-        {busy ? 'Mengirim…' : 'Kirim Ulasan'}
+        {busy ? 'Menyimpan…' : existing ? 'Simpan Perubahan' : 'Kirim Ulasan'}
       </button>
     </form>
   );
