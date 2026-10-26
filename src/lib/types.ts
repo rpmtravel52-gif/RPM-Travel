@@ -23,6 +23,8 @@ export interface Order {
   createdAt: string;         // ISO datetime
   paidAt?: string;           // ISO datetime, set when PAID
   qrisData?: string;         // base64 QR image for dynamic QRIS
+  reviewEmailSent?: boolean; // true setelah email permintaan ulasan terkirim (cron)
+  reviewEmailSentAt?: string; // ISO datetime pengiriman email ulasan
 }
 
 export interface CreateOrderInput {

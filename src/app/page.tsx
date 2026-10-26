@@ -8,6 +8,7 @@ import RevealObserver from '@/components/RevealObserver';
 import StatsBar from '@/components/StatsBar';
 import GlowObserver from '@/components/GlowObserver';
 import { HeroAuth } from '@/components/AuthButtons';
+import CustomerReviewsCard from '@/components/CustomerReviewsCard';
 
 export const metadata: Metadata = {
   title: 'RPM Travel Curup | Travel Antar Jemput & Sewa Bus Wisata Bengkulu',
@@ -288,6 +289,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── ULASAN PELANGGAN ── */}
+      <CustomerReviewsCard />
 
       {/* ── MAPS ── */}
       <section className="pt-10 pb-4" id="kontak-peta">
