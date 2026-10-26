@@ -288,10 +288,6 @@ function OrdersTab() {
   }, []);
 
   useEffect(() => { fetchOrders(); }, [fetchOrders]);
-  useEffect(() => {
-    const interval = setInterval(fetchOrders, 30000);
-    return () => clearInterval(interval);
-  }, [fetchOrders]);
 
   const filtered = orders.filter((o) => {
     const matchStatus = filter === 'ALL' || o.status === filter;
