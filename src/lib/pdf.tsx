@@ -1,9 +1,11 @@
 import React from 'react';
 import {
-  Document, Page, Text, View, StyleSheet,
+  Document, Page, Text, View, Image, StyleSheet,
 } from '@react-pdf/renderer';
 import type { Order } from './types';
 import { formatRupiah } from './packages';
+import { LOGO_DATA_URI } from './ticket/logo';
+import type { TicketVerification } from './ticketVerification';
 
 const BLUE  = '#0284c7';
 const NAVY  = '#0a1628';
@@ -42,6 +44,13 @@ const s = StyleSheet.create({
   paidBadge:    { backgroundColor: '#dcfce7', color: GREEN, fontSize: 9, fontFamily: 'Helvetica-Bold', padding: '4 10', borderRadius: 3, marginBottom: 14 },
   footer:       { position: 'absolute', bottom: 30, left: 40, right: 40, borderTopWidth: 0.5, borderTopColor: '#e5e7eb', paddingTop: 8 },
   footerText:   { fontSize: 8, color: GRAY, textAlign: 'center' },
+  brandRow:     { flexDirection: 'row', alignItems: 'center' },
+  logo:         { width: 46, height: 46, marginRight: 10 },
+  validBox:     { marginTop: 16, flexDirection: 'row', alignItems: 'center', padding: 10, borderWidth: 1, borderColor: GREEN, borderRadius: 6 },
+  qr:           { width: 86, height: 86, marginRight: 12 },
+  validTitle:   { fontSize: 9, fontFamily: 'Helvetica-Bold', color: GREEN, marginBottom: 4, textTransform: 'uppercase' },
+  validText:    { fontSize: 8, color: NAVY, marginBottom: 3, lineHeight: 1.45 },
+  validUrl:     { fontSize: 7, color: GRAY, marginTop: 2 },
 });
 
 function fmtDate(iso: string, opts?: Intl.DateTimeFormatOptions) {
@@ -53,10 +62,13 @@ export function InvoiceDocument({ order }: { order: Order }) {
     <Document title={`Faktur ${order.orderNumber}`} author="RPM Travel Curup">
       <Page size="A4" style={s.page}>
         <View style={s.header}>
-          <View>
-            <Text style={s.brandName}>RPM Travel Curup</Text>
-            <Text style={s.brandSub}>Jl. S. Parman, Talang Benih, Curup, Bengkulu 39119</Text>
-            <Text style={s.brandSub}>WhatsApp: 0852-8282-8005</Text>
+          <View style={s.brandRow}>
+            <Image src={LOGO_DATA_URI} style={s.logo} />
+            <View>
+              <Text style={s.brandName}>RPM Travel Curup</Text>
+              <Text style={s.brandSub}>Jl. S. Parman, Talang Benih, Curup, Bengkulu 39119</Text>
+              <Text style={s.brandSub}>WhatsApp: 0852-8282-8005</Text>
+            </View>
           </View>
           <View style={s.docTypeWrap}>
             <Text style={s.docType}>FAKTUR TAGIHAN</Text>
@@ -121,16 +133,19 @@ export function InvoiceDocument({ order }: { order: Order }) {
   );
 }
 
-export function TicketDocument({ order }: { order: Order }) {
+export function TicketDocument({ order, verification }: { order: Order; verification?: TicketVerification | null }) {
   return (
     <Document title={`E-Ticket ${order.orderNumber}`} author="RPM Travel Curup">
       <Page size="A4" style={s.page}>
         <Text style={s.watermark}>LUNAS</Text>
         <View style={s.header}>
-          <View>
-            <Text style={s.brandName}>RPM Travel Curup</Text>
-            <Text style={s.brandSub}>Jl. S. Parman, Talang Benih, Curup, Bengkulu 39119</Text>
-            <Text style={s.brandSub}>WhatsApp: 0852-8282-8005</Text>
+          <View style={s.brandRow}>
+            <Image src={LOGO_DATA_URI} style={s.logo} />
+            <View>
+              <Text style={s.brandName}>RPM Travel Curup</Text>
+              <Text style={s.brandSub}>Jl. S. Parman, Talang Benih, Curup, Bengkulu 39119</Text>
+              <Text style={s.brandSub}>WhatsApp: 0852-8282-8005</Text>
+            </View>
           </View>
           <View style={s.docTypeWrap}>
             <Text style={s.docType}>E-TICKET / KWITANSI</Text>
@@ -187,6 +202,22 @@ export function TicketDocument({ order }: { order: Order }) {
           <Text style={s.payText}>Info sopir dan waktu jemput dikirim via WhatsApp sehari sebelum berangkat.</Text>
           <Text style={s.payText}>Pertanyaan: WA 0852-8282-8005</Text>
         </View>
+        {verification ? (
+          <View style={s.validBox} wrap={false}>
+            <Image src={verification.qrDataUrl} style={s.qr} />
+            <View style={{ flex: 1 }}>
+              <Text style={s.validTitle}>Tiket Resmi RPM Travel · Dapat Diverifikasi</Text>
+              <Text style={s.validText}>Pindai QR code untuk memeriksa keaslian tiket ini.</Text>
+              <Text style={s.validText}>
+                Tiket ini sah dan QR code dapat divalidasi selama 3 bulan sejak tanggal keberangkatan.
+              </Text>
+              <Text style={s.validText}>
+                Diterbitkan: {fmtDate(verification.issuedAt)} · Verifikasi berlaku s/d: {fmtDate(verification.expiresAt)}
+              </Text>
+              <Text style={s.validUrl}>{verification.verifyUrl}</Text>
+            </View>
+          </View>
+        ) : null}
         <View style={s.footer}>
           <Text style={s.footerText}>Bukti pembayaran sah dari RPM Travel Curup · rpmtravel.co.id</Text>
         </View>

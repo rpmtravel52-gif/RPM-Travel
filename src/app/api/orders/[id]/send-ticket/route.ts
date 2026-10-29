@@ -5,6 +5,7 @@ import { createElement } from 'react';
 import { getOrder } from '@/lib/redis';
 import { TicketDocument } from '@/lib/pdf';
 import { formatRupiah } from '@/lib/packages';
+import { getOrCreateVerification } from '@/lib/ticketVerification';
 
 export async function POST(
   _req: NextRequest,
@@ -25,7 +26,8 @@ export async function POST(
 
     console.log('[send-ticket] Generating PDF...');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const element = createElement(TicketDocument, { order }) as any;
+    const verification = await getOrCreateVerification(order); // QR verifikasi publik (null jika gagal → tiket tetap terkirim)
+    const element = createElement(TicketDocument, { order, verification }) as any;
     const pdfBuffer = await renderToBuffer(element);
     console.log('[send-ticket] PDF size:', pdfBuffer.length);
 
