@@ -9,6 +9,7 @@ import StatsBar from '@/components/StatsBar';
 import GlowObserver from '@/components/GlowObserver';
 import { HeroAuth } from '@/components/AuthButtons';
 import CustomerReviewsCard from '@/components/CustomerReviewsCard';
+import ETicketSection from '@/components/ETicketSection';
 
 export const metadata: Metadata = {
   title: 'RPM Travel Curup | Travel Antar Jemput & Sewa Bus Wisata Bengkulu',
@@ -256,6 +257,9 @@ export default function HomePage() {
       <section data-rv="zoom" className="max-w-3xl mx-auto px-4 pt-4">
         <StatsBar stats={stats} />
       </section>
+
+      {/* ── E-TICKETING ── */}
+      <ETicketSection />
 
       {/* ── KENAPA KAMI ── */}
       <section id="kenapa-kami" className="pt-10 scroll-mt-20">
