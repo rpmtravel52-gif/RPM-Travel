@@ -13,7 +13,9 @@ export async function proxy(req: NextRequest) {
   // ── API khusus admin: wajib token admin (sebelumnya terbuka untuk umum) ──
   const adminOnlyApi =
     (pathname === '/api/orders' && req.method === 'GET') ||
-    /^\/api\/orders\/[^/]+\/(confirm|send-invoice|send-ticket)$/.test(pathname) ||
+    /^\/api\/orders\/[^/]+\/(confirm|send-invoice|send-ticket|cancel)$/.test(pathname) ||
+    (/^\/api\/orders\/[^/]+$/.test(pathname) && req.method === 'DELETE') ||
+    pathname.startsWith('/api/admin/') ||
     pathname.startsWith('/api/receipt/') ||
     (pathname === '/api/rates' && req.method === 'POST');
 
@@ -77,6 +79,6 @@ export async function proxy(req: NextRequest) {
 export const config = {
   matcher: [
     '/admin/:path*', '/akun/:path*', '/akun',
-    '/api/orders', '/api/orders/:path*', '/api/receipt/:path*', '/api/rates',
+    '/api/orders', '/api/orders/:path*', '/api/receipt/:path*', '/api/rates', '/api/admin/:path*',
   ],
 };

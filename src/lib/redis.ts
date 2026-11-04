@@ -34,6 +34,13 @@ export async function saveOrder(order: Order): Promise<void> {
   await tx.exec();
 }
 
+/** Hapus permanen satu pesanan (key + semua index). */
+export async function deleteOrder(order: Order): Promise<void> {
+  const tx = redis.multi().del(`${PREFIX}${order.id}`).zrem(INDEX, order.id);
+  if (order.userId) tx.zrem(userIndex(order.userId), order.id);
+  await tx.exec();
+}
+
 /** Pesanan milik satu akun, terbaru lebih dulu. */
 export async function listOrdersByUser(userId: string, limit = 100): Promise<Order[]> {
   const ids = await redis.zrevrange(userIndex(userId), 0, limit - 1);

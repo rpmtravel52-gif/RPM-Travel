@@ -153,6 +153,7 @@ export default function BottomNav() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cls}
+                  data-wa-src={it.waDynamic ? 'bottomnav' : undefined}
                   onClick={it.waDynamic ? (e) => {
                     // Baca query terbaru (mis. ?paket=...) saat diklik agar pesan akurat
                     e.preventDefault();

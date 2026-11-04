@@ -219,6 +219,9 @@ export async function POST(
     if (order.status === 'PAID') {
       return NextResponse.json({ error: 'Order sudah dikonfirmasi sebelumnya' }, { status: 400 });
     }
+    if (order.status === 'CANCELLED') {
+      return NextResponse.json({ error: 'Order sudah dibatalkan' }, { status: 400 });
+    }
 
     // 1. Update status ke PAID di Redis
     const updatedOrder = {

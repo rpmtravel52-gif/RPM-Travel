@@ -11,7 +11,7 @@ export async function GET() {
     const { data } = await sb.auth.getUser();
     if (!data.user) return NextResponse.json({ error: 'Belum login' }, { status: 401 });
 
-    const orders = await settleDueOrders(await listOrdersByUser(data.user.id));
+    const orders = (await settleDueOrders(await listOrdersByUser(data.user.id))).filter((o) => o.status !== 'CANCELLED');
     return NextResponse.json({ orders });
   } catch (err) {
     console.error('My orders error:', err);

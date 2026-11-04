@@ -10,6 +10,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BottomNav from '@/components/BottomNav';
 import AuthProvider from '@/components/AuthProvider';
+import WaClickTracker from '@/components/WaClickTracker';
 
 // ── Font: Playfair Display (dipakai di konten utama) ──────────────
 const playfair = Playfair_Display({
@@ -108,6 +109,7 @@ export default function RootLayout({
           <main className="pt-0 md:pt-16 pb-24 md:pb-0">{children}</main>
           <Footer />
           <BottomNav />
+          <WaClickTracker />
         </AuthProvider>
       </body>
     </html>

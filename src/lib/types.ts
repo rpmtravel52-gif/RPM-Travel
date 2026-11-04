@@ -1,5 +1,5 @@
 export type PaymentMethod = 'QRIS' | 'TUNAI';
-export type OrderStatus = 'UNPAID' | 'PAID';
+export type OrderStatus = 'UNPAID' | 'PAID' | 'CANCELLED';
 
 export interface Order {
   id: string;
@@ -22,6 +22,7 @@ export interface Order {
   status: OrderStatus;
   createdAt: string;         // ISO datetime
   paidAt?: string;           // ISO datetime, set when PAID
+  cancelledAt?: string;      // ISO datetime, set saat dibatalkan admin (tidak dihitung di statistik)
   autoPaid?: boolean;        // true jika LUNAS otomatis (tunai, 2 jam setelah keberangkatan)
   invoiceSentAt?: string;    // ISO datetime faktur terakhir terkirim ke email
   qrisData?: string;         // base64 QR image for dynamic QRIS

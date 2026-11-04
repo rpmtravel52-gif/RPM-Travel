@@ -6,10 +6,11 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import RatesTab from './RatesTab';
 import ReceiptTab from './ReceiptTab';
+import StatsTab from './StatsTab';
 
 type PaymentMethod = 'QRIS' | 'TUNAI';
-type OrderStatus   = 'UNPAID' | 'PAID';
-type ActiveTab = 'orders' | 'rates' | 'receipt';
+type OrderStatus   = 'UNPAID' | 'PAID' | 'CANCELLED';
+type ActiveTab = 'orders' | 'rates' | 'receipt' | 'stats';
 
 interface Order {
   id: string;
@@ -46,6 +47,13 @@ function normalizeHp(hp: string): string {
 }
 
 function StatusBadge({ status, auto }: { status: OrderStatus; auto?: boolean }) {
+  if (status === 'CANCELLED') {
+    return (
+      <span className="inline-flex items-center gap-1 bg-red-500/20 text-red-400 text-xs font-bold px-2.5 py-1 rounded-full border border-red-500/30">
+        ✕ DIBATALKAN
+      </span>
+    );
+  }
   return status === 'PAID' ? (
     <span className="inline-flex items-center gap-1 bg-green-500/20 text-green-400 text-xs font-bold px-2.5 py-1 rounded-full border border-green-500/30">
       ✓ LUNAS{auto ? ' · OTOMATIS' : ''}
@@ -61,6 +69,8 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [invoiceLoading, setInvoiceLoading] = useState(false);
   const [ticketLoading,  setTicketLoading]  = useState(false);
+  const [cancelLoading, setCancelLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [toast, setToast] = useState('');
 
   const showToast = (msg: string) => {
@@ -76,6 +86,35 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
       if (res.ok) { showToast('✅ Status diubah ke LUNAS'); onRefresh(); }
       else showToast('❌ Gagal konfirmasi');
     } finally { setConfirmLoading(false); }
+  };
+
+  const handleCancel = async (restore = false) => {
+    const msg = restore
+      ? `Aktifkan kembali pesanan ${order.orderNumber}?`
+      : `Batalkan pesanan ${order.orderNumber}? Pesanan tidak akan dihitung di statistik dan revenue.`;
+    if (!confirm(msg)) return;
+    setCancelLoading(true);
+    try {
+      const res = await fetch(`/api/orders/${order.id}/cancel`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ restore }),
+      });
+      if (res.ok) { onRefresh(); }
+      else { const d = await res.json().catch(() => null); showToast(`❌ ${d?.error ?? 'Gagal memproses'}`); }
+    } catch { showToast('❌ Koneksi terputus'); }
+    finally { setCancelLoading(false); }
+  };
+
+  const handleDelete = async () => {
+    if (!confirm(`HAPUS PERMANEN pesanan ${order.orderNumber} (${order.nama})?\nData tidak bisa dikembalikan.`)) return;
+    setDeleteLoading(true);
+    try {
+      const res = await fetch(`/api/orders/${order.id}`, { method: 'DELETE' });
+      if (res.ok) { onRefresh(); }
+      else { const d = await res.json().catch(() => null); showToast(`❌ ${d?.error ?? 'Gagal menghapus'}`); }
+    } catch { showToast('❌ Koneksi terputus'); }
+    finally { setDeleteLoading(false); }
   };
 
   const handleSendInvoice = async () => {
@@ -170,7 +209,7 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
   const waAdminMsg = `Pesanan ${order.orderNumber} atas nama ${order.nama} — ${order.paket} tgl ${new Date(order.tanggal).toLocaleDateString('id-ID')} — Status: ${order.status === 'PAID' ? 'LUNAS ✓' : `Menunggu pembayaran ${formatRupiah(order.totalHarga)}`}`;
 
   return (
-    <div className="bg-white/5 border border-white/10 rounded-xl p-5 relative hover:border-sky-500/30 transition-all">
+    <div className={`bg-white/5 border border-white/10 rounded-xl p-5 relative hover:border-sky-500/30 transition-all ${order.status === 'CANCELLED' ? 'opacity-60' : ''}`}>
       {toast && (
         <div className="absolute top-3 right-3 max-w-[260px] bg-slate-700 text-white text-xs px-3 py-1.5 rounded-lg shadow-lg z-10 animate-in fade-in duration-200 wrap-break-word">
           {toast}
@@ -266,6 +305,28 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
           </svg>
           WA Admin
         </a>
+
+        {order.status === 'CANCELLED' ? (
+          <button
+            onClick={() => handleCancel(true)} disabled={cancelLoading}
+            className="inline-flex items-center gap-1.5 bg-sky-500/20 hover:bg-sky-500/40 text-sky-300 border border-sky-500/30 rounded-lg text-xs px-3 py-1.5 font-semibold transition-all disabled:opacity-50"
+          >
+            {cancelLoading ? '⏳' : '↩️'} Aktifkan Lagi
+          </button>
+        ) : (
+          <button
+            onClick={() => handleCancel(false)} disabled={cancelLoading}
+            className="inline-flex items-center gap-1.5 bg-orange-500/20 hover:bg-orange-500/40 text-orange-300 border border-orange-500/30 rounded-lg text-xs px-3 py-1.5 font-semibold transition-all disabled:opacity-50"
+          >
+            {cancelLoading ? '⏳' : '🚫'} Batalkan
+          </button>
+        )}
+        <button
+          onClick={handleDelete} disabled={deleteLoading}
+          className="inline-flex items-center gap-1.5 bg-red-600/20 hover:bg-red-600/40 text-red-400 border border-red-500/30 rounded-lg text-xs px-3 py-1.5 font-semibold transition-all disabled:opacity-50"
+        >
+          {deleteLoading ? '⏳' : '🗑️'} Hapus
+        </button>
       </div>
     </div>
   );
@@ -275,7 +336,8 @@ function OrderRow({ order, onRefresh }: { order: Order; onRefresh: () => void })
 function OrdersTab() {
   const [orders, setOrders]   = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter]   = useState<'ALL' | 'UNPAID' | 'PAID'>('ALL');
+  const [filter, setFilter]   = useState<'ALL' | 'UNPAID' | 'PAID' | 'CANCELLED'>('ALL');
+  const [waClicks, setWaClicks] = useState<{ total: number; today: number } | null>(null);
   const [search, setSearch]   = useState('');
 
   const fetchOrders = useCallback(async () => {
@@ -287,12 +349,17 @@ function OrdersTab() {
     } finally {
       setLoading(false);
     }
+    // Hitungan klik WhatsApp (gagal pun tidak mengganggu daftar pesanan)
+    try {
+      const r = await fetch('/api/admin/stats?days=7');
+      if (r.ok) { const d = await r.json(); setWaClicks({ total: d.totals.waTotal, today: d.totals.waToday }); }
+    } catch { /* abaikan */ }
   }, []);
 
   useEffect(() => { fetchOrders(); }, [fetchOrders]);
 
   const filtered = orders.filter((o) => {
-    const matchStatus = filter === 'ALL' || o.status === filter;
+    const matchStatus = filter === 'ALL' ? o.status !== 'CANCELLED' : o.status === filter;
     const matchSearch = !search ||
       o.nama.toLowerCase().includes(search.toLowerCase()) ||
       o.orderNumber.toLowerCase().includes(search.toLowerCase()) ||
@@ -301,6 +368,8 @@ function OrdersTab() {
     return matchStatus && matchSearch;
   });
 
+  const activeCount  = orders.filter((o) => o.status !== 'CANCELLED').length;
+  const cancelledCount = orders.length - activeCount;
   const unpaidCount  = orders.filter((o) => o.status === 'UNPAID').length;
   const paidCount    = orders.filter((o) => o.status === 'PAID').length;
   const totalRevenue = orders.filter((o) => o.status === 'PAID').reduce((s, o) => s + o.totalHarga, 0);
@@ -310,12 +379,13 @@ function OrdersTab() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         {[
-          { label: 'Total Pesanan', value: String(orders.length),      icon: '📋', color: 'text-white' },
+          { label: 'Total Pesanan', value: String(activeCount),        icon: '📋', color: 'text-white' },
           { label: 'Belum Bayar',   value: String(unpaidCount),        icon: '⏳', color: 'text-yellow-400' },
           { label: 'Lunas',         value: String(paidCount),          icon: '✅', color: 'text-green-400' },
           { label: 'Total Revenue', value: formatRupiah(totalRevenue), icon: '💰', color: 'text-sky-400' },
+          { label: 'Klik WhatsApp', value: waClicks ? `${waClicks.total} (hari ini ${waClicks.today})` : '…', icon: '💬', color: 'text-emerald-400', wide: true },
         ].map((s) => (
-          <div key={s.label} className="bg-white/5 border border-white/10 rounded-xl p-4">
+          <div key={s.label} className={`bg-white/5 border border-white/10 rounded-xl p-4 ${'wide' in s ? 'col-span-2 md:col-span-4' : ''}`}>
             <p className="text-slate-400 text-xs mb-1">{s.icon} {s.label}</p>
             <p className={`font-bold text-lg ${s.color}`}>{s.value}</p>
           </div>
@@ -325,14 +395,14 @@ function OrdersTab() {
       {/* Filter & Search */}
       <div className="flex flex-wrap gap-3 mb-5">
         <div className="flex rounded-xl overflow-hidden border border-white/20">
-          {(['ALL', 'UNPAID', 'PAID'] as const).map((f) => (
+          {(['ALL', 'UNPAID', 'PAID', 'CANCELLED'] as const).map((f) => (
             <button
               key={f} onClick={() => setFilter(f)}
               className={`px-4 py-2 text-xs font-bold transition-all ${
                 filter === f ? 'bg-sky-600 text-white' : 'bg-white/5 text-slate-400 hover:bg-white/10'
               }`}
             >
-              {f === 'ALL' ? 'Semua' : f === 'UNPAID' ? '⏳ Belum Bayar' : '✅ Lunas'}
+              {f === 'ALL' ? 'Semua' : f === 'UNPAID' ? '⏳ Belum Bayar' : f === 'PAID' ? '✅ Lunas' : `🚫 Batal${cancelledCount ? ` (${cancelledCount})` : ''}`}
             </button>
           ))}
         </div>
@@ -379,6 +449,8 @@ function OrdersTab() {
           <p><span className="text-emerald-400">WA Invoice</span> — Kirim info tagihan ke WhatsApp pelanggan.</p>
           <p><span className="text-green-400">WA Tiket ✓</span> — Kirim konfirmasi lunas + tiket ke WhatsApp (hanya aktif setelah LUNAS).</p>
           <p><span className="text-slate-400">WA Admin</span> — Kirim info pesanan ke WhatsApp admin (koordinasi internal).</p>
+          <p><span className="text-orange-300">🚫 Batalkan</span> — Pesanan tidak dihitung di total, revenue, dan grafik (bisa diaktifkan lagi). Lihat lewat filter Batal.</p>
+          <p><span className="text-red-400">🗑️ Hapus</span> — Hapus permanen (untuk data demo/uji coba), tidak bisa dikembalikan.</p>
         </div>
       </div>
     </>
@@ -401,6 +473,7 @@ export default function AdminDashboard() {
    { id: 'receipt', label: 'Kwitansi', icon: '🧾' },
     { id: 'orders', label: 'Pesanan',      icon: '📋' },
     { id: 'rates',  label: 'Update Tarif', icon: '💰' },
+    { id: 'stats',  label: 'Grafik',       icon: '📈' },
   ];
 
   return (
@@ -429,12 +502,12 @@ export default function AdminDashboard() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex rounded-xl overflow-hidden border border-white/20 mb-6 w-fit">
+        <div className="flex rounded-xl overflow-x-auto border border-white/20 mb-6 w-fit max-w-full">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-2.5 text-sm font-bold transition-all flex items-center gap-2 ${
+              className={`px-6 py-2.5 text-sm font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
                 activeTab === tab.id
                   ? 'bg-sky-600 text-white'
                   : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
@@ -450,6 +523,7 @@ export default function AdminDashboard() {
         {activeTab === 'receipt' && <ReceiptTab />}
         {activeTab === 'orders' && <OrdersTab />}
         {activeTab === 'rates'  && <RatesTab />}
+        {activeTab === 'stats'  && <StatsTab />}
 
       </div>
     </div>

@@ -24,7 +24,7 @@ export default async function AkunPage() {
 
   let orders: Order[] = [];
   try {
-    orders = await listOrdersByUser(user.id);
+    orders = (await listOrdersByUser(user.id)).filter((o) => o.status !== 'CANCELLED');
   } catch (e) {
     console.error('Gagal memuat pesanan akun:', e);
   }
