@@ -25,6 +25,7 @@ export interface Order {
   cancelledAt?: string;      // ISO datetime, set saat dibatalkan admin (tidak dihitung di statistik)
   autoPaid?: boolean;        // true jika LUNAS otomatis (tunai, 2 jam setelah keberangkatan)
   invoiceSentAt?: string;    // ISO datetime faktur terakhir terkirim ke email
+  ticketSentAt?: string;     // ISO datetime e-tiket PDF terkirim ke email (anti-kirim ganda)
   qrisData?: string;         // base64 QR image for dynamic QRIS
   reviewEmailSent?: boolean; // true setelah email permintaan ulasan terkirim (cron)
   reviewEmailSentAt?: string; // ISO datetime pengiriman email ulasan

@@ -2,6 +2,9 @@ import crypto from 'node:crypto';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { redis } from './redis';
 import type { Order } from './types';
+import { departureAt } from './schedule';
+
+export { departureAt };
 
 // ── Aturan jadwal email ulasan ────────────────────────────────
 export const REVIEW_DELAY_MS  = 12 * 60 * 60 * 1000;      // kirim ≥ 12 jam setelah keberangkatan
@@ -11,17 +14,6 @@ const TOKEN_TTL_SEC = 60 * 24 * 60 * 60;                  // tautan ulasan berla
 const TOKEN_KEY = (t: string) => `rpm:review:token:${t}`;
 const SENT_KEY  = (id: string) => `rpm:review:sent:${id}`;
 const ORDER_TOKEN_KEY = (id: string) => `rpm:review:order:${id}`; // pesanan → token aktif
-
-/** Waktu keberangkatan (epoch ms, zona WIB). Tanpa jam → dianggap 23.59 di hari itu. */
-export function departureAt(order: Pick<Order, 'tanggal' | 'jam'>): number | null {
-  const d = order.tanggal?.slice(0, 10);
-  if (!d || !/^\d{4}-\d{2}-\d{2}$/.test(d)) return null;
-  let h = 23, m = 59;
-  const jm = order.jam?.match(/^(\d{1,2})[.:](\d{2})/);
-  if (jm) { h = Number(jm[1]); m = Number(jm[2]); }
-  const t = Date.parse(`${d}T${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:00+07:00`);
-  return Number.isNaN(t) ? null : t;
-}
 
 /** Pesanan yang berhak menerima email ulasan sekarang. */
 export function isDueForReview(order: Order, now = Date.now()): boolean {

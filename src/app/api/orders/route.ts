@@ -9,6 +9,7 @@ import { settleDueOrders } from '@/lib/autoSettle';
 import { getPackage } from '@/lib/packages';
 import { staticToDynamic } from '@/lib/qris';
 import { getSupabaseServer } from '@/lib/supabase/server';
+import { departureAt, isPastSchedule } from '@/lib/schedule';
 
 export const maxDuration = 30;
 
@@ -37,6 +38,17 @@ export async function POST(req: NextRequest) {
     // Validasi field wajib
     if (!nama || !hp || !paket || !tanggal || !jumlahPax || !metodePembayaran) {
       return NextResponse.json({ error: 'Data tidak lengkap' }, { status: 400 });
+    }
+
+    // Jadwal harus valid dan belum lewat (WIB). Pengisian mundur ditolak: tidak ada pesanan, faktur, maupun tiket.
+    if (departureAt({ tanggal, jam }) === null) {
+      return NextResponse.json({ error: 'Tanggal keberangkatan tidak valid' }, { status: 400 });
+    }
+    if (isPastSchedule(tanggal, jam)) {
+      return NextResponse.json(
+        { error: 'Jadwal keberangkatan sudah lewat. Silakan pilih tanggal/jam yang masih tersedia.' },
+        { status: 400 }
+      );
     }
 
     const pkg = getPackage(paket);

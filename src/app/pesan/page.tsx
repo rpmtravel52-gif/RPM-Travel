@@ -9,6 +9,7 @@ import { useAuth } from '@/components/AuthProvider';
 import { getSupabaseBrowser } from '@/lib/supabase/client';
 import { normalizeHp } from '@/lib/profile';
 import { QRIS_ENABLED } from '@/lib/payment';
+import { todayWIB, isPastSchedule } from '@/lib/schedule';
 
 // ─── Types ────────────────────────────────────────────────────
 interface Order {
@@ -133,7 +134,7 @@ function PesanForm() {
       : selectedPkg.harga * form.jumlahPax
     : 0;
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = todayWIB();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -214,6 +215,12 @@ function PesanForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedPkg) return;
+
+    // Tolak jadwal yang sudah lewat (WIB) sebelum dikirim ke server
+    if (isPastSchedule(form.tanggal, form.jam)) {
+      setError('Jadwal keberangkatan sudah lewat. Silakan pilih tanggal atau jam yang masih tersedia.');
+      return;
+    }
 
     setSubmitting(true);
     setError('');
@@ -497,7 +504,9 @@ function PesanForm() {
                       {!form.paket ? '-- Pilih paket dulu --' : '-- Pilih Jam --'}
                     </option>
                     {jamOptions.map((j) => (
-                      <option key={j} value={j}>{j} WIB</option>
+                      <option key={j} value={j} disabled={Boolean(form.tanggal) && isPastSchedule(form.tanggal, j)}>
+                        {j} WIB{form.tanggal && isPastSchedule(form.tanggal, j) ? ' (sudah lewat)' : ''}
+                      </option>
                     ))}
                   </select>
                   {jamOptions.length === 2 && (
