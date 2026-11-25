@@ -60,6 +60,7 @@ function buildEmail(order: Order, token: string) {
       Jika tombol tidak berfungsi, salin tautan ini:<br/>
       <span style="word-break:break-all;color:#0c1a3a">${link}</span>
     </p>
+    <div style="margin:22px 0 0;padding-top:14px;border-top:1px solid #e2e8f0;"><p style="color:#94a3b8;font-size:11px;line-height:1.6;margin:0;">Info: butuh website untuk bisnis Anda?<br>Jasa pembuatan website &middot; <strong style="color:#64748b;">0813-1556-592</strong></p></div>
   </div>
   <div style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:14px 32px;text-align:center">
     <p style="font-size:11px;color:#94a3b8;margin:0">RPM Travel Curup · Jl. S. Parman, Talang Benih, Curup, Rejang Lebong, Bengkulu</p>
